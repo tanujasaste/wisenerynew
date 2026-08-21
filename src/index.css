@@ -1,19 +1,51 @@
 @import "tailwindcss";
 
+/* =========================
+   GLOBAL
+========================= */
+
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  min-width: 320px;
+  margin: 0;
+  padding: 0;
+
+  background: #ffffff;
+  color: #111111;
+  font-family: Arial, Helvetica, sans-serif;
+
+  overflow-x: clip;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 section {
   scroll-margin-top: 100px;
 }
-
-body {
-  min-width: 320px;
-  background: #ffffff;
-  color: #111111;
-  font-family: Arial, Helvetica, sans-serif;
+/* Prevent animated/absolute elements from creating mobile overflow */
+main,
+section,
+header,
+footer {
+  max-width: 100%;
+  overflow-x: clip;
 }
+
+/* =========================
+   WISENERY LOGO GEAR
+========================= */
 
 .logo-gear {
   transform-box: view-box;
@@ -31,21 +63,29 @@ body {
   }
 }
 
+
 /* =========================
-   Wisenery CTA Pulse
+   CTA WRAPPER
 ========================= */
 
 .cta-wrapper {
   position: relative;
+
   width: 190px;
   height: 54px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  flex-shrink: 0;
 }
 
-/* Actual button */
+
+/* =========================
+   CTA BUTTON
+========================= */
+
 .cta-button {
   position: relative;
   z-index: 3;
@@ -56,7 +96,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* gap: 8px; */
+  gap: 8px;
 
   border: none;
   border-radius: 999px;
@@ -67,8 +107,11 @@ body {
   font-size: 15px;
   font-weight: 600;
 
+  white-space: nowrap;
   cursor: pointer;
-  padding: 25px 0 ;
+
+  padding: 0 20px;
+
   box-shadow:
     0 0 18px rgba(245, 107, 10, 0.28),
     0 6px 20px rgba(245, 107, 10, 0.15);
@@ -91,7 +134,7 @@ body {
 
 
 /* =========================
-   Pulsing Rings
+   PULSING RINGS
 ========================= */
 
 .cta-pulse {
@@ -105,20 +148,20 @@ body {
   background: #f56b0a;
 
   z-index: 1;
-
   pointer-events: none;
 
   animation: wiseneryPulse 2.5s linear infinite;
 }
 
-
-/* Second pulse starts slightly later */
 .cta-pulse-two {
   animation-delay: 1.25s;
 }
 
 
-/* Expanding ripple */
+/* =========================
+   PULSE ANIMATION
+========================= */
+
 @keyframes wiseneryPulse {
   0% {
     opacity: 0.45;
@@ -150,16 +193,111 @@ body {
   }
 }
 
+
+/* =========================
+   TABLET
+   <= 768px
+========================= */
+
+@media (max-width: 768px) {
+
+  section {
+    scroll-margin-top: 80px;
+  }
+
+  .cta-wrapper {
+    width: 170px;
+    height: 50px;
+  }
+
+  .cta-button {
+    font-size: 14px;
+    padding: 0 16px;
+    gap: 6px;
+  }
+}
+
+
+/* =========================
+   MOBILE
+   <= 600px
+========================= */
+
+@media (max-width: 600px) {
+
+  section {
+    scroll-margin-top: 70px;
+  }
+
+  .cta-wrapper {
+    width: 155px;
+    height: 46px;
+  }
+
+  .cta-button {
+    font-size: 12px;
+    padding: 0 12px;
+    gap: 5px;
+  }
+}
+
+
+/* =========================
+   SMALL MOBILE
+   <= 480px
+========================= */
+
+@media (max-width: 480px) {
+
+  .cta-wrapper {
+    width: 140px;
+    height: 43px;
+  }
+
+  .cta-button {
+    font-size: 11px;
+    padding: 0 10px;
+    letter-spacing: 0.1px;
+  }
+}
+
+
+/* =========================
+   VERY SMALL MOBILE
+   <= 360px
+========================= */
+
+@media (max-width: 360px) {
+
+  .cta-wrapper {
+    width: 125px;
+    height: 40px;
+  }
+
+  .cta-button {
+    font-size: 10px;
+    padding: 0 8px;
+    gap: 3px;
+  }
+}
+
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar:horizontal {
+  height: 0;
+  display: none;
+}
 ::-webkit-scrollbar {
   width: 7px;
 }
 
-/* TRACK */
 ::-webkit-scrollbar-track {
   background: white;
 }
 
-/* THUMB */
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(
     to bottom,
@@ -168,12 +306,17 @@ body {
   );
 
   border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.08);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
   backdrop-filter: blur(10px);
 }
 
-/* REMOVE HORIZONTAL BAR */
+
+/* =========================
+   REMOVE HORIZONTAL SCROLLBAR
+========================= */
+
 ::-webkit-scrollbar-horizontal {
   display: none;
 }

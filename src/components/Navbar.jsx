@@ -31,12 +31,12 @@ function Navbar() {
     return () => observer.disconnect();
   }, []);
 
-  const navItems = [
-    { name: "Home", id: "home" },
-    { name: "Courses", id: "courses" },
-    { name: "About", id: "about" },
-    { name: "Contact", id: "contact" },
-  ];
+  // const navItems = [
+  //   { name: "Home", id: "home" },
+  //   { name: "Courses", id: "courses" },
+  //   { name: "About", id: "about" },
+  //   { name: "Contact", id: "contact" },
+  // ];
 
   const handleNavigation = (id) => {
     const section = document.getElementById(id);
@@ -49,8 +49,8 @@ function Navbar() {
     }
   };
 
-  return (
-    <header className="sticky top-0 z-50 h-[100px] w-full border-b border-[#ece8e3] bg-[#fffdf9]">
+return (
+    <header className="sticky top-0 z-50 h-[80px] w-full bg-[#fffdf9] sm:h-[90px] lg:h-[100px]">
 
       <Reveal
         trigger="mount"
@@ -58,18 +58,18 @@ function Navbar() {
         y={-40}
         className="h-full"
       >
-        <div className="mx-auto flex h-full max-w-[1450px] items-center justify-between px-8">
+        <div className="mx-auto flex h-full max-w-[1450px] items-center justify-between px-4 sm:px-6 lg:px-8">
 
           {/* LOGO */}
           <button
             onClick={() => handleNavigation("home")}
-            className="flex items-center gap-2"
+            className="flex items-center gap-1.5 sm:gap-2"
             aria-label="Go to Home"
           >
 
             {/* Wisenery Gear */}
             <svg
-              className="h-10 w-10 shrink-0"
+              className="h-8 w-8 shrink-0 sm:h-9 sm:w-9 lg:h-10 lg:w-10"
               viewBox="0 0 40 40"
               aria-hidden="true"
             >
@@ -146,13 +146,13 @@ function Navbar() {
             <img
               src={logo}
               alt="Wisenery"
-              className="h-[46px] w-auto object-contain -translate-y-[6px]"
+              className="h-[32px] w-auto -translate-y-[4px] object-contain sm:h-[38px] sm:-translate-y-[5px] lg:h-[46px] lg:-translate-y-[6px]"
             />
 
           </button>
 
           {/* NAVIGATION */}
-          <nav className="flex items-center gap-[58px]">
+          {/* <nav className="flex items-center gap-[58px]">
 
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
@@ -169,7 +169,6 @@ function Navbar() {
                 >
                   {item.name}
 
-                  {/* ACTIVE UNDERLINE */}
                   <span
                     className={`absolute bottom-0 left-0 h-[2px] bg-[#f56b0a] transition-all duration-300 ${
                       isActive ? "w-full" : "w-0"
@@ -179,22 +178,27 @@ function Navbar() {
               );
             })}
 
-          </nav>
+          </nav> */}
 
           {/* CTA */}
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-4 sm:gap-6 lg:gap-8">
 
             <div className="cta-wrapper">
 
               <span className="cta-pulse cta-pulse-one" />
               <span className="cta-pulse cta-pulse-two" />
 
-              <button className="cta-button group">
-                BOOK A FREE DEMO
+              <button className="cta-button group flex items-center gap-1.5 whitespace-nowrap px-3 py-2 text-[11px] sm:gap-2 sm:px-5 sm:py-2.5 sm:text-[14px] lg:px-6 lg:py-3 lg:text-[15px]">
+                <span className="hidden sm:inline">BOOK A FREE DEMO</span>
+                <span className="sm:hidden">BOOK DEMO</span>
 
                 <ArrowUpRight
+                  size={14}
+                  className="shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 sm:hidden"
+                />
+                <ArrowUpRight
                   size={20}
-                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  className="hidden shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 sm:block"
                 />
               </button>
 

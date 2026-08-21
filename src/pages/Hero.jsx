@@ -74,47 +74,58 @@ import Reveal from "../components/Reveal";
 function Hero() {
   return (
     <main className="relative overflow-hidden bg-[#fffdf9]">
-{/* FLOATING CONTACT BUTTONS */}
-{/* FLOATING CONTACT BUTTONS */}
-<div className="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
+      {/* FLOATING CONTACT BUTTONS */}
+      <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-3 sm:bottom-8 sm:right-8 sm:gap-4">
 
-  {/* WhatsApp */}
-  <a
-    href="https://wa.me/YOURNUMBER"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Chat on WhatsApp"
-    className="group flex h-[58px] w-[58px] items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_25px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-[0_12px_30px_rgba(0,0,0,0.2)]"
-  >
-    <FaWhatsapp
-      size={32}
-      className="transition-transform duration-300 group-hover:scale-110"
-    />
-  </a>
+        {/* WhatsApp */}
+        <a
+          href="https://wa.me/YOURNUMBER"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          className="group flex h-[48px] w-[48px] items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_25px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-[0_12px_30px_rgba(0,0,0,0.2)] sm:h-[58px] sm:w-[58px]"
+        >
+          <FaWhatsapp
+            size={26}
+            className="transition-transform duration-300 group-hover:scale-110 sm:hidden"
+          />
+          <FaWhatsapp
+            size={32}
+            className="hidden transition-transform duration-300 group-hover:scale-110 sm:block"
+          />
+        </a>
 
-  {/* Phone */}
-  <a
-    href="tel:YOURNUMBER"
-    aria-label="Call Wisenery"
-    className="group flex h-[58px] w-[58px] items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_25px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-[0_12px_30px_rgba(0,0,0,0.2)]"
-  >
-    <FaPhoneAlt
-      size={23}
-      className="transition-transform duration-300 group-hover:rotate-[-12deg] group-hover:scale-110"
-    />
-  </a>
+        {/* Phone */}
+        <a
+          href="tel:YOURNUMBER"
+          aria-label="Call Wisenery"
+          className="group flex h-[48px] w-[48px] items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_25px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-[0_12px_30px_rgba(0,0,0,0.2)] sm:h-[58px] sm:w-[58px]"
+        >
+          <FaPhoneAlt
+            size={18}
+            className="transition-transform duration-300 group-hover:rotate-[-12deg] group-hover:scale-110 sm:hidden"
+          />
+          <FaPhoneAlt
+            size={23}
+            className="hidden transition-transform duration-300 group-hover:rotate-[-12deg] group-hover:scale-110 sm:block"
+          />
+        </a>
 
-</div>
+      </div>
+
       {/* HERO TOP */}
-      <section className="mx-auto grid min-h-[600px] max-w-[1350px] grid-cols-2 items-center gap-8 px-8 pt-12" id="hero">
+      <section
+        className="mx-auto grid min-h-[600px] max-w-[1350px] grid-cols-1 items-center gap-10 px-5 py-16 text-center sm:px-8 lg:grid-cols-2 lg:gap-8 lg:py-0 lg:text-left"
+        id="hero"
+      >
 
         {/* LEFT CONTENT */}
-        <div className="relative z-10">
+        <div className="relative z-10 order-2 lg:order-1">
 
           {/* Offer */}
           <Reveal trigger="mount" delay={0}>
-            <div className="mb-5 flex items-center gap-4">
-              <span className="text-[16px] font-bold tracking-[2px] text-[#f56b0a]">
+            <div className="mb-5 flex items-center justify-center gap-4 lg:justify-start">
+              <span className="text-[13px] font-bold tracking-[2px] text-[#f56b0a] sm:text-[16px]">
                 LEARN FROM TODAY
               </span>
             </div>
@@ -122,7 +133,7 @@ function Hero() {
 
           {/* Heading */}
           <Reveal trigger="mount" delay={120} y={30}>
-            <h1 className="max-w-[680px] text-[68px] font-extrabold leading-[1.08] tracking-[-2px] text-[#101c29]">
+            <h1 className="mx-auto max-w-[680px] text-[36px] font-extrabold leading-[1.15] tracking-[-1px] text-[#101c29] sm:text-[48px] sm:leading-[1.1] md:text-[58px] lg:mx-0 lg:text-[68px] lg:leading-[1.08] lg:tracking-[-2px]">
               A Smarter Way to
               <br />
               <span className="text-[#f56b0a]">
@@ -133,9 +144,9 @@ function Hero() {
 
           {/* Description */}
           <Reveal trigger="mount" delay={280}>
-            <div className="mt-7 flex max-w-[590px] gap-5">
-              <div className="h-[48px] w-[3px] bg-[#f56b0a]" />
-              <p className="text-[17px] leading-[1.55] text-[#606060]">
+            <div className="mx-auto mt-6 flex max-w-[590px] gap-4 text-left sm:mt-7 sm:gap-5 lg:mx-0">
+              <div className="h-[48px] w-[3px] shrink-0 bg-[#f56b0a]" />
+              <p className="text-[15px] leading-[1.55] text-[#606060] sm:text-[17px]">
                 You will find all what you want learn, because in Wisenery
                 you can learn anything, anywhere, at any time.
               </p>
@@ -144,17 +155,23 @@ function Hero() {
 
           {/* Actions */}
           <Reveal trigger="mount" delay={400}>
-            <div className="mt-10 flex items-center gap-10">
-              <button className="flex h-[58px] items-center gap-3 rounded-[10px] bg-[#f56b0a] px-7 text-[17px] font-semibold text-white shadow-sm transition-all hover:-translate-y-1 hover:bg-[#e65f05]">
+            <div className="mt-8 flex items-center justify-center gap-10 sm:mt-10 lg:justify-start">
+              <button className="flex h-[50px] items-center gap-3 rounded-[10px] bg-[#f56b0a] px-6 text-[15px] font-semibold text-white shadow-sm transition-all hover:-translate-y-1 hover:bg-[#e65f05] sm:h-[58px] sm:px-7 sm:text-[17px]">
                 Explore Courses
-                <ArrowRight size={21} />
+                <ArrowRight size={19} className="sm:hidden" />
+                <ArrowRight size={21} className="hidden sm:block" />
               </button>
             </div>
           </Reveal>
         </div>
 
         {/* RIGHT ILLUSTRATION */}
-        <Reveal trigger="mount" delay={200} y={16} className="relative flex h-[550px] items-center justify-center">
+        <Reveal
+          trigger="mount"
+          delay={200}
+          y={16}
+          className="relative order-1 flex h-[280px] items-center justify-center sm:h-[380px] md:h-[450px] lg:order-2 lg:h-[550px]"
+        >
           <img
             src={heroIllustration}
             alt="Wisenery learning"
@@ -165,13 +182,13 @@ function Hero() {
       </section>
 
       {/* COURSE AREA */}
-      <section className="relative mx-auto mt-[-20px] max-w-[1450px] px-8">
+      <section className="relative mx-auto mt-0 max-w-[1450px] px-5 sm:px-8 lg:mt-[-20px]">
 
         {/* Navy background */}
-        <div className="absolute inset-x-0 bottom-0 top-[80px] rounded-[30px] bg-[#0c1e30]" />
+        <div className="absolute inset-x-0 bottom-0 top-[40px] rounded-[20px] bg-[#0c1e30] sm:top-[60px] sm:rounded-[30px] lg:top-[80px]" />
 
         {/* Cards */}
-        <div className="relative z-10 flex justify-center gap-5">
+        <div className="relative z-10 flex flex-wrap justify-center gap-4 py-8 sm:gap-5 sm:py-10 lg:flex-nowrap lg:py-0">
           {[
             { image: teachingImage, title: "Teaching" },
             { image: programmingImage, title: "Programming" },
@@ -183,14 +200,15 @@ function Hero() {
   trigger="scroll"
   delay={i * 120}
   x={180}
+  className="w-full sm:w-[calc(50%-10px)] lg:w-auto"
 >
-  <CourseCard image={course.image} title={course.title} />
-</Reveal>
+              <CourseCard image={course.image} title={course.title} />
+            </Reveal>
           ))}
         </div>
 
         {/* Bottom spacing */}
-        <div className="relative h-[80px]" />
+        <div className="relative h-[40px] sm:h-[60px] lg:h-[80px]" />
 
       </section>
 

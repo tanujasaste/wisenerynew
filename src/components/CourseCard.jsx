@@ -2,10 +2,10 @@ import { Users, Star } from "lucide-react";
 
 function CourseCard({ image, title }) {
   return (
-    <div className="group relative h-[310px] w-[310px] overflow-hidden rounded-[22px] bg-[#fffdfa] p-4 shadow-[0_10px_35px_rgba(0,0,0,0.06)]">
+<div className="group relative mx-auto aspect-square w-full max-w-[310px] overflow-hidden rounded-[16px] bg-[#fffdfa] p-3 shadow-[0_10px_35px_rgba(0,0,0,0.06)] sm:rounded-[18px] sm:p-3.5 lg:rounded-[22px] lg:p-4">
 
       {/* Image */}
-      <div className="flex h-[210px] items-center justify-center overflow-hidden rounded-[18px]">
+      <div className="flex h-[55%] items-center justify-center overflow-hidden rounded-[12px] sm:rounded-[15px] lg:rounded-[18px]">
         <img
           src={image}
           alt={title}
@@ -14,12 +14,12 @@ function CourseCard({ image, title }) {
       </div>
 
       {/* Course title */}
-      <h3 className="mt-2 text-[21px] font-bold text-[#111820] text-center">
+      <h3 className="mt-2 text-center text-[15px] font-bold text-[#111820] sm:text-[18px] lg:text-[21px]">
         {title}
       </h3>
 
       {/* Bottom information */}
-      <div className="mt-3 flex items-center justify-between">
+      <div className="mt-2 flex items-center justify-between sm:mt-3">
       </div>
     </div>
   );
