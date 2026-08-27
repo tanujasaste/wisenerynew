@@ -31,6 +31,7 @@ const courses = [
 
 const CameraFocusAnimation = ({ onComplete }) => {
   const [active, setActive] = useState(0);
+  const [revealedCourse, setRevealedCourse] = useState(-1);
 
   /*
    * Cumulative clockwise rotation.
@@ -40,33 +41,76 @@ const CameraFocusAnimation = ({ onComplete }) => {
    * continuing clockwise.
    */
 
-  const CAMERA_ANGLES = [
-  -150, // CODING
-  -20,  // ROBOTICS
-  28,   // ENGINEERING
-  145,  // AUTOCAD
-];
+  // Responsive camera angles.
+  // Mobile needs slightly tighter angles so the camera body and spotlight
+  // stay inside the smaller square viewport.
+  const getCameraAngles = () => {
+    if (typeof window === "undefined") {
+      return [-150, -20, 28, 145];
+    }
 
-const [rotation, setRotation] = useState(CAMERA_ANGLES[0]);
+    const width = window.innerWidth;
+
+    if (width <= 390) {
+      return [-132, -35, 35, 132];
+    }
+
+    if (width <= 480) {
+      return [-140, -28, 30, 140];
+    }
+
+    if (width <= 768) {
+      return [-145, -24, 29, 143];
+    }
+
+    return [-150, -20, 28, 145];
+  };
+
+  const [cameraAngles, setCameraAngles] = useState(getCameraAngles);
+  const [rotation, setRotation] = useState(getCameraAngles()[0]);
 
   const headRef = useRef(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-if (active < courses.length - 1) {
-  const nextIndex = active + 1;
+    const handleResize = () => {
+      const nextAngles = getCameraAngles();
+      setCameraAngles(nextAngles);
+      setRotation(nextAngles[active]);
+    };
 
-  setActive(nextIndex);
-  setRotation(CAMERA_ANGLES[nextIndex]);
-}else {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [active]);
+
+  useEffect(() => {
+    // First course: camera/flashlight gets a short moment to appear
+    // before CODING is revealed.
+    const revealDelay = active === 0 ? 1 : 1000;
+
+    const revealTimer = setTimeout(() => {
+      setRevealedCourse(active);
+    }, revealDelay);
+
+    const nextTimer = setTimeout(() => {
+      if (active < courses.length - 1) {
+        const nextIndex = active + 1;
+
+        // Start moving camera toward next course.
+        // The next course remains hidden.
+        setActive(nextIndex);
+        setRotation(cameraAngles[nextIndex]);
+      } else {
         setTimeout(() => {
           onComplete?.();
         }, 1100);
       }
     }, 1600);
 
-    return () => clearTimeout(timer);
-  }, [active, onComplete]);
+    return () => {
+      clearTimeout(revealTimer);
+      clearTimeout(nextTimer);
+    };
+  }, [active, onComplete, cameraAngles]);
 
   useEffect(() => {
     const mount = headRef.current;
@@ -145,7 +189,14 @@ if (active < courses.length - 1) {
       canvas.width = size;
       canvas.height = size;
       const ctx = canvas.getContext("2d");
-      const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+      const grad = ctx.createRadialGradient(
+        size / 2,
+        size / 2,
+        0,
+        size / 2,
+        size / 2,
+        size / 2,
+      );
       grad.addColorStop(0, "rgba(255,255,255,0.85)");
       grad.addColorStop(0.4, "rgba(255,255,255,0.3)");
       grad.addColorStop(1, "rgba(255,255,255,0)");
@@ -160,16 +211,23 @@ if (active < courses.length - 1) {
       plateH = 2.0,
       plateR = 0.4,
       plateDepth = 0.32;
-    const plateGeo = new THREE.ExtrudeGeometry(roundedRectShape(plateW, plateH, plateR), {
-      depth: plateDepth,
-      bevelEnabled: true,
-      bevelThickness: 0.045,
-      bevelSize: 0.045,
-      bevelSegments: 8,
-      curveSegments: 24,
-    });
+    const plateGeo = new THREE.ExtrudeGeometry(
+      roundedRectShape(plateW, plateH, plateR),
+      {
+        depth: plateDepth,
+        bevelEnabled: true,
+        bevelThickness: 0.045,
+        bevelSize: 0.045,
+        bevelSegments: 8,
+        curveSegments: 24,
+      },
+    );
     plateGeo.translate(0, 0, -plateDepth / 2);
-    const plateMat = new THREE.MeshStandardMaterial({ color: 0x2c2d30, roughness: 0.5, metalness: 0.2 });
+    const plateMat = new THREE.MeshStandardMaterial({
+      color: 0x2c2d30,
+      roughness: 0.5,
+      metalness: 0.2,
+    });
     const plate = new THREE.Mesh(plateGeo, plateMat);
     scene.add(plate);
 
@@ -203,9 +261,27 @@ if (active < courses.length - 1) {
       .to(wMat, { opacity: 1, duration: 0.8 }, 0.35)
       .to(haloMat, { opacity: 0.5, duration: 0.9 }, 0.35)
       .call(() => {
-        gsap.to(wMat, { opacity: 0.8, duration: 1.6, ease: "sine.inOut", yoyo: true, repeat: -1 });
-        gsap.to(haloMat, { opacity: 0.28, duration: 1.6, ease: "sine.inOut", yoyo: true, repeat: -1 });
-        gsap.to(plate.rotation, { y: 0.18, duration: 3.2, ease: "sine.inOut", yoyo: true, repeat: -1 });
+        gsap.to(wMat, {
+          opacity: 0.8,
+          duration: 1.6,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
+        gsap.to(haloMat, {
+          opacity: 0.28,
+          duration: 1.6,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
+        gsap.to(plate.rotation, {
+          y: 0.18,
+          duration: 3.2,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
       });
 
     let rafId;
@@ -235,8 +311,7 @@ if (active < courses.length - 1) {
   const current = courses[active];
 
   return (
-<div className="absolute inset-0 h-full w-full overflow-hidden bg-[#050505]">
-
+    <div className="absolute inset-0 h-full w-full overflow-hidden bg-[#050505]">
       <div
         className="
           absolute
@@ -258,39 +333,50 @@ if (active < courses.length - 1) {
           md:aspect-auto
         "
       >
-
-      {/* =====================================================
+        {/* =====================================================
           COURSES
       ====================================================== */}
 
-      {courses.map((course, index) => {
-        const isActive = index === active;
+        {courses.map((course, index) => {
+          const isActive = index === active;
+          const isRevealed = index <= revealedCourse;
 
-        return (
-          <div
-            key={course.id}
-            className={`
+          return (
+            <div
+              key={course.id}
+              className={`
               absolute
               -translate-x-1/2
               -translate-y-1/2
               transition-all
               duration-700
               ease-out
-              ${
-                isActive
-                  ? "scale-105 opacity-100"
-                  : "scale-100 opacity-20"
-              }
+${
+  isActive && isRevealed
+    ? "scale-105 opacity-100"
+    : isRevealed
+      ? "scale-100 opacity-20"
+      : "scale-100 opacity-0"
+}
             `}
-            style={{
-              left: `${course.x}%`,
-              top: `${course.y}%`,
-            }}
-          >
-            {/* Focus illumination */}
+style={{
+  left:
+    course.id === "coding" || course.id === "autocad"
+      ? "clamp(23%, 23vw, 23%)"
+      : "clamp(77%, calc(100% - 23vw), 77%)",
 
-            <div
-              className={`
+  top:
+    course.id === "coding" || course.id === "robotics"
+      ? "27%"
+      : "73%",
+
+  width: "clamp(90px, 18vw, 150px)",
+}}
+            >
+              {/* Focus illumination */}
+
+              <div
+                className={`
                 absolute
                 left-1/2
                 top-1/2
@@ -305,108 +391,91 @@ if (active < courses.length - 1) {
                 transition-opacity
                 duration-700
 
-                sm:h-[180px]
-                sm:w-[180px]
-                sm:blur-[65px]
+                sm:blur-[clamp(55px,8vw,65px)]
 
-                md:h-[220px]
-                md:w-[220px]
                 md:blur-[80px]
-                ${
-                  isActive
-                    ? "opacity-[0.14]"
-                    : "opacity-0"
-                }
+${isActive && isRevealed ? "opacity-[0.14]" : "opacity-0"}
               `}
-            />
+              />
 
-            {/* Course */}
+              {/* Course */}
 
-            <div
-              className={`
+              <div
+                className={`
                 flex
-                h-[70px]
-                w-[112px]
+                h-[clamp(42px,11vw,100px)]
+                w-[clamp(72px,18vw,150px)]
                 items-center
                 justify-center
                 border
                 transition-all
                 duration-700
 
-                sm:h-[86px]
-                sm:w-[132px]
-
-                md:h-[100px]
-                md:w-[150px]
-                ${
-                  isActive
-                    ? "border-white/70 bg-white/[0.06]"
-                    : "border-white/10 bg-white/[0.015]"
-                }
+${
+  isActive && isRevealed
+    ? "border-white/70 bg-white/[0.06]"
+    : isRevealed
+      ? "border-white/10 bg-white/[0.015]"
+      : "border-transparent bg-transparent"
+}
               `}
-            >
-              <span
-                className={`
-                  text-[9px]
+              >
+                <span
+                  className={`
+                  text-[clamp(7px,1.8vw,12px)]
                   font-medium
-                  tracking-[1.5px]
+                  tracking-[clamp(1px,0.45vw,3px)]
                   transition-colors
                   duration-700
 
-                  sm:text-[10px]
-                  sm:tracking-[2.5px]
-
-                  md:text-xs
-                  md:tracking-[3px]
-                  ${
-                    isActive
-                      ? "text-white"
-                      : "text-white/25"
-                  }
+${
+  isActive && isRevealed
+    ? "text-white"
+    : isRevealed
+      ? "text-white/25"
+      : "text-transparent"
+}
                 `}
-              >
-                {course.name}
-              </span>
+                >
+                  {course.name}
+                </span>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
 
-
-
-{/* =====================================================
+        {/* =====================================================
     CAMERA + SPOTLIGHT ASSEMBLY
 ====================================================== */}
 
-<div
-  className="
+        <div
+          className="
     absolute
     left-1/2
     top-1/2
     z-30
-    h-[150px]
-    w-[150px]
+    h-[clamp(120px,34vw,220px)]
+    w-[clamp(120px,34vw,220px)]
     transition-transform
     duration-1000
     ease-[cubic-bezier(0.65,0,0.35,1)]
 
-    sm:h-[185px]
-    sm:w-[185px]
+    sm:h-[clamp(145px,28vw,185px)]
+    sm:w-[clamp(145px,28vw,185px)]
 
     md:h-[220px]
     md:w-[220px]
   "
-  style={{
-    transform: `
+          style={{
+            transform: `
       translate(-50%, -50%)
-       translateY(clamp(-20px, -4vw, -14px))
-       translateX(clamp(-20px, -4vw, -14px))
+       translateY(clamp(-10px, -2.5vw, -14px))
+       translateX(clamp(-10px, -2.5vw, -14px))
       rotate(${rotation}deg)
     `,
-  }}
->
-
-  {/* =================================================
+          }}
+        >
+          {/* =================================================
       SPOTLIGHT BEAM
 
       IMPORTANT:
@@ -414,27 +483,26 @@ if (active < courses.length - 1) {
       It is positioned relative to the camera body.
   ================================================== */}
 
-  <div
-    className="
+          <div
+            className="
       pointer-events-none
       absolute
-      left-[149px]
+      left-[calc(50%+clamp(60px,17vw,110px))]
       top-1/2
       h-px
       w-[55vw]
       origin-left
       -translate-y-1/2
 
-      sm:left-[183px]
+      sm:left-[calc(50%+clamp(72px,14vw,92px))]
 
-      md:left-[218px]
+      md:left-[calc(50%+110px)]
     "
-  >
+          >
+            {/* Main soft beam */}
 
-    {/* Main soft beam */}
-
-    <div
-      className="
+            <div
+              className="
         absolute
         left-0
         top-1/2
@@ -453,12 +521,12 @@ if (active < courses.length - 1) {
         md:h-[240px]
         md:blur-[38px]
       "
-    />
+            />
 
-    {/* Outer falloff */}
+            {/* Outer falloff */}
 
-    <div
-      className="
+            <div
+              className="
         absolute
         left-0
         top-1/2
@@ -477,95 +545,83 @@ if (active < courses.length - 1) {
         md:h-[420px]
         md:blur-[75px]
       "
-    />
+            />
+          </div>
 
-  </div>
-
-
-  {/* =================================================
+          {/* =================================================
       SEMICIRCLE NECK
 
       Straight edge faces the rectangle.
       Curved edge faces outward.
   ================================================== */}
 
-  <div
-    className="
-      absolute
-      right-[11px]
-      top-1/2
-      h-[87px]
-      w-[41px]
-      -translate-y-1/2
-      translate-x-[6px]
-      z-[5]
-      shadow-[0_14px_30px_rgba(0,0,0,0.35)]
+<div
+  className="
+    absolute
+    left-1/2
+    top-1/2
 
-      sm:right-[13px]
-      sm:h-[108px]
-      sm:w-[50px]
-      sm:translate-x-[7px]
+    h-[clamp(45px,13vw,128px)]
+    w-[clamp(18px,5vw,60px)]
 
-      md:right-[16px]
-      md:h-[128px]
-      md:w-[60px]
-      md:translate-x-[8px]
-    "
-    style={{
-      borderRadius: "999px 0 0 999px",
-      background: "linear-gradient(135deg, #3a3d43, #202226)",
-    }}
-  />
+    -translate-y-1/2
 
+    z-[5]
 
-  {/* =================================================
+    shadow-[0_14px_30px_rgba(0,0,0,0.35)]
+
+    translate-x-[clamp(23px,7vw,54px)]
+
+    sm:translate-x-[clamp(32px,7vw,47px)]
+    md:translate-x-[54px]
+  "
+  style={{
+    borderRadius: "999px 0 0 999px",
+    background: "linear-gradient(135deg, #3a3d43, #202226)",
+  }}
+/>
+
+          {/* =================================================
       CAMERA RECTANGLE
   ================================================== */}
 
-  <div
-className="
+          <div
+            className="
   absolute
   left-1/2
   top-1/2
   z-10
 
-  h-[90px]
-  w-[57px]
+  h-[clamp(76px,21vw,172px)]
+  w-[clamp(48px,14vw,108px)]
   -translate-x-1/2
   -translate-y-1/2
 
   overflow-hidden
-  rounded-[15px]
+  rounded-[clamp(10px,3vw,15px)]
   bg-[#2c2d30]
   shadow-[0_18px_40px_rgba(0,0,0,0.45)]
 
-  sm:h-[125px]
-  sm:w-[79px]
-  sm:rounded-[20px]
-
-  md:h-[172px]
-  md:w-[108px]
-  md:rounded-[28px]
+  rounded-[clamp(13px,3.5vw,28px)]
 "
-  >
+          >
+            {/* Three.js spotlight body */}
 
-    {/* Three.js spotlight body */}
-
-    <div
-      ref={headRef}
-      className="
+            <div
+              ref={headRef}
+              className="
         absolute
         inset-0
         flex
         items-center
         justify-center
       "
-    />
+            />
 
-    {/* Surface highlight */}
+            {/* Surface highlight */}
 
-    <div
-      className="
+            <div
+              className="
         pointer-events-none
         absolute
         inset-0
@@ -579,12 +635,9 @@ className="
 
         md:rounded-[28px]
       "
-    />
-
-  </div>
-
-</div>
-
+            />
+          </div>
+        </div>
       </div>
 
       {/* =====================================================

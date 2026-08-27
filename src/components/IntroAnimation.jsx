@@ -11,16 +11,8 @@ import CameraFocusAnimation from "./CameraFocusAnimation";
 
 /* ============================================================
    TEXT SPLIT HELPERS
-
-   These wrap each word/char in its own span so GSAP can
-   animate them individually (mask reveal / stagger wave).
    ============================================================ */
 
-/*
- * Wraps each word in an overflow-hidden "mask" span, with an
- * inner span that actually moves. Animating the inner span's
- * y from 110% -> 0% creates a "shutter" reveal per word.
- */
 function splitWords(text) {
   return text.split(" ").map((word, i) => (
     <span
@@ -34,21 +26,50 @@ function splitWords(text) {
   ));
 }
 
-/*
- * Wraps each character in its own span so GSAP can stagger
- * opacity / scale / blur per character (wave effect).
- * Spaces are preserved so words don't collapse together.
- */
+
 function splitChars(text) {
   return text.split("").map((char, i) => (
     <span
       key={i}
       className="char-inner inline-block will-change-transform"
-      style={{ whiteSpace: char === " " ? "pre" : "normal" }}
+      style={{
+        whiteSpace: char === " " ? "pre" : "normal",
+      }}
     >
       {char}
     </span>
   ));
+}
+
+
+/* ============================================================
+   CORNER GEAR GLYPH
+
+   A larger, softer echo of the wordmark's gear icon, tucked
+   into the frame's corners and blurred so it reads as ambient
+   machinery rather than a second logo.
+   ============================================================ */
+
+function GearGlyph() {
+  return (
+    <svg
+      viewBox="0 0 40 40"
+      className="h-full w-full"
+    >
+      <g fill="#FF7A29">
+        <rect x="17" y="1" width="6" height="8" rx="1" />
+        <rect x="17" y="31" width="6" height="8" rx="1" />
+        <rect x="1" y="17" width="8" height="6" rx="1" />
+        <rect x="31" y="17" width="8" height="6" rx="1" />
+        <rect x="5" y="5" width="6" height="8" rx="1" transform="rotate(45 8 9)" />
+        <rect x="29" y="27" width="6" height="8" rx="1" transform="rotate(45 32 31)" />
+        <rect x="5" y="27" width="6" height="8" rx="1" transform="rotate(-45 8 31)" />
+        <rect x="29" y="5" width="6" height="8" rx="1" transform="rotate(-45 32 9)" />
+        <circle cx="20" cy="20" r="13" fill="none" stroke="#FF7A29" strokeWidth="3" />
+        <circle cx="20" cy="20" r="5" fill="none" stroke="#FF7A29" strokeWidth="2" />
+      </g>
+    </svg>
+  );
 }
 
 
@@ -61,29 +82,58 @@ function IntroAnimation({
 }) {
   const containerRef = useRef(null);
 
+  /* Main moving glow */
   const glowRef = useRef(null);
 
+  /* Secondary moving glow */
+  const glowSecondaryRef = useRef(null);
 
+  /* Glow trail */
+  const glowTrailRef = useRef(null);
+
+  /* Background grid */
+  const gridRef = useRef(null);
+
+  /* Radial depth vignette */
+  const vignetteRef = useRef(null);
+
+  /* Fine grain texture */
+  const grainRef = useRef(null);
+
+  /* Decorative orbit rings */
+  const orbitRef = useRef(null);
+
+  /* Comet that travels around the orbit */
+  const cometRef = useRef(null);
+
+  /* Blurred engineering gears tucked into the corners */
+  const cornerGearRefs = useRef([]);
+
+  /* Floating particles */
+  const particlesRef = useRef([]);
+
+  /* Small orange accent */
+  const accentRef = useRef(null);
+
+  /* Radar ping rings around the accent */
+  const pingRefs = useRef([]);
+
+  /* Text refs */
   const line1Ref = useRef(null);
   const line2Ref = useRef(null);
   const line3Ref = useRef(null);
 
+  /* Brand refs */
   const brandRef = useRef(null);
+  const brandShineRef = useRef(null);
   const taglineRef = useRef(null);
+  const dividerRef = useRef(null);
   const gearRef = useRef(null);
 
-  /*
-   * Main GSAP timeline.
-   *
-   * CameraFocusAnimation uses this ref to resume
-   * the intro after its own animation finishes.
-   */
+  /* Main GSAP timeline */
   const timelineRef = useRef(null);
 
-  /*
-   * Controls whether the camera focus component
-   * is currently visible.
-   */
+  /* Camera visibility */
   const [showCameraFocus, setShowCameraFocus] =
     useState(false);
 
@@ -93,18 +143,8 @@ function IntroAnimation({
      ========================================================== */
 
   const handleCameraComplete = () => {
-    /*
-     * Hide the camera animation.
-     */
     setShowCameraFocus(false);
 
-    /*
-     * Resume the main intro timeline.
-     *
-     * This is what allows the WISENERY logo
-     * to appear ONLY after the camera animation
-     * has completely finished.
-     */
     if (timelineRef.current) {
       timelineRef.current.resume();
     }
@@ -119,27 +159,17 @@ function IntroAnimation({
     const ctx =
       gsap.context(() => {
 
-        const tl =
-          gsap.timeline({
-            onComplete: () => {
-              onComplete?.();
-            },
-          });
+        const tl = gsap.timeline({
+          onComplete: () => {
+            onComplete?.();
+          },
+        });
 
-        /*
-         * Store timeline so CameraFocusAnimation
-         * can resume it later.
-         */
         timelineRef.current = tl;
 
 
         /* ====================================================
-           SPLIT-TEXT TARGETS
-
-           line2 animates via its inner "word" spans (mask
-           reveal). line3 animates via its "char" spans
-           (staggered wave). Both containers themselves stay
-           visible/static — only their children move.
+           SPLIT TEXT TARGETS
            ==================================================== */
 
         const line2Words =
@@ -160,18 +190,102 @@ function IntroAnimation({
         gsap.set(
           glowRef.current,
           {
-            scale: 0.4,
+            x: 0,
+            y: 0,
+            scale: 0.45,
             opacity: 0,
           }
         );
 
 
+        gsap.set(
+          glowSecondaryRef.current,
+          {
+            x: 0,
+            y: 0,
+            scale: 0.7,
+            opacity: 0,
+          }
+        );
 
 
+        gsap.set(
+          glowTrailRef.current,
+          {
+            opacity: 0,
+            scale: 0.5,
+            rotation: -15,
+          }
+        );
 
-        /*
-         * Message 1 — plain blur/rise container.
-         */
+
+        gsap.set(
+          gridRef.current,
+          {
+            opacity: 0,
+            scale: 1.08,
+          }
+        );
+
+
+        gsap.set(
+          vignetteRef.current,
+          {
+            opacity: 0,
+          }
+        );
+
+
+        gsap.set(
+          orbitRef.current,
+          {
+            opacity: 0,
+            scale: 0.7,
+            rotation: -20,
+          }
+        );
+
+        gsap.set(
+          cometRef.current,
+          {
+            opacity: 0,
+            rotation: -60,
+          }
+        );
+
+
+        cornerGearRefs.current.forEach((gear, index) => {
+          if (!gear) return;
+
+          gsap.set(
+            gear,
+            {
+              opacity: 0,
+              scale: 0.82,
+              rotation: index % 2 === 0 ? -12 : 12,
+            }
+          );
+        });
+
+
+        gsap.set(
+          accentRef.current,
+          {
+            opacity: 0,
+            scale: 0,
+          }
+        );
+
+
+        gsap.set(
+          pingRefs.current,
+          {
+            opacity: 0,
+            scale: 1,
+          }
+        );
+
+
         gsap.set(
           line1Ref.current,
           {
@@ -182,17 +296,13 @@ function IntroAnimation({
         );
 
 
-        /*
-         * Message 2 — container stays visible; only the
-         * per-word inner spans are hidden (shifted down
-         * inside their overflow-hidden mask).
-         */
         gsap.set(
           line2Ref.current,
           {
             opacity: 1,
           }
         );
+
 
         gsap.set(
           line2Words,
@@ -202,17 +312,13 @@ function IntroAnimation({
         );
 
 
-        /*
-         * Message 3 — container stays visible; per-char
-         * spans start hidden/scaled down/blurred for the
-         * wave-in effect.
-         */
         gsap.set(
           line3Ref.current,
           {
             opacity: 1,
           }
         );
+
 
         gsap.set(
           line3Chars,
@@ -245,6 +351,24 @@ function IntroAnimation({
 
 
         gsap.set(
+          brandShineRef.current,
+          {
+            opacity: 0,
+            xPercent: -130,
+          }
+        );
+
+
+        gsap.set(
+          dividerRef.current,
+          {
+            opacity: 0,
+            width: 0,
+          }
+        );
+
+
+        gsap.set(
           taglineRef.current,
           {
             opacity: 0,
@@ -254,7 +378,73 @@ function IntroAnimation({
 
 
         /* ====================================================
-           1. AMBIENT GLOW
+           FLOATING PARTICLES INITIAL STATE
+           ==================================================== */
+
+        particlesRef.current.forEach((particle) => {
+          if (!particle) return;
+
+          gsap.set(
+            particle,
+            {
+              opacity: 0,
+              scale: 0,
+            }
+          );
+        });
+
+
+        /* ====================================================
+           GRAIN — quiet ambient flicker
+           ==================================================== */
+
+        gsap.set(
+          grainRef.current,
+          {
+            opacity: 0,
+          }
+        );
+
+        tl.to(
+          grainRef.current,
+          {
+            opacity: 1,
+            duration: 1.4,
+            ease: "power1.out",
+          },
+          0.1
+        );
+
+
+        /* ====================================================
+           BACKGROUND GRID
+           ==================================================== */
+
+        tl.to(
+          gridRef.current,
+          {
+            opacity: 0.38,
+            scale: 1,
+            duration: 1.1,
+            ease: "power2.out",
+          },
+          0
+        );
+
+
+        tl.to(
+          vignetteRef.current,
+          {
+            opacity: 1,
+            duration: 1.2,
+            ease: "power2.out",
+          },
+          0
+        );
+
+
+        /* ====================================================
+           MAIN ORANGE GLOW ENTER
            ==================================================== */
 
         tl.to(
@@ -262,268 +452,908 @@ function IntroAnimation({
           {
             opacity: 1,
             scale: 1,
-            duration: 1.4,
-            ease: "power2.out",
-          }
-        )
-
-
-        /* ====================================================
-           2. ORANGE LINE
-           ==================================================== */
-
-
-
-
-        /* ====================================================
-           3. MESSAGE 1 — blur / rise in & out
-           ==================================================== */
-
-        .to(
-          line1Ref.current,
-          {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 0.8,
+            x: "-12vw",
+            y: "-8vh",
+            duration: 0.85,
             ease: "power3.out",
-          }
-        )
-
-
-        .to(
-          {},
-          {
-            duration: 0.7,
-          }
-        )
-
-
-        .to(
-          line1Ref.current,
-          {
-            opacity: 0,
-            y: -30,
-            filter: "blur(6px)",
-            duration: 0.5,
-            ease: "power2.in",
-          }
-        )
+          },
+          0
+        );
 
 
         /* ====================================================
-           4. MESSAGE 2 — word-by-word mask reveal
+           SECONDARY GLOW ENTER
            ==================================================== */
 
-        .to(
-          line2Words,
+        tl.to(
+          glowSecondaryRef.current,
           {
-            yPercent: 0,
-            duration: 0.7,
-            ease: "power4.out",
-            stagger: 0.07,
-          }
-        )
-
-
-        .to(
-          {},
-          {
-            duration: 0.6,
-          }
-        )
-
-
-        .to(
-          line2Words,
-          {
-            yPercent: -115,
-            duration: 0.45,
-            ease: "power2.in",
-            stagger: 0.04,
-          }
-        )
+            opacity: 0.9,
+            scale: 1,
+            x: "13vw",
+            y: "8vh",
+            duration: 0.95,
+            ease: "power3.out",
+          },
+          0.05
+        );
 
 
         /* ====================================================
-           5. MESSAGE 3 — character wave-in
+           LIGHT TRAIL ENTER
            ==================================================== */
 
-        .to(
-          line3Chars,
+        tl.to(
+          glowTrailRef.current,
+          {
+            opacity: 0.65,
+            scale: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          0.1
+        );
+
+
+        /* ====================================================
+           ORBIT ENTER
+           ==================================================== */
+
+        tl.to(
+          orbitRef.current,
+          {
+            opacity: 0.5,
+            scale: 1,
+            rotation: 0,
+            duration: 1.1,
+            ease: "power3.out",
+          },
+          0
+        );
+
+
+        /* ====================================================
+           AURORA RING + COMET ENTER
+
+           A slow conic-gradient ring and a small comet that
+           orbits it continuously — the signature premium touch.
+           Both tweens run outside the main timeline so they
+           keep drifting even while the camera sequence pauses
+           everything else.
+           ==================================================== */
+
+
+
+
+        tl.to(
+          cometRef.current,
           {
             opacity: 1,
-            scale: 1,
-            filter: "blur(0px)",
-            duration: 0.55,
-            ease: "back.out(1.8)",
-            stagger: {
-              each: 0.025,
-              from: "start",
-            },
-          }
-        )
-
-
-        .to(
-          {},
-          {
-            duration: 0.7,
-          }
-        )
-
-
-        .to(
-          line3Ref.current,
-          {
-            opacity: 0,
-            scale: 1.08,
-            filter: "blur(8px)",
             duration: 0.6,
-            ease: "power2.in",
-          }
-        )
+            ease: "power2.out",
+          },
+          0.35
+        );
+
+
+        tl.call(
+          () => {
+
+            gsap.to(
+              cometRef.current,
+              {
+                rotation: "+=360",
+                duration: 5.5,
+                repeat: -1,
+                ease: "none",
+              }
+            );
+
+            cornerGearRefs.current.forEach((gear, index) => {
+              if (!gear) return;
+
+              gsap.to(
+                gear,
+                {
+                  rotation: index % 2 === 0 ? "+=360" : "-=360",
+                  duration: 26 + index * 6,
+                  repeat: -1,
+                  ease: "none",
+                }
+              );
+            });
+          },
+          [],
+          0.35
+        );
 
 
         /* ====================================================
-           6. START CAMERA FOCUS ANIMATION
+           CORNER GEARS ENTER
+
+           Soft blurred machinery tucked into the frame's
+           corners, easing in with the background.
            ==================================================== */
 
-        /*
-         * Show CameraFocusAnimation.
-         */
-.call(() => {
-  setShowCameraFocus(true);
-})
+        cornerGearRefs.current.forEach((gear, index) => {
+          if (!gear) return;
 
-.call(() => {
-  tl.pause();
-})
-
-
-        /*
-         * IMPORTANT:
-         *
-         * Nothing related to WISENERY comes here.
-         *
-         * CameraFocusAnimation will call:
-         *
-         *     handleCameraComplete()
-         *
-         * which resumes this timeline.
-         *
-         * Once resumed, GSAP continues with the
-         * WISENERY logo animation below.
-         */
+          tl.to(
+            gear,
+            {
+              opacity: 0.18,
+              scale: 1,
+              rotation: 0,
+              duration: 1.4,
+              ease: "power2.out",
+            },
+            0.1 + index * 0.08
+          );
+        });
 
 
         /* ====================================================
-           7. GEAR / W LOGO
+           PARTICLES ENTER
            ==================================================== */
 
-        .to(
+        particlesRef.current.forEach((particle, index) => {
+          if (!particle) return;
+
+          tl.to(
+            particle,
+            {
+              opacity: index % 3 === 0 ? 0.55 : 0.3,
+              scale: 1,
+              duration: 0.45,
+              ease: "power2.out",
+            },
+            0.15 + index * 0.035
+          );
+        });
+
+
+        /* ====================================================
+           WISENERY GEAR
+           ==================================================== */
+
+        tl.to(
           gearRef.current,
           {
             opacity: 1,
             scale: 1,
             rotation: 0,
-            duration: 1,
-            ease: "back.out(1.7)",
-          }
-        )
+            duration: 0.65,
+            ease: "back.out(1.8)",
+          },
+          0.1
+        );
 
 
         /* ====================================================
-           8. BRAND
+           WISENERY WORDMARK
            ==================================================== */
 
-        .to(
+        tl.to(
           brandRef.current,
           {
             opacity: 1,
             scale: 1,
             filter: "blur(0px)",
-            duration: 0.9,
+            duration: 0.6,
             ease: "power3.out",
-          }
-        )
+          },
+          0.35
+        );
 
 
         /* ====================================================
-           9. TAGLINE
+           WORDMARK SHINE SWEEP
+
+           A soft diagonal highlight glides once across the
+           wordmark right after it lands, like light catching
+           brushed metal.
            ==================================================== */
 
-        .to(
+        tl.to(
+          brandShineRef.current,
+          {
+            opacity: 1,
+            duration: 0.05,
+          },
+          0.85
+        );
+
+        tl.to(
+          brandShineRef.current,
+          {
+            xPercent: 130,
+            duration: 0.85,
+            ease: "power2.inOut",
+          },
+          0.85
+        );
+
+        tl.to(
+          brandShineRef.current,
+          {
+            opacity: 0,
+            duration: 0.2,
+          },
+          1.55
+        );
+
+
+        /* ====================================================
+           FIRST FAST GLOW MOVEMENT
+           ==================================================== */
+
+        tl.to(
+          glowRef.current,
+          {
+            x: "16vw",
+            y: "-4vh",
+            scale: 1.18,
+            duration: 0.65,
+            ease: "power3.inOut",
+          },
+          0.4
+        );
+
+
+        tl.to(
+          glowSecondaryRef.current,
+          {
+            x: "-12vw",
+            y: "7vh",
+            scale: 1.15,
+            duration: 0.7,
+            ease: "power3.inOut",
+          },
+          0.4
+        );
+
+
+        tl.to(
+          glowTrailRef.current,
+          {
+            x: "10vw",
+            y: "-2vh",
+            scaleX: 1.4,
+            scaleY: 0.8,
+            rotation: -8,
+            duration: 0.65,
+            ease: "power3.inOut",
+          },
+          0.4
+        );
+
+
+        /* ====================================================
+           TAGLINE
+           ==================================================== */
+
+        tl.to(
+          dividerRef.current,
+          {
+            opacity: 1,
+            width: "64px",
+            duration: 0.5,
+            ease: "power3.out",
+          },
+          0.68
+        );
+
+
+        tl.to(
           taglineRef.current,
           {
             opacity: 1,
             y: 0,
-            duration: 0.6,
+            duration: 0.4,
             ease: "power3.out",
-          }
-        )
+          },
+          0.72
+        );
 
 
         /* ====================================================
-           10. HOLD LOGO
+           ORBIT MOVEMENT
            ==================================================== */
 
-        .to(
-          {},
+        tl.to(
+          orbitRef.current,
           {
-            duration: 1,
-          }
-        )
+            rotation: 18,
+            scale: 1.08,
+            duration: 0.8,
+            ease: "sine.inOut",
+          },
+          0.5
+        );
 
 
         /* ====================================================
-           11. LOGO EXIT
+           ACCENT DOT + RADAR PING
            ==================================================== */
 
-        .to(
+        tl.to(
+          accentRef.current,
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.35,
+            ease: "back.out(2)",
+          },
+          0.65
+        );
+
+
+        pingRefs.current.forEach((ping, index) => {
+          if (!ping) return;
+
+          tl.fromTo(
+            ping,
+            {
+              opacity: 0.55,
+              scale: 1,
+            },
+            {
+              opacity: 0,
+              scale: 5.5,
+              duration: 1.1,
+              ease: "power2.out",
+            },
+            0.68 + index * 0.22
+          );
+        });
+
+
+        /* ====================================================
+           SECOND FAST GLOW MOVEMENT
+           ==================================================== */
+
+        tl.to(
+          glowRef.current,
+          {
+            x: "-14vw",
+            y: "10vh",
+            scale: 1.28,
+            duration: 0.7,
+            ease: "power3.inOut",
+          },
+          1.05
+        );
+
+
+        tl.to(
+          glowSecondaryRef.current,
+          {
+            x: "15vw",
+            y: "-7vh",
+            scale: 1.22,
+            duration: 0.75,
+            ease: "power3.inOut",
+          },
+          1.05
+        );
+
+
+        tl.to(
+          glowTrailRef.current,
+          {
+            x: "-12vw",
+            y: "8vh",
+            scaleX: 1.55,
+            rotation: 12,
+            duration: 0.7,
+            ease: "power3.inOut",
+          },
+          1.05
+        );
+
+
+        /* ====================================================
+           BRAND HOLD — a faint breathing pulse keeps the
+           background feeling alive while the logo sits still
+           ==================================================== */
+
+        tl.to(
+          gridRef.current,
+          {
+            scale: 1.02,
+            duration: 0.7,
+            ease: "sine.inOut",
+          },
+          "<"
+        );
+
+
+        /* ====================================================
+           ORANGE PULSE
+           ==================================================== */
+
+        tl.to(
+          glowRef.current,
+          {
+            scale: 1.42,
+            opacity: 1,
+            duration: 0.32,
+            ease: "power2.out",
+          }
+        );
+
+
+        tl.to(
+          glowRef.current,
+          {
+            scale: 1.22,
+            duration: 0.38,
+            ease: "power2.inOut",
+          }
+        );
+
+
+        /* ====================================================
+           BRAND EXIT
+           ==================================================== */
+
+        tl.to(
           [
             gearRef.current,
             brandRef.current,
             taglineRef.current,
+            dividerRef.current,
           ],
           {
-            scale: 1.15,
+            scale: 0.88,
             opacity: 0,
-            duration: 0.8,
+            filter: "blur(7px)",
+            duration: 0.55,
             ease: "power3.in",
           }
-        )
+        );
 
 
         /* ====================================================
-           12. FINAL FADE
+           GLOW SHOOTS LEFT
            ==================================================== */
 
-        .to(
-          containerRef.current,
+        tl.to(
+          glowRef.current,
+          {
+            x: "-18vw",
+            y: "-5vh",
+            scale: 1.3,
+            duration: 0.55,
+            ease: "power4.inOut",
+          },
+          "-=0.35"
+        );
+
+
+        tl.to(
+          glowSecondaryRef.current,
+          {
+            x: "18vw",
+            y: "10vh",
+            scale: 1.1,
+            duration: 0.6,
+            ease: "power4.inOut",
+          },
+          "-=0.55"
+        );
+
+
+        /* ====================================================
+           MESSAGE 1
+           ==================================================== */
+
+        tl.to(
+          line1Ref.current,
+          {
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+            duration: 0.65,
+            ease: "power3.out",
+          }
+        );
+
+
+        /*
+         * Glow immediately moves across the screen while
+         * the text appears.
+         */
+        tl.to(
+          glowRef.current,
+          {
+            x: "18vw",
+            y: "-6vh",
+            scale: 1.34,
+            duration: 0.62,
+            ease: "power3.inOut",
+          },
+          "-=0.48"
+        );
+
+
+        tl.to(
+          glowSecondaryRef.current,
+          {
+            x: "-15vw",
+            y: "5vh",
+            scale: 1.25,
+            duration: 0.68,
+            ease: "power3.inOut",
+          },
+          "-=0.48"
+        );
+
+
+        tl.to(
+          glowTrailRef.current,
+          {
+            x: "15vw",
+            y: "-5vh",
+            scaleX: 1.7,
+            duration: 0.6,
+            ease: "power3.inOut",
+          },
+          "-=0.48"
+        );
+
+
+        tl.to(
+          {},
+          {
+            duration: 0.45,
+          }
+        );
+
+
+        /* ====================================================
+           MESSAGE 1 EXIT
+           ==================================================== */
+
+        tl.to(
+          line1Ref.current,
           {
             opacity: 0,
-            duration: 0.7,
+            y: -30,
+            filter: "blur(6px)",
+            duration: 0.42,
+            ease: "power2.in",
+          }
+        );
+
+
+        /* ====================================================
+           MESSAGE 2
+           ==================================================== */
+
+        tl.to(
+          glowRef.current,
+          {
+            x: "-19vw",
+            y: "9vh",
+            scale: 1.26,
+            duration: 0.62,
+            ease: "power4.inOut",
+          },
+          "-=0.2"
+        );
+
+
+        tl.to(
+          glowSecondaryRef.current,
+          {
+            x: "17vw",
+            y: "-8vh",
+            scale: 1.18,
+            duration: 0.66,
+            ease: "power4.inOut",
+          },
+          "-=0.58"
+        );
+
+
+        tl.to(
+          line2Words,
+          {
+            yPercent: 0,
+            duration: 0.62,
+            ease: "power4.out",
+            stagger: 0.06,
+          }
+        );
+
+
+        /*
+         * Small pulse when the second message lands.
+         */
+        tl.to(
+          glowRef.current,
+          {
+            scale: 1.4,
+            duration: 0.25,
+            ease: "power2.out",
+          },
+          "-=0.15"
+        );
+
+
+        tl.to(
+          glowRef.current,
+          {
+            scale: 1.23,
+            duration: 0.3,
             ease: "power2.inOut",
           }
+        );
+
+
+        tl.to(
+          {},
+          {
+            duration: 0.4,
+          }
+        );
+
+
+        tl.to(
+          line2Words,
+          {
+            yPercent: -115,
+            duration: 0.4,
+            ease: "power2.in",
+            stagger: 0.035,
+          }
+        );
+
+
+        /* ====================================================
+           MESSAGE 3
+           ==================================================== */
+
+        tl.to(
+          glowRef.current,
+          {
+            x: "6vw",
+            y: "-15vh",
+            scale: 1.42,
+            duration: 0.7,
+            ease: "power4.inOut",
+          },
+          "-=0.18"
+        );
+
+
+        tl.to(
+          glowSecondaryRef.current,
+          {
+            x: "-11vw",
+            y: "11vh",
+            scale: 1.28,
+            duration: 0.72,
+            ease: "power4.inOut",
+          },
+          "-=0.65"
+        );
+
+
+        tl.to(
+          orbitRef.current,
+          {
+            rotation: -22,
+            scale: 1.16,
+            duration: 0.65,
+            ease: "power3.inOut",
+          },
+          "-=0.65"
+        );
+
+
+
+        tl.to(
+          line3Chars,
+          {
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 0.48,
+            ease: "back.out(1.8)",
+            stagger: {
+              each: 0.022,
+              from: "start",
+            },
+          }
+        );
+
+
+        /*
+         * Final visual pulse.
+         */
+        tl.to(
+          glowRef.current,
+          {
+            scale: 1.5,
+            duration: 0.28,
+            ease: "power2.out",
+          },
+          "-=0.18"
+        );
+
+
+        tl.to(
+          glowRef.current,
+          {
+            scale: 1.28,
+            duration: 0.35,
+            ease: "power2.inOut",
+          }
+        );
+
+
+        tl.to(
+          {},
+          {
+            duration: 0.45,
+          }
+        );
+
+
+        /* ====================================================
+           MESSAGE 3 EXIT
+           ==================================================== */
+
+        tl.to(
+          line3Ref.current,
+          {
+            opacity: 0,
+            scale: 1.08,
+            filter: "blur(8px)",
+            duration: 0.5,
+            ease: "power2.in",
+          }
+        );
+
+
+        /* ====================================================
+           CAMERA
+           ==================================================== */
+
+        // Mount the camera before the intro visuals disappear so
+        // there is no exposed background between the two animations.
+        tl.call(() => {
+          setShowCameraFocus(true);
+        });
+
+        // Allow React/Three.js to mount the camera layer while the
+        // existing intro visuals are still covering the screen.
+        tl.to(
+          {},
+          {
+            duration: 0.12,
+          }
+        );
+
+
+        /* ====================================================
+           ALL DECORATIVE ELEMENTS EXIT
+           ==================================================== */
+
+        tl.to(
+          [
+            gridRef.current,
+            orbitRef.current,
+            
+            cometRef.current,
+            glowTrailRef.current,
+            accentRef.current,
+            vignetteRef.current,
+            grainRef.current,
+            ...cornerGearRefs.current,
+          ],
+          {
+            opacity: 0,
+            duration: 0.45,
+            ease: "power2.inOut",
+          },
+          "-=0.08"
+        );
+
+
+        /* ====================================================
+           GLOW EXPANDS + FADES
+           ==================================================== */
+
+        tl.to(
+          glowRef.current,
+          {
+            opacity: 0,
+            scale: 1.75,
+            duration: 0.55,
+            ease: "power3.inOut",
+          },
+          "-=0.35"
+        );
+
+
+        tl.to(
+          glowSecondaryRef.current,
+          {
+            opacity: 0,
+            scale: 1.5,
+            duration: 0.5,
+            ease: "power3.inOut",
+          },
+          "-=0.45"
+        );
+
+
+        /*
+         * Pause after camera mounts and the handoff is complete.
+         */
+        tl.call(() => {
+          tl.pause();
+        });
+
+
+        /* ====================================================
+           FINAL FADE AFTER CAMERA
+           ==================================================== */
+
+        tl.to(
+          containerRef.current,
+  {
+    opacity: 0,
+    scale: 1.06,
+    y: "-2%",
+    filter: "blur(14px)",
+    duration: 0.85,
+    ease: "power2.inOut",
+    transformOrigin: "center center",
+  }
         );
 
       }, containerRef);
 
 
+    /* ==========================================================
+       CLEANUP
+       ========================================================== */
+
     return () => {
-      /*
-       * Clear timeline ref.
-       */
       timelineRef.current = null;
 
-      /*
-       * Kill GSAP animations and restore DOM.
-       */
       ctx.revert();
     };
 
   }, [onComplete]);
+
+
+  /* ==========================================================
+     PARTICLE POSITIONS
+     ========================================================== */
+
+  const particlePositions = [
+    ["12%", "18%"],
+    ["23%", "72%"],
+    ["78%", "17%"],
+    ["87%", "66%"],
+    ["8%", "48%"],
+    ["92%", "34%"],
+    ["32%", "13%"],
+    ["67%", "83%"],
+    ["48%", "8%"],
+    ["56%", "92%"],
+    ["18%", "88%"],
+    ["82%", "87%"],
+    ["38%", "77%"],
+    ["72%", "42%"],
+    ["28%", "38%"],
+    ["61%", "22%"],
+  ];
 
 
   /* ==========================================================
@@ -534,16 +1364,23 @@ function IntroAnimation({
     <div
       ref={containerRef}
       className="
-        fixed inset-0 z-[9999]
-        flex items-center justify-center
+        fixed
+        inset-0
+        z-[9999]
+
+        flex
+        items-center
+        justify-center
+
         overflow-hidden
-        bg-[#050505]
-        text-white
+
+        bg-[#fff8ef]
+        text-[#171717]
       "
     >
 
       {/* =====================================================
-          AMBIENT BACKGROUND
+          BACKGROUND
       ===================================================== */}
 
       <div
@@ -551,8 +1388,100 @@ function IntroAnimation({
           pointer-events-none
           absolute
           inset-0
+          overflow-hidden
         "
       >
+
+        {/* =================================================
+            SUBTLE TECH GRID
+        ================================================= */}
+
+        <div
+          ref={gridRef}
+          className="
+            absolute
+            inset-[-10%]
+
+            opacity-0
+
+            will-change-transform
+
+            bg-[linear-gradient(rgba(255,122,41,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(255,122,41,0.055)_1px,transparent_1px)]
+            bg-[size:70px_70px]
+
+            [mask-image:radial-gradient(circle_at_center,black_0%,transparent_72%)]
+          "
+        />
+
+
+        {/* =================================================
+            DEPTH VIGNETTE
+
+            A near-invisible darkening toward the edges that
+            gives the flat white field a sense of depth.
+        ================================================= */}
+
+        <div
+          ref={vignetteRef}
+          className="
+            absolute
+            inset-0
+
+            opacity-0
+
+            [background:radial-gradient(circle_at_50%_50%,transparent_38%,rgba(23,23,23,0.05)_100%)]
+          "
+        />
+
+
+        {/* =================================================
+            CORNER GEARS
+
+            Blurred, low-opacity machinery anchoring each
+            corner of the frame.
+        ================================================= */}
+
+        {[
+          "-left-16 -top-16 sm:-left-20 sm:-top-20 md:-left-28 md:-top-28",
+          "-right-16 -top-20 sm:-right-24 sm:-top-24 md:-right-32 md:-top-32",
+          "-left-20 -bottom-24 sm:-left-24 sm:-bottom-28 md:-left-32 md:-bottom-36",
+          "-right-16 -bottom-16 sm:-right-20 sm:-bottom-20 md:-right-28 md:-bottom-28",
+        ].map((position, index) => (
+          <div
+            key={index}
+            ref={(el) => {
+              cornerGearRefs.current[index] = el;
+            }}
+            className={`
+              absolute
+              ${position}
+
+              h-[150px]
+              w-[150px]
+
+              opacity-0
+
+              blur-[16px]
+
+              will-change-transform
+
+              sm:h-[210px]
+              sm:w-[210px]
+              sm:blur-[22px]
+
+              md:h-[270px]
+              md:w-[270px]
+              md:blur-[28px]
+            `}
+          >
+            <GearGlyph />
+          </div>
+        ))}
+
+
+        {/* =================================================
+            MAIN ORANGE GLOW
+        ================================================= */}
 
         <div
           ref={glowRef}
@@ -560,28 +1489,332 @@ function IntroAnimation({
             absolute
             left-1/2
             top-1/2
-            h-[240px]
-            w-[240px]
+
+            h-[430px]
+            w-[430px]
+
             -translate-x-1/2
             -translate-y-1/2
-            rounded-full
-            bg-[#f56b0a]/10
-            blur-[80px]
 
-            sm:h-[450px]
-            sm:w-[450px]
-            sm:blur-[130px]
+            rounded-full
+
+            bg-[#ff641f]/[0.42]
+
+            blur-[105px]
+
+            will-change-transform
+
+            sm:h-[650px]
+            sm:w-[650px]
+
+            sm:bg-[#ff641f]/[0.36]
+            sm:blur-[145px]
+
+            md:h-[850px]
+            md:w-[850px]
+
+            md:bg-[#ff641f]/[0.32]
+            md:blur-[175px]
           "
         />
+
+
+        {/* =================================================
+            SECONDARY ORANGE GLOW
+        ================================================= */}
+
+        <div
+          ref={glowSecondaryRef}
+          className="
+            absolute
+            left-1/2
+            top-1/2
+
+            h-[300px]
+            w-[300px]
+
+            -translate-x-1/2
+            -translate-y-1/2
+
+            rounded-full
+
+            bg-[#ff9a5c]/[0.28]
+
+            blur-[90px]
+
+            will-change-transform
+
+            sm:h-[470px]
+            sm:w-[470px]
+
+            sm:blur-[120px]
+
+            md:h-[620px]
+            md:w-[620px]
+
+            md:blur-[155px]
+          "
+        />
+
+
+        {/* =================================================
+            LIGHT TRAIL
+        ================================================= */}
+
+        <div
+          ref={glowTrailRef}
+          className="
+            absolute
+
+            left-1/2
+            top-1/2
+
+            h-[180px]
+            w-[520px]
+
+            -translate-x-1/2
+            -translate-y-1/2
+
+            rounded-full
+
+            bg-[#ff7133]/[0.18]
+
+            blur-[75px]
+
+            will-change-transform
+
+            sm:h-[230px]
+            sm:w-[700px]
+
+            md:h-[280px]
+            md:w-[900px]
+
+            md:blur-[100px]
+          "
+        />
+
+
+        {/* =================================================
+            ORBIT RINGS
+        ================================================= */}
+
+        <div
+          ref={orbitRef}
+          className="
+            absolute
+
+            left-1/2
+            top-1/2
+
+            h-[380px]
+            w-[380px]
+
+            -translate-x-1/2
+            -translate-y-1/2
+
+            rounded-full
+
+            border
+            border-[#ff7a29]/[0.12]
+
+            opacity-0
+
+            will-change-transform
+
+            sm:h-[560px]
+            sm:w-[560px]
+
+            md:h-[720px]
+            md:w-[720px]
+          "
+        >
+
+          <div
+            className="
+              absolute
+              inset-[12%]
+
+              rounded-full
+
+              border
+              border-[#ff7a29]/[0.08]
+            "
+          />
+
+          <div
+            className="
+              absolute
+
+              -right-1
+              top-1/2
+
+              h-2
+              w-2
+
+              -translate-y-1/2
+
+              rounded-full
+
+              bg-[#ff7a29]/40
+
+              blur-[1px]
+            "
+          />
+
+          <div
+            className="
+              absolute
+
+              left-[12%]
+              top-[18%]
+
+              h-1.5
+              w-1.5
+
+              rounded-full
+
+              bg-[#ff7a29]/30
+            "
+          />
+
+        </div>
+
+        {particlePositions.map(
+          ([left, top], index) => (
+            <div
+              key={index}
+              ref={(el) => {
+                particlesRef.current[index] = el;
+              }}
+              className="
+                absolute
+
+                h-[3px]
+                w-[3px]
+
+                rounded-full
+
+                bg-[#f56b0a]/40
+
+                blur-[0.5px]
+
+                will-change-transform
+              "
+              style={{
+                left,
+                top,
+              }}
+            />
+          )
+        )}
+
+
+        {/* =================================================
+            SMALL ACCENT + RADAR PING
+        ================================================= */}
+
+        <div
+          ref={accentRef}
+          className="
+            absolute
+
+            left-[24%]
+            top-[28%]
+
+            h-2
+            w-2
+
+            rounded-full
+
+            bg-[#ff7a29]/70
+
+            shadow-[0_0_25px_rgba(255,122,41,0.55)]
+
+            opacity-0
+          "
+        />
+
+        {[0, 1].map((index) => (
+          <div
+            key={index}
+            ref={(el) => {
+              pingRefs.current[index] = el;
+            }}
+            className="
+              absolute
+
+              left-[24%]
+              top-[28%]
+
+              h-2
+              w-2
+
+              -translate-x-1/2
+              -translate-y-1/2
+
+              rounded-full
+
+              border
+              border-[#ff7a29]/60
+
+              opacity-0
+            "
+          />
+        ))}
+
+
+        {/* =================================================
+            GRAIN
+
+            A whisper of film-like texture so the flat
+            gradients don't feel too clean or synthetic.
+        ================================================= */}
+
+        <svg
+          ref={grainRef}
+          className="
+            absolute
+            inset-0
+
+            h-full
+            w-full
+
+            opacity-0
+
+            mix-blend-multiply
+          "
+        >
+          <filter id="wisenery-grain">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.85"
+              numOctaves="2"
+              stitchTiles="stitch"
+            />
+            <feColorMatrix
+              type="matrix"
+              values="
+                0 0 0 0 1
+                0 0 0 0 0.42
+                0 0 0 0 0.16
+                0 0 0 0.05 0
+              "
+            />
+          </filter>
+          <rect
+            width="100%"
+            height="100%"
+            filter="url(#wisenery-grain)"
+          />
+        </svg>
 
       </div>
 
 
       {/* =====================================================
           CAMERA FOCUS ANIMATION
-          
-          This appears AFTER the 3 narration messages
-          and BEFORE the WISENERY logo.
+
+          This remains a completely separate layer.
       ===================================================== */}
 
       {showCameraFocus && (
@@ -601,40 +1834,37 @@ function IntroAnimation({
 
       {/* =====================================================
           CENTER CONTENT
-          
-          WISENERY logo + tagline
       ===================================================== */}
 
       <div
         className="
           relative
           z-10
+
           flex
           w-full
+
           items-center
           justify-center
         "
       >
 
-        {/* =================================================
-            ORANGE LINE
-        ================================================= */}
-
-
-
-
-        {/* =================================================
+        {/* ===================================================
             NARRATION
-        ================================================= */}
+        =================================================== */}
 
         <div
           className="
             relative
+
             flex
+
             min-h-[110px]
             w-full
+
             items-center
             justify-center
+
             px-4
 
             text-center
@@ -646,19 +1876,23 @@ function IntroAnimation({
           "
         >
 
-          {/* -----------------------------------------------
-              MESSAGE 1 — blur / rise
-          ------------------------------------------------ */}
+          {/* =================================================
+              MESSAGE 1
+          ================================================= */}
 
           <h1
             ref={line1Ref}
             className="
               absolute
+
               w-[94%]
+
               text-[22px]
               font-medium
               leading-snug
               tracking-[-0.3px]
+
+              text-[#171717]
 
               sm:w-[90%]
               sm:text-[32px]
@@ -672,23 +1906,23 @@ function IntroAnimation({
           </h1>
 
 
-          {/* -----------------------------------------------
-              MESSAGE 2 — word mask reveal
-
-              Container itself stays visible; each word
-              lives inside an overflow-hidden span so it
-              can "shutter" up into view.
-          ------------------------------------------------ */}
+          {/* =================================================
+              MESSAGE 2
+          ================================================= */}
 
           <h1
             ref={line2Ref}
             className="
               absolute
+
               w-[94%]
+
               text-[22px]
               font-medium
               leading-snug
               tracking-[-0.3px]
+
+              text-[#171717]
 
               sm:w-[90%]
               sm:text-[32px]
@@ -702,22 +1936,23 @@ function IntroAnimation({
           </h1>
 
 
-          {/* -----------------------------------------------
-              MESSAGE 3 — character wave
-
-              Container itself stays visible; each
-              character animates in individually.
-          ------------------------------------------------ */}
+          {/* =================================================
+              MESSAGE 3
+          ================================================= */}
 
           <h1
             ref={line3Ref}
             className="
               absolute
+
               w-[95%]
+
               text-[21px]
               font-medium
               leading-snug
               tracking-[-0.3px]
+
+              text-[#171717]
 
               sm:w-[92%]
               sm:text-[32px]
@@ -733,20 +1968,25 @@ function IntroAnimation({
         </div>
 
 
-        {/* =================================================
+        {/* ===================================================
             WISENERY BRAND
-        ================================================= */}
+        =================================================== */}
 
         <div
           className="
             absolute
+
             flex
+
             w-full
             max-w-full
+
             flex-col
             items-center
             justify-center
+
             px-4
+
             text-center
           "
         >
@@ -759,9 +1999,11 @@ function IntroAnimation({
             ref={gearRef}
             className="
               mb-2
+
               flex
               h-[42px]
               w-[42px]
+
               items-center
               justify-center
 
@@ -886,32 +2128,85 @@ function IntroAnimation({
 
           {/* =================================================
               WISENERY WORDMARK
+
+              Wrapped so the shine sweep can be clipped to
+              exactly the text's footprint.
           ================================================= */}
 
-          <h1
-            ref={brandRef}
+          <div
             className="
-              text-[34px]
-              font-bold
-              tracking-[-1px]
-
-              sm:text-[56px]
-              sm:tracking-[-2px]
-
-              md:text-[82px]
-              md:tracking-[-4px]
+              relative
+              overflow-hidden
             "
           >
 
-            <span className="text-white">
-              WISE
-            </span>
+            <h1
+              ref={brandRef}
+              className="
+                text-[34px]
+                font-bold
+                tracking-[-1px]
 
-            <span className="text-[#f56b0a]">
-              NERY
-            </span>
+                sm:text-[56px]
+                sm:tracking-[-2px]
 
-          </h1>
+                md:text-[82px]
+                md:tracking-[-4px]
+              "
+            >
+              <span className="text-[#171717]">
+                WISE
+              </span>
+
+              <span className="text-[#f56b0a]">
+                NERY
+              </span>
+            </h1>
+
+
+            <div
+              ref={brandShineRef}
+              className="
+                pointer-events-none
+                absolute
+                inset-0
+
+                -skew-x-12
+
+                opacity-0
+
+                will-change-transform
+              "
+              style={{
+                background:
+                  "linear-gradient(75deg, transparent 35%, rgba(255,255,255,0.85) 48%, rgba(255,154,92,0.85) 52%, transparent 65%)",
+                mixBlendMode: "overlay",
+              }}
+            />
+
+          </div>
+
+
+          {/* =================================================
+              DIVIDER
+          ================================================= */}
+
+          <div
+            ref={dividerRef}
+            className="
+              mt-2.5
+
+              h-px
+              w-0
+
+              bg-gradient-to-r
+              from-transparent
+              via-[#ff7a29]/60
+              to-transparent
+
+              sm:mt-3.5
+            "
+          />
 
 
           {/* =================================================
@@ -922,11 +2217,13 @@ function IntroAnimation({
             ref={taglineRef}
             className="
               mt-2
+
               text-[9px]
               font-medium
               uppercase
               tracking-[2px]
-              text-white/50
+
+              text-black/50
 
               sm:text-[12px]
               sm:tracking-[6px]
