@@ -1,44 +1,47 @@
+import { lazy, Suspense, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
-import Hero from "./pages/Hero";
-import AboutUs from "./pages/AboutUs";
-import Footer from "./pages/Footer";
-import { useState } from "react";
-import CameraFocusAnimation from "./components/CameraFocusAnimation";
 import IntroAnimation from "./components/IntroAnimation";
 
-
+const Home = lazy(() => import("./pages/Home"));
+const Teaching = lazy(() => import("./pages/Teaching"));
+const BoardDetails = lazy(() => import("./pages/BoardDetails"));
 
 function App() {
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(
+    window.location.pathname === "/"
+  );
+
   return (
     <div className="bg-[#fffdf9]">
+
       {showIntro && (
         <IntroAnimation
           onComplete={() => setShowIntro(false)}
         />
       )}
+
       <Navbar />
 
-      <main>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route
+            path="/"
+            element={<Home />}
+          />
 
-        {/* HOME */}
-        <section id="home">
-          <Hero />
-        </section>
+          <Route
+            path="/teaching"
+            element={<Teaching />}
+          />
 
-        {/* ABOUT */}
-        <section id="about">
-          <AboutUs />
-        </section>
-
-        {/* CONTACT */}
-        <section id="contact">
-          {/* Contact section will come here */}
-        </section>
-
-      </main>
-
-      <Footer />
+          <Route
+            path="/teaching/boards/:boardId"
+            element={<BoardDetails />}
+          />
+        </Routes>
+      </Suspense>
 
     </div>
   );

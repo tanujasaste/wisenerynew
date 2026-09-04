@@ -1,8 +1,7 @@
 import { ArrowRight } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
-import { FaPhoneAlt } from "react-icons/fa";
+import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import CourseCard from "../components/CourseCard";
-// import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import heroIllustration from "../assets/hero-illustration.png";
 import roboticsImage from "../assets/robotics.png";
@@ -11,84 +10,76 @@ import programmingImage from "../assets/programming.png";
 import teachingImage from "../assets/teaching.png";
 import Reveal from "../components/Reveal";
 
-/* =========================================================
-   REVEAL
-
-   Two triggers:
-   - "mount": fires shortly after the component mounts. Use
-     this for anything above the fold that's visible on load
-     (the hero content) — a page-load sequence reads better
-     here than waiting on a scroll observer for content the
-     user can already see.
-   - "scroll": fires when the element enters the viewport.
-     Use this for anything below the fold (the course cards).
-========================================================= */
-// function Reveal({
-//   children,
-//   trigger = "scroll",
-//   delay = 0,
-//   y = 24,
-//   className = "",
-// }) {
-//   const ref = useRef(null);
-//   const [visible, setVisible] = useState(false);
-
-//   useEffect(() => {
-//     if (trigger === "mount") {
-//       const t = setTimeout(() => setVisible(true), 30);
-//       return () => clearTimeout(t);
-//     }
-
-//     const el = ref.current;
-//     if (!el) return;
-//     const observer = new IntersectionObserver(
-//       ([entry]) => {
-//         if (entry.isIntersecting) {
-//           setVisible(true);
-//           observer.unobserve(el);
-//         }
-//       },
-//       { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
-//     );
-//     observer.observe(el);
-//     return () => observer.disconnect();
-//   }, [trigger]);
-
-//   return (
-//     <div
-//       ref={ref}
-//       className={className}
-//       style={{
-//         opacity: visible ? 1 : 0,
-//         transform: visible ? "translateY(0px)" : `translateY(${y}px)`,
-//         transition:
-//           "opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1)",
-//         transitionDelay: `${delay}ms`,
-//       }}
-//     >
-//       {children}
-//     </div>
-//   );
-// }
-
 function Hero() {
+const WISENERY_PHONE = "+919322984718";
+
+const [copied, setCopied] = useState(false);
+
+const handlePhoneClick = async () => {
+  // Detect actual mobile/tablet-style devices
+  const isMobile =
+    window.matchMedia("(max-width: 767px)").matches ||
+    /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+
+  // 📱 Mobile → open dialer
+  if (isMobile) {
+    window.location.assign(`tel:${WISENERY_PHONE}`);
+    return;
+  }
+
+  // 💻 Desktop → ONLY copy, never redirect
+  try {
+    await navigator.clipboard.writeText(WISENERY_PHONE);
+
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  } catch (error) {
+    console.error("Clipboard failed:", error);
+
+    // Fallback copy method for browsers where clipboard API is unavailable
+    const textArea = document.createElement("textarea");
+    textArea.value = WISENERY_PHONE;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
+
+    document.body.appendChild(textArea);
+    textArea.select();
+
+    try {
+      document.execCommand("copy");
+      setCopied(true);
+
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } finally {
+      document.body.removeChild(textArea);
+    }
+  }
+};
+
   return (
     <main className="relative overflow-hidden bg-[#fffdf9]">
+
       {/* FLOATING CONTACT BUTTONS */}
       <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-3 sm:bottom-8 sm:right-8 sm:gap-4">
 
         {/* WhatsApp */}
         <a
-          href="https://wa.me/YOURNUMBER"
+          href="https://chat.whatsapp.com/FiR7Wt8i8ez2CSiL0BCTvJ"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Chat on WhatsApp"
+          aria-label="Join Wisenery WhatsApp Group"
           className="group flex h-[48px] w-[48px] items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_25px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-[0_12px_30px_rgba(0,0,0,0.2)] sm:h-[58px] sm:w-[58px]"
         >
           <FaWhatsapp
             size={26}
             className="transition-transform duration-300 group-hover:scale-110 sm:hidden"
           />
+
           <FaWhatsapp
             size={32}
             className="hidden transition-transform duration-300 group-hover:scale-110 sm:block"
@@ -96,8 +87,9 @@ function Hero() {
         </a>
 
         {/* Phone */}
-        <a
-          href="tel:YOURNUMBER"
+        <button
+          type="button"
+          onClick={handlePhoneClick}
           aria-label="Call Wisenery"
           className="group flex h-[48px] w-[48px] items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_25px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-[0_12px_30px_rgba(0,0,0,0.2)] sm:h-[58px] sm:w-[58px]"
         >
@@ -105,13 +97,24 @@ function Hero() {
             size={18}
             className="transition-transform duration-300 group-hover:rotate-[-12deg] group-hover:scale-110 sm:hidden"
           />
+
           <FaPhoneAlt
             size={23}
             className="hidden transition-transform duration-300 group-hover:rotate-[-12deg] group-hover:scale-110 sm:block"
           />
-        </a>
+        </button>
 
       </div>
+
+      {/* DESKTOP PHONE COPY NOTIFICATION */}
+      {copied && (
+        <div
+          className="fixed bottom-8 left-1/2 z-[100] -translate-x-1/2 rounded-full bg-gray-900 px-5 py-3 text-sm font-medium text-white shadow-xl"
+          role="status"
+        >
+          ✓ Phone number copied to your clipboard
+        </div>
+      )}
 
       {/* HERO TOP */}
       <section
@@ -146,6 +149,7 @@ function Hero() {
           <Reveal trigger="mount" delay={280}>
             <div className="mx-auto mt-6 flex max-w-[590px] gap-4 text-left sm:mt-7 sm:gap-5 lg:mx-0">
               <div className="h-[48px] w-[3px] shrink-0 bg-[#f56b0a]" />
+
               <p className="text-[15px] leading-[1.55] text-[#606060] sm:text-[17px]">
                 You will find all what you want learn, because in Wisenery
                 you can learn anything, anywhere, at any time.
@@ -158,11 +162,20 @@ function Hero() {
             <div className="mt-8 flex items-center justify-center gap-10 sm:mt-10 lg:justify-start">
               <button className="flex h-[50px] items-center gap-3 rounded-[10px] bg-[#f56b0a] px-6 text-[15px] font-semibold text-white shadow-sm transition-all hover:-translate-y-1 hover:bg-[#e65f05] sm:h-[58px] sm:px-7 sm:text-[17px]">
                 Explore Courses
-                <ArrowRight size={19} className="sm:hidden" />
-                <ArrowRight size={21} className="hidden sm:block" />
+
+                <ArrowRight
+                  size={19}
+                  className="sm:hidden"
+                />
+
+                <ArrowRight
+                  size={21}
+                  className="hidden sm:block"
+                />
               </button>
             </div>
           </Reveal>
+
         </div>
 
         {/* RIGHT ILLUSTRATION */}
@@ -195,14 +208,17 @@ function Hero() {
             { image: civilImage, title: "Civil Engineering" },
             { image: roboticsImage, title: "Robotics" },
           ].map((course, i) => (
-<Reveal
-  key={course.title}
-  trigger="scroll"
-  delay={i * 120}
-  x={180}
-  className="w-full sm:w-[calc(50%-10px)] lg:w-auto"
->
-              <CourseCard image={course.image} title={course.title} />
+            <Reveal
+              key={course.title}
+              trigger="scroll"
+              delay={i * 120}
+              x={180}
+              className="w-full sm:w-[calc(50%-10px)] lg:w-auto"
+            >
+              <CourseCard
+                image={course.image}
+                title={course.title}
+              />
             </Reveal>
           ))}
         </div>

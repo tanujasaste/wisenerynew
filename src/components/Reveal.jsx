@@ -10,10 +10,14 @@ function Reveal({
 }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
+  const [animating, setAnimating] = useState(false);
 
   useEffect(() => {
     if (trigger === "mount") {
-      const t = setTimeout(() => setVisible(true), 30);
+      const t = setTimeout(() => {
+        setAnimating(true);
+        setVisible(true);
+      }, 30);
       return () => clearTimeout(t);
     }
 
@@ -23,6 +27,7 @@ function Reveal({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          setAnimating(true);
           setVisible(true);
           observer.unobserve(el);
         }
@@ -50,8 +55,13 @@ function Reveal({
         transition:
           "opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)",
         transitionDelay: `${delay}ms`,
-        willChange: "transform, opacity",
+        // Only promote to a GPU layer while actually animating.
+        // Leaving will-change on permanently keeps a compositor layer
+        // alive for the element's entire lifetime, which adds cost to
+        // every scroll frame even after the reveal has finished.
+        willChange: animating ? "transform, opacity" : "auto",
       }}
+      onTransitionEnd={() => setAnimating(false)}
     >
       {children}
     </div>

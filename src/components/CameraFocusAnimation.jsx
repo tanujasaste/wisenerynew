@@ -42,23 +42,29 @@ const CameraFocusAnimation = ({ onComplete }) => {
    */
 
   // Responsive camera angles.
-  // Mobile needs slightly tighter angles so the camera body and spotlight
-  // stay inside the smaller square viewport.
+  // Use both width and aspect ratio because two phones can have the same
+  // width but very different viewport heights. The tighter angles on
+  // unusually tall/narrow phones keep the camera + beam inside the stage.
   const getCameraAngles = () => {
     if (typeof window === "undefined") {
       return [-150, -20, 28, 145];
     }
 
     const width = window.innerWidth;
+    const height = window.innerHeight || 1;
+    const aspect = width / height;
 
-    if (width <= 390) {
+    // Very tall / narrow mobile viewport
+    if (width <= 390 || aspect < 0.48) {
       return [-132, -35, 35, 132];
     }
 
-    if (width <= 480) {
+    // Tall mobile viewport
+    if (width <= 480 || aspect < 0.60) {
       return [-140, -28, 30, 140];
     }
 
+    // Wider mobile / tablet viewport
     if (width <= 768) {
       return [-145, -24, 29, 143];
     }
@@ -125,7 +131,8 @@ const CameraFocusAnimation = ({ onComplete }) => {
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const pixelRatio = Math.min(window.devicePixelRatio, 1.5);
+    renderer.setPixelRatio(pixelRatio);
     renderer.setSize(W, H);
     mount.appendChild(renderer.domElement);
 
@@ -154,34 +161,7 @@ const CameraFocusAnimation = ({ onComplete }) => {
       return s;
     }
 
-    function createGlowTexture(text) {
-      const size = 512;
-      const canvas = document.createElement("canvas");
-      canvas.width = size;
-      canvas.height = size;
-      const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, size, size);
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.font = '900 260px Arial, "Helvetica Neue", sans-serif';
 
-      ctx.save();
-      ctx.shadowColor = "rgba(255,255,255,0.95)";
-      ctx.fillStyle = "#ffffff";
-      ctx.shadowBlur = 45;
-      ctx.fillText(text, size / 2, size / 2 + 6);
-      ctx.shadowBlur = 26;
-      ctx.fillText(text, size / 2, size / 2 + 6);
-      ctx.restore();
-
-      ctx.shadowBlur = 0;
-      ctx.fillStyle = "#ffffff";
-      ctx.fillText(text, size / 2, size / 2 + 6);
-
-      const tex = new THREE.CanvasTexture(canvas);
-      tex.needsUpdate = true;
-      return tex;
-    }
 
     function createRadialGlowTexture() {
       const size = 256;
@@ -231,17 +211,6 @@ const CameraFocusAnimation = ({ onComplete }) => {
     const plate = new THREE.Mesh(plateGeo, plateMat);
     scene.add(plate);
 
-    const wTex = createGlowTexture("W");
-    const wMat = new THREE.MeshBasicMaterial({
-      map: wTex,
-      transparent: true,
-      opacity: 0,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const wPlane = new THREE.Mesh(new THREE.PlaneGeometry(1.05, 1.05), wMat);
-    wPlane.position.set(0, 0, plateDepth / 2 + 0.02);
-    scene.add(wPlane);
 
     const haloTex = createRadialGlowTexture();
     const haloMat = new THREE.MeshBasicMaterial({
@@ -255,51 +224,62 @@ const CameraFocusAnimation = ({ onComplete }) => {
     halo.position.set(0, 0, plateDepth / 2 + 0.01);
     scene.add(halo);
 
-    gsap.set(plate.scale, { x: 0.001, y: 0.001, z: 0.001 });
-    const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
-    tl.to(plate.scale, { x: 1, y: 1, z: 1, duration: 0.9 }, 0)
-      .to(wMat, { opacity: 1, duration: 0.8 }, 0.35)
-      .to(haloMat, { opacity: 0.5, duration: 0.9 }, 0.35)
-      .call(() => {
-        gsap.to(wMat, {
-          opacity: 0.8,
-          duration: 1.6,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-        });
-        gsap.to(haloMat, {
-          opacity: 0.28,
-          duration: 1.6,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-        });
-        gsap.to(plate.rotation, {
-          y: 0.18,
-          duration: 3.2,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-        });
-      });
-
-    let rafId;
-    function animate() {
-      rafId = requestAnimationFrame(animate);
+    // Render only when Three.js properties actually change.
+    // The previous implementation used a permanent requestAnimationFrame loop,
+    // which kept the GPU busy even when the scene was visually static.
+    const renderScene = () => {
       renderer.render(scene, camera);
-    }
-    animate();
+    };
+
+    // Some mobile browsers finish laying out an element a moment after mount.
+    // Keep the Three.js camera/renderer synced with the actual element size.
+    const resizeThree = () => {
+      const nextW = mount.clientWidth || W;
+      const nextH = mount.clientHeight || H;
+      camera.aspect = nextW / nextH;
+      camera.updateProjectionMatrix();
+      renderer.setSize(nextW, nextH, false);
+      renderScene();
+    };
+
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(resizeThree)
+        : null;
+
+    resizeObserver?.observe(mount);
+    window.addEventListener("orientationchange", resizeThree);
+
+    gsap.set(plate.scale, { x: 0.001, y: 0.001, z: 0.001 });
+
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+
+    tl.to(plate.scale, {
+      x: 1,
+      y: 1,
+      z: 1,
+      duration: 0.9,
+      onUpdate: renderScene,
+    }, 0)
+      .to(haloMat, {
+        opacity: 0.5,
+        duration: 0.9,
+        onUpdate: renderScene,
+      }, 0.35)
+
+    // Draw the initial frame once.
+    renderScene();
 
     return () => {
-      cancelAnimationFrame(rafId);
       tl.kill();
-      gsap.killTweensOf([plate.scale, plate.rotation, wMat, haloMat]);
+      gsap.killTweensOf([plate.scale, plate.rotation, haloMat]);
       scene.traverse((obj) => {
         if (obj.geometry) obj.geometry.dispose();
         if (obj.material) obj.material.dispose();
       });
-      wTex.dispose();
+
+      resizeObserver?.disconnect();
+      window.removeEventListener("orientationchange", resizeThree);
       haloTex.dispose();
       renderer.dispose();
       if (renderer.domElement.parentNode === mount) {
@@ -308,10 +288,9 @@ const CameraFocusAnimation = ({ onComplete }) => {
     };
   }, []);
 
-  const current = courses[active];
 
   return (
-    <div className="absolute inset-0 h-full w-full overflow-hidden bg-[#050505]">
+    <div className="absolute inset-0 h-full w-full max-w-full overflow-hidden bg-[#050505]">
       <div
         className="
           absolute
@@ -320,6 +299,9 @@ const CameraFocusAnimation = ({ onComplete }) => {
           aspect-square
           h-[min(88vw,78vh)]
           w-[min(88vw,78vh)]
+          h-[min(88vw,78dvh)]
+          w-[min(88vw,78dvh)]
+          max-w-[100%]
           -translate-x-1/2
           -translate-y-1/2
 
@@ -362,8 +344,8 @@ ${
 style={{
   left:
     course.id === "coding" || course.id === "autocad"
-      ? "clamp(23%, 23vw, 23%)"
-      : "clamp(77%, calc(100% - 23vw), 77%)",
+      ? "23%"
+      : "77%",
 
   top:
     course.id === "coding" || course.id === "robotics"
@@ -456,6 +438,7 @@ ${
     z-30
     h-[clamp(120px,34vw,220px)]
     w-[clamp(120px,34vw,220px)]
+    max-w-[100%]
     transition-transform
     duration-1000
     ease-[cubic-bezier(0.65,0,0.35,1)]

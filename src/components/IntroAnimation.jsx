@@ -88,9 +88,6 @@ function IntroAnimation({
   /* Secondary moving glow */
   const glowSecondaryRef = useRef(null);
 
-  /* Glow trail */
-  const glowTrailRef = useRef(null);
-
   /* Background grid */
   const gridRef = useRef(null);
 
@@ -100,23 +97,12 @@ function IntroAnimation({
   /* Fine grain texture */
   const grainRef = useRef(null);
 
-  /* Decorative orbit rings */
-  const orbitRef = useRef(null);
 
   /* Comet that travels around the orbit */
   const cometRef = useRef(null);
 
   /* Blurred engineering gears tucked into the corners */
   const cornerGearRefs = useRef([]);
-
-  /* Floating particles */
-  const particlesRef = useRef([]);
-
-  /* Small orange accent */
-  const accentRef = useRef(null);
-
-  /* Radar ping rings around the accent */
-  const pingRefs = useRef([]);
 
   /* Text refs */
   const line1Ref = useRef(null);
@@ -209,15 +195,6 @@ function IntroAnimation({
         );
 
 
-        gsap.set(
-          glowTrailRef.current,
-          {
-            opacity: 0,
-            scale: 0.5,
-            rotation: -15,
-          }
-        );
-
 
         gsap.set(
           gridRef.current,
@@ -232,16 +209,6 @@ function IntroAnimation({
           vignetteRef.current,
           {
             opacity: 0,
-          }
-        );
-
-
-        gsap.set(
-          orbitRef.current,
-          {
-            opacity: 0,
-            scale: 0.7,
-            rotation: -20,
           }
         );
 
@@ -267,23 +234,6 @@ function IntroAnimation({
           );
         });
 
-
-        gsap.set(
-          accentRef.current,
-          {
-            opacity: 0,
-            scale: 0,
-          }
-        );
-
-
-        gsap.set(
-          pingRefs.current,
-          {
-            opacity: 0,
-            scale: 1,
-          }
-        );
 
 
         gsap.set(
@@ -377,21 +327,7 @@ function IntroAnimation({
         );
 
 
-        /* ====================================================
-           FLOATING PARTICLES INITIAL STATE
-           ==================================================== */
 
-        particlesRef.current.forEach((particle) => {
-          if (!particle) return;
-
-          gsap.set(
-            particle,
-            {
-              opacity: 0,
-              scale: 0,
-            }
-          );
-        });
 
 
         /* ====================================================
@@ -478,40 +414,6 @@ function IntroAnimation({
           0.05
         );
 
-
-        /* ====================================================
-           LIGHT TRAIL ENTER
-           ==================================================== */
-
-        tl.to(
-          glowTrailRef.current,
-          {
-            opacity: 0.65,
-            scale: 1,
-            duration: 0.8,
-            ease: "power2.out",
-          },
-          0.1
-        );
-
-
-        /* ====================================================
-           ORBIT ENTER
-           ==================================================== */
-
-        tl.to(
-          orbitRef.current,
-          {
-            opacity: 0.5,
-            scale: 1,
-            rotation: 0,
-            duration: 1.1,
-            ease: "power3.out",
-          },
-          0
-        );
-
-
         /* ====================================================
            AURORA RING + COMET ENTER
 
@@ -590,27 +492,6 @@ function IntroAnimation({
             0.1 + index * 0.08
           );
         });
-
-
-        /* ====================================================
-           PARTICLES ENTER
-           ==================================================== */
-
-        particlesRef.current.forEach((particle, index) => {
-          if (!particle) return;
-
-          tl.to(
-            particle,
-            {
-              opacity: index % 3 === 0 ? 0.55 : 0.3,
-              scale: 1,
-              duration: 0.45,
-              ease: "power2.out",
-            },
-            0.15 + index * 0.035
-          );
-        });
-
 
         /* ====================================================
            WISENERY GEAR
@@ -711,23 +592,6 @@ function IntroAnimation({
           },
           0.4
         );
-
-
-        tl.to(
-          glowTrailRef.current,
-          {
-            x: "10vw",
-            y: "-2vh",
-            scaleX: 1.4,
-            scaleY: 0.8,
-            rotation: -8,
-            duration: 0.65,
-            ease: "power3.inOut",
-          },
-          0.4
-        );
-
-
         /* ====================================================
            TAGLINE
            ==================================================== */
@@ -755,60 +619,7 @@ function IntroAnimation({
           0.72
         );
 
-
-        /* ====================================================
-           ORBIT MOVEMENT
-           ==================================================== */
-
-        tl.to(
-          orbitRef.current,
-          {
-            rotation: 18,
-            scale: 1.08,
-            duration: 0.8,
-            ease: "sine.inOut",
-          },
-          0.5
-        );
-
-
-        /* ====================================================
-           ACCENT DOT + RADAR PING
-           ==================================================== */
-
-        tl.to(
-          accentRef.current,
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.35,
-            ease: "back.out(2)",
-          },
-          0.65
-        );
-
-
-        pingRefs.current.forEach((ping, index) => {
-          if (!ping) return;
-
-          tl.fromTo(
-            ping,
-            {
-              opacity: 0.55,
-              scale: 1,
-            },
-            {
-              opacity: 0,
-              scale: 5.5,
-              duration: 1.1,
-              ease: "power2.out",
-            },
-            0.68 + index * 0.22
-          );
-        });
-
-
-        /* ====================================================
+ /* ====================================================
            SECOND FAST GLOW MOVEMENT
            ==================================================== */
 
@@ -832,20 +643,6 @@ function IntroAnimation({
             y: "-7vh",
             scale: 1.22,
             duration: 0.75,
-            ease: "power3.inOut",
-          },
-          1.05
-        );
-
-
-        tl.to(
-          glowTrailRef.current,
-          {
-            x: "-12vw",
-            y: "8vh",
-            scaleX: 1.55,
-            rotation: 12,
-            duration: 0.7,
             ease: "power3.inOut",
           },
           1.05
@@ -989,20 +786,6 @@ function IntroAnimation({
           "-=0.48"
         );
 
-
-        tl.to(
-          glowTrailRef.current,
-          {
-            x: "15vw",
-            y: "-5vh",
-            scaleX: 1.7,
-            duration: 0.6,
-            ease: "power3.inOut",
-          },
-          "-=0.48"
-        );
-
-
         tl.to(
           {},
           {
@@ -1141,16 +924,6 @@ function IntroAnimation({
         );
 
 
-        tl.to(
-          orbitRef.current,
-          {
-            rotation: -22,
-            scale: 1.16,
-            duration: 0.65,
-            ease: "power3.inOut",
-          },
-          "-=0.65"
-        );
 
 
 
@@ -1245,11 +1018,7 @@ function IntroAnimation({
         tl.to(
           [
             gridRef.current,
-            orbitRef.current,
-            
             cometRef.current,
-            glowTrailRef.current,
-            accentRef.current,
             vignetteRef.current,
             grainRef.current,
             ...cornerGearRefs.current,
@@ -1330,31 +1099,6 @@ function IntroAnimation({
     };
 
   }, [onComplete]);
-
-
-  /* ==========================================================
-     PARTICLE POSITIONS
-     ========================================================== */
-
-  const particlePositions = [
-    ["12%", "18%"],
-    ["23%", "72%"],
-    ["78%", "17%"],
-    ["87%", "66%"],
-    ["8%", "48%"],
-    ["92%", "34%"],
-    ["32%", "13%"],
-    ["67%", "83%"],
-    ["48%", "8%"],
-    ["56%", "92%"],
-    ["18%", "88%"],
-    ["82%", "87%"],
-    ["38%", "77%"],
-    ["72%", "42%"],
-    ["28%", "38%"],
-    ["61%", "22%"],
-  ];
-
 
   /* ==========================================================
      JSX
@@ -1555,213 +1299,6 @@ function IntroAnimation({
             md:blur-[155px]
           "
         />
-
-
-        {/* =================================================
-            LIGHT TRAIL
-        ================================================= */}
-
-        <div
-          ref={glowTrailRef}
-          className="
-            absolute
-
-            left-1/2
-            top-1/2
-
-            h-[180px]
-            w-[520px]
-
-            -translate-x-1/2
-            -translate-y-1/2
-
-            rounded-full
-
-            bg-[#ff7133]/[0.18]
-
-            blur-[75px]
-
-            will-change-transform
-
-            sm:h-[230px]
-            sm:w-[700px]
-
-            md:h-[280px]
-            md:w-[900px]
-
-            md:blur-[100px]
-          "
-        />
-
-
-        {/* =================================================
-            ORBIT RINGS
-        ================================================= */}
-
-        <div
-          ref={orbitRef}
-          className="
-            absolute
-
-            left-1/2
-            top-1/2
-
-            h-[380px]
-            w-[380px]
-
-            -translate-x-1/2
-            -translate-y-1/2
-
-            rounded-full
-
-            border
-            border-[#ff7a29]/[0.12]
-
-            opacity-0
-
-            will-change-transform
-
-            sm:h-[560px]
-            sm:w-[560px]
-
-            md:h-[720px]
-            md:w-[720px]
-          "
-        >
-
-          <div
-            className="
-              absolute
-              inset-[12%]
-
-              rounded-full
-
-              border
-              border-[#ff7a29]/[0.08]
-            "
-          />
-
-          <div
-            className="
-              absolute
-
-              -right-1
-              top-1/2
-
-              h-2
-              w-2
-
-              -translate-y-1/2
-
-              rounded-full
-
-              bg-[#ff7a29]/40
-
-              blur-[1px]
-            "
-          />
-
-          <div
-            className="
-              absolute
-
-              left-[12%]
-              top-[18%]
-
-              h-1.5
-              w-1.5
-
-              rounded-full
-
-              bg-[#ff7a29]/30
-            "
-          />
-
-        </div>
-
-        {particlePositions.map(
-          ([left, top], index) => (
-            <div
-              key={index}
-              ref={(el) => {
-                particlesRef.current[index] = el;
-              }}
-              className="
-                absolute
-
-                h-[3px]
-                w-[3px]
-
-                rounded-full
-
-                bg-[#f56b0a]/40
-
-                blur-[0.5px]
-
-                will-change-transform
-              "
-              style={{
-                left,
-                top,
-              }}
-            />
-          )
-        )}
-
-
-        {/* =================================================
-            SMALL ACCENT + RADAR PING
-        ================================================= */}
-
-        <div
-          ref={accentRef}
-          className="
-            absolute
-
-            left-[24%]
-            top-[28%]
-
-            h-2
-            w-2
-
-            rounded-full
-
-            bg-[#ff7a29]/70
-
-            shadow-[0_0_25px_rgba(255,122,41,0.55)]
-
-            opacity-0
-          "
-        />
-
-        {[0, 1].map((index) => (
-          <div
-            key={index}
-            ref={(el) => {
-              pingRefs.current[index] = el;
-            }}
-            className="
-              absolute
-
-              left-[24%]
-              top-[28%]
-
-              h-2
-              w-2
-
-              -translate-x-1/2
-              -translate-y-1/2
-
-              rounded-full
-
-              border
-              border-[#ff7a29]/60
-
-              opacity-0
-            "
-          />
-        ))}
-
 
         {/* =================================================
             GRAIN
