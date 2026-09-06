@@ -1,6 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.webp";
 import Reveal from "./Reveal";
 import { useState } from "react";
 import FreeDemoModal from "./FreeDemoModal";

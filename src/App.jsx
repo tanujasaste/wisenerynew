@@ -1,10 +1,12 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
+import Programming from "./pages/Programming";
 import Navbar from "./components/Navbar";
 import IntroAnimation from "./components/IntroAnimation";
+import Home from "./pages/Home";
+import CivilEngineering from "./pages/CivilEngineering";
 
-const Home = lazy(() => import("./pages/Home"));
 const Teaching = lazy(() => import("./pages/Teaching"));
 const BoardDetails = lazy(() => import("./pages/BoardDetails"));
 
@@ -13,18 +15,30 @@ function App() {
     window.location.pathname === "/"
   );
 
-  return (
-    <div className="bg-[#fffdf9]">
+  useEffect(() => {
+    document.body.style.overflow = showIntro ? "hidden" : "";
 
-      {showIntro && (
-        <IntroAnimation
-          onComplete={() => setShowIntro(false)}
-        />
-      )}
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showIntro]);
+
+  return (
+    <div className="min-h-screen bg-[#fffdf9]">
+
+      {/* =========================================================
+          WEBSITE
+          Mounted immediately underneath the intro.
+          This prevents the white gap after the animation.
+      ========================================================= */}
 
       <Navbar />
 
-      <Suspense fallback={null}>
+      <Suspense
+        fallback={
+          <div className="min-h-screen bg-[#fffdf9]" />
+        }
+      >
         <Routes>
           <Route
             path="/"
@@ -40,8 +54,34 @@ function App() {
             path="/teaching/boards/:boardId"
             element={<BoardDetails />}
           />
+
+          <Route
+            path="/programming"
+            element={<Programming />}
+          />
+
+          <Route
+            path="/civil-engineering"
+            element={<CivilEngineering />}
+          />
         </Routes>
       </Suspense>
+
+
+      {/* =========================================================
+          INTRO OVERLAY
+          The website is already underneath this.
+      ========================================================= */}
+
+      {showIntro && (
+        <div className="fixed inset-0 z-[9999]">
+          <IntroAnimation
+            onComplete={() => {
+              setShowIntro(false);
+            }}
+          />
+        </div>
+      )}
 
     </div>
   );

@@ -33,18 +33,6 @@ const CameraFocusAnimation = ({ onComplete }) => {
   const [active, setActive] = useState(0);
   const [revealedCourse, setRevealedCourse] = useState(-1);
 
-  /*
-   * Cumulative clockwise rotation.
-   *
-   * We deliberately don't calculate a fresh CSS angle
-   * for every target. Every next target is reached by
-   * continuing clockwise.
-   */
-
-  // Responsive camera angles.
-  // Use both width and aspect ratio because two phones can have the same
-  // width but very different viewport heights. The tighter angles on
-  // unusually tall/narrow phones keep the camera + beam inside the stage.
   const getCameraAngles = () => {
     if (typeof window === "undefined") {
       return [-150, -20, 28, 145];

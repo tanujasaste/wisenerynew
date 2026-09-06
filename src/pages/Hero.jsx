@@ -3,11 +3,11 @@ import { FaWhatsapp, FaPhoneAlt } from "react-icons/fa";
 import CourseCard from "../components/CourseCard";
 import { useState } from "react";
 
-import heroIllustration from "../assets/hero-illustration.png";
-import roboticsImage from "../assets/robotics.png";
-import civilImage from "../assets/civil-engineering.png";
-import programmingImage from "../assets/programming.png";
-import teachingImage from "../assets/teaching.png";
+import heroIllustration from "../assets/hero-illustration.webp";
+import roboticsImage from "../assets/robotics.webp";
+import civilImage from "../assets/civil-engineering.webp";
+import programmingImage from "../assets/programming.webp";
+import teachingImage from "../assets/teaching.webp";
 import Reveal from "../components/Reveal";
 
 function Hero() {
@@ -135,7 +135,7 @@ const handlePhoneClick = async () => {
           </Reveal>
 
           {/* Heading */}
-          <Reveal trigger="mount" delay={120} y={30}>
+<Reveal trigger="mount" delay={50} y={20}>
             <h1 className="mx-auto max-w-[680px] text-[36px] font-extrabold leading-[1.15] tracking-[-1px] text-[#101c29] sm:text-[48px] sm:leading-[1.1] md:text-[58px] lg:mx-0 lg:text-[68px] lg:leading-[1.08] lg:tracking-[-2px]">
               A Smarter Way to
               <br />
@@ -146,7 +146,7 @@ const handlePhoneClick = async () => {
           </Reveal>
 
           {/* Description */}
-          <Reveal trigger="mount" delay={280}>
+          <Reveal trigger="mount" delay={100}>
             <div className="mx-auto mt-6 flex max-w-[590px] gap-4 text-left sm:mt-7 sm:gap-5 lg:mx-0">
               <div className="h-[48px] w-[3px] shrink-0 bg-[#f56b0a]" />
 
@@ -158,7 +158,7 @@ const handlePhoneClick = async () => {
           </Reveal>
 
           {/* Actions */}
-          <Reveal trigger="mount" delay={400}>
+          <Reveal trigger="mount" delay={160}>
             <div className="mt-8 flex items-center justify-center gap-10 sm:mt-10 lg:justify-start">
               <button className="flex h-[50px] items-center gap-3 rounded-[10px] bg-[#f56b0a] px-6 text-[15px] font-semibold text-white shadow-sm transition-all hover:-translate-y-1 hover:bg-[#e65f05] sm:h-[58px] sm:px-7 sm:text-[17px]">
                 Explore Courses
@@ -181,8 +181,8 @@ const handlePhoneClick = async () => {
         {/* RIGHT ILLUSTRATION */}
         <Reveal
           trigger="mount"
-          delay={200}
-          y={16}
+          delay={50}
+          y={12}
           className="relative order-1 flex h-[280px] items-center justify-center sm:h-[380px] md:h-[450px] lg:order-2 lg:h-[550px]"
         >
           <img
