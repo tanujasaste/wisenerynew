@@ -15,6 +15,7 @@ import {
   Boxes,
   CheckCircle2,
 } from "lucide-react";
+import ConstructionScene from "../components/ConstructionScene";
 
 /* =============================================================
    THEME — same visual language as Programming page
@@ -27,6 +28,11 @@ const COLORS = {
 
   orange: "#F56B0A",
   orangeLight: "#FDBA74",
+
+  // Civil Engineering Hero
+  constructionDark: "#0D1B2A",
+  constructionMid: "#10283D",
+  constructionLight: "#16364D",
 
   slate50: "#F8FAFC",
   slate100: "#F1F5F9",
@@ -321,10 +327,15 @@ function BlueprintPanel() {
 function Hero() {
   return (
     <section
-      className="relative overflow-hidden"
-      style={{ backgroundColor: COLORS.navy }}
+      className="relative isolate min-h-[710px] overflow-hidden lg:min-h-[730px]"
+      style={{
+        background:
+          "linear-gradient(180deg, #061522 0%, #081D31 45%, #0B2A4A 100%)",
+      }}
     >
-      {/* Technical background */}
+      {/* =====================================================
+          ARCHITECTURAL / BLUEPRINT BACKGROUND
+      ====================================================== */}
       <svg
         className="pointer-events-none absolute inset-0 h-full w-full"
         viewBox="0 0 1600 900"
@@ -332,35 +343,52 @@ function Hero() {
         aria-hidden="true"
       >
         <defs>
+          {/* Very subtle drafting grid */}
           <pattern
-            id="civilHeroGrid"
-            width="46"
-            height="46"
+            id="civilHeroGridV2"
+            width="64"
+            height="64"
             patternUnits="userSpaceOnUse"
           >
             <path
-              d="M46 0H0V46"
+              d="M64 0H0V64"
               fill="none"
-              stroke="rgba(255,255,255,0.05)"
+              stroke="rgba(174,214,230,0.028)"
               strokeWidth="1"
             />
           </pattern>
 
+          {/* Larger architectural grid */}
+          <pattern
+            id="civilHeroMajorGridV2"
+            width="320"
+            height="320"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M320 0H0V320"
+              fill="none"
+              stroke="rgba(174,214,230,0.042)"
+              strokeWidth="1"
+            />
+          </pattern>
+
+          {/* Controlled Wisenery orange atmosphere */}
           <radialGradient
-            id="civilOrangeGlow"
-            cx="75%"
-            cy="45%"
-            r="55%"
+            id="civilHeroOrangeGlowV2"
+            cx="74%"
+            cy="58%"
+            r="48%"
           >
             <stop
               offset="0%"
               stopColor={COLORS.orange}
-              stopOpacity="0.20"
+              stopOpacity="0.075"
             />
             <stop
-              offset="55%"
+              offset="48%"
               stopColor={COLORS.orange}
-              stopOpacity="0.045"
+              stopOpacity="0.018"
             />
             <stop
               offset="100%"
@@ -369,53 +397,123 @@ function Hero() {
             />
           </radialGradient>
 
+          {/* Soft blue depth behind the headline */}
+          <radialGradient
+            id="civilHeroBlueGlowV2"
+            cx="50%"
+            cy="30%"
+            r="62%"
+          >
+            <stop
+              offset="0%"
+              stopColor="#245274"
+              stopOpacity="0.24"
+            />
+            <stop
+              offset="58%"
+              stopColor="#163A56"
+              stopOpacity="0.08"
+            />
+            <stop
+              offset="100%"
+              stopColor="#061522"
+              stopOpacity="0"
+            />
+          </radialGradient>
+
+          {/* Dark lower fade to merge the scene into the hero */}
           <linearGradient
-            id="civilDepth"
+            id="civilHeroBottomFadeV2"
             x1="0"
             y1="0"
             x2="0"
             y2="1"
           >
-            <stop
-              offset="0%"
-              stopColor={COLORS.navyDeep}
-              stopOpacity="0"
-            />
-            <stop
-              offset="100%"
-              stopColor={COLORS.navyDeep}
-              stopOpacity="0.65"
-            />
+            <stop offset="0%" stopColor="#071A2B" stopOpacity="0" />
+            <stop offset="62%" stopColor="#071A2B" stopOpacity="0.04" />
+            <stop offset="100%" stopColor="#061522" stopOpacity="0.72" />
           </linearGradient>
+
+          {/* Edge vignette */}
+          <radialGradient id="civilHeroVignetteV2" cx="50%" cy="45%" r="72%">
+            <stop offset="58%" stopColor="#061522" stopOpacity="0" />
+            <stop offset="100%" stopColor="#020B13" stopOpacity="0.34" />
+          </radialGradient>
         </defs>
 
+        <rect width="100%" height="100%" fill="url(#civilHeroGridV2)" />
+        <rect width="100%" height="100%" fill="url(#civilHeroMajorGridV2)" />
+        <rect width="100%" height="100%" fill="url(#civilHeroBlueGlowV2)" />
+        <rect width="100%" height="100%" fill="url(#civilHeroOrangeGlowV2)" />
+
+        {/* =================================================
+            LARGE ARCHITECTURAL GUIDE LINES
+        ================================================== */}
+        <g
+          fill="none"
+          stroke="#9BC0D1"
+          strokeWidth="1"
+          opacity="0.085"
+        >
+          {/* Main vertical datum */}
+          <path d="M184 0V900" />
+          <path d="M1416 0V900" />
+
+          {/* Horizontal floor / level references */}
+          <path d="M0 650H1600" />
+          <path d="M0 720H1600" />
+
+          {/* Perspective construction guides */}
+          <path d="M800 430L210 900" />
+          <path d="M800 430L1390 900" />
+          <path d="M800 430L470 900" />
+          <path d="M800 430L1130 900" />
+        </g>
+
+        {/* Orange technical datum marks */}
+        <g
+          fill="none"
+          stroke={COLORS.orange}
+          strokeWidth="2"
+          opacity="0.25"
+        >
+          <path d="M184 146H230" />
+          <path d="M1370 146H1416" />
+          <path d="M184 650H224" />
+          <path d="M1376 650H1416" />
+        </g>
+
+        {/* Small drafting crosshair */}
+        <g
+          fill="none"
+          stroke="#A9C9D8"
+          strokeWidth="1"
+          opacity="0.10"
+        >
+          <circle cx="800" cy="430" r="13" />
+          <path d="M778 430H822M800 408V452" />
+        </g>
+
         <rect
           width="100%"
           height="100%"
-          fill="url(#civilHeroGrid)"
+          fill="url(#civilHeroBottomFadeV2)"
         />
-
-        <ellipse
-          cx="1220"
-          cy="300"
-          rx="550"
-          ry="430"
-          fill="url(#civilOrangeGlow)"
-        />
-
         <rect
           width="100%"
           height="100%"
-          fill="url(#civilDepth)"
+          fill="url(#civilHeroVignetteV2)"
         />
       </svg>
 
-      {/* Floating engineering symbols */}
+      {/* =====================================================
+          SUBTLE ENGINEERING ANNOTATIONS
+      ====================================================== */}
       <div
         className="pointer-events-none absolute inset-0 overflow-hidden"
         aria-hidden="true"
       >
-        <span className="civil-float civil-float-1">A-101</span>
+        <span className="civil-float civil-float-1">A-101 / STRUCTURAL</span>
         <span className="civil-float civil-float-2">12.00 m</span>
         <span className="civil-float civil-float-3">∠ 90°</span>
         <span className="civil-float civil-float-4">GRID A-4</span>
@@ -423,130 +521,107 @@ function Hero() {
         <span className="civil-float civil-float-6">LEVEL +3.600</span>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
-        <div className="grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
-          {/* LEFT */}
-          <div className="relative z-10">
+      {/* =====================================================
+          HERO CONTENT
+      ====================================================== */}
+      <div
+        className="relative z-10 mx-auto flex min-h-[710px] max-w-7xl flex-col px-5 pb-[275px] pt-14 sm:px-8 sm:pb-[280px] sm:pt-16 lg:min-h-[730px] lg:px-10 lg:pb-[285px] lg:pt-[72px]"
+      >
+        <div className="mx-auto w-full text-center">
+          {/* Badge */}
+          <div className="flex justify-center">
             <div
-              className="inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5"
+              className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
               style={{
-                borderColor: "rgba(245,107,10,0.35)",
-                backgroundColor: "rgba(245,107,10,0.08)",
+                borderColor: "rgba(245,107,10,0.42)",
+                background:
+                  "linear-gradient(180deg, rgba(245,107,10,0.10), rgba(245,107,10,0.035))",
+                boxShadow: "0 0 0 1px rgba(245,107,10,0.025)",
               }}
             >
-              <HardHat
-                size={13}
-                style={{ color: COLORS.orange }}
-              />
-
+              <HardHat size={13} style={{ color: COLORS.orange }} />
               <span
-                className="text-xs font-semibold"
+                className="text-[10px] font-bold uppercase tracking-[0.10em] sm:text-xs"
                 style={{ color: COLORS.orangeLight }}
               >
                 CIVIL ENGINEERING • INDUSTRY SKILLS
               </span>
             </div>
-
-            <h1 className="mt-7 max-w-2xl text-4xl font-black leading-[1.04] tracking-tight text-white sm:text-5xl lg:text-6xl">
-              From technical drawings to
-              <span style={{ color: COLORS.orange }}>
-                {" "}
-                real-world structures.
-              </span>
-            </h1>
-
-            <p
-              className="mt-6 max-w-xl text-base leading-7 sm:text-lg"
-              style={{ color: COLORS.slate300 }}
-            >
-              Build practical civil engineering skills across CAD,
-              BIM, structural design, estimation, project planning
-              and GIS — using the tools professionals work with.
-            </p>
-
-            <div className="mt-9 flex flex-wrap gap-3">
-              <a
-                href="#roadmap"
-                className="group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-0.5"
-                style={{
-                  backgroundColor: COLORS.orange,
-                  boxShadow:
-                    "0 10px 30px rgba(245,107,10,0.25)",
-                }}
-              >
-                Explore the roadmap
-                <ArrowRight
-                  size={16}
-                  className="transition-transform duration-200 group-hover:translate-x-1"
-                />
-              </a>
-
-              <a
-                href="#tools"
-                className="inline-flex items-center gap-2 rounded-full border px-6 py-3.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-white/5"
-                style={{
-                  borderColor: "rgba(255,255,255,0.18)",
-                }}
-              >
-                Explore the tools
-              </a>
-            </div>
-
-            {/* Stats */}
-            <div
-              className="mt-14 grid max-w-lg grid-cols-3 gap-6 border-t pt-7"
-              style={{
-                borderColor: "rgba(255,255,255,0.1)",
-              }}
-            >
-              <div>
-                <div className="text-2xl font-black text-white">
-                  05
-                </div>
-                <div
-                  className="mt-1 text-[10px] leading-4"
-                  style={{ color: COLORS.slate400 }}
-                >
-                  Core skill areas
-                </div>
-              </div>
-
-              <div>
-                <div
-                  className="text-2xl font-black"
-                  style={{ color: COLORS.orange }}
-                >
-                  11
-                </div>
-                <div
-                  className="mt-1 text-[10px] leading-4"
-                  style={{ color: COLORS.slate400 }}
-                >
-                  Tools & skills
-                </div>
-              </div>
-
-              <div>
-                <div className="text-2xl font-black text-white">
-                  01
-                </div>
-                <div
-                  className="mt-1 text-[10px] leading-4"
-                  style={{ color: COLORS.slate400 }}
-                >
-                  Complete pathway
-                </div>
-              </div>
-            </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="relative z-10 flex justify-center lg:justify-end">
-            <BlueprintPanel />
+          {/* Heading */}
+          <h1
+            className="mx-auto mt-6 w-full max-w-[1240px] text-center text-[2.45rem] font-black uppercase leading-[0.96] tracking-[-0.045em] text-white sm:mt-7 sm:text-5xl md:text-6xl lg:text-[4.15rem] xl:text-[4.55rem] 2xl:text-[4.8rem]"
+          >
+            <span className="block whitespace-nowrap">
+              FROM TECHNICAL DRAWINGS
+            </span>
+            <span
+              className="mt-1 block whitespace-nowrap"
+              style={{ color: COLORS.orange }}
+            >
+              REAL-WORLD STRUCTURES.
+            </span>
+          </h1>
+
+          {/* Description */}
+          <p
+            className="mx-auto mt-7 max-w-4xl text-xs font-medium uppercase leading-6 tracking-[0.015em] sm:mt-8 sm:text-sm sm:leading-7 md:text-base"
+            style={{ color: "rgba(226,232,240,0.78)" }}
+          >
+            BUILD PRACTICAL CIVIL ENGINEERING SKILLS ACROSS CAD, BIM,
+            STRUCTURAL DESIGN, ESTIMATION, PROJECT PLANNING AND GIS — USING
+            THE TOOLS PROFESSIONALS WORK WITH.
+          </p>
+
+          {/* CTAs */}
+          <div className="mt-7 flex justify-center gap-3 sm:mt-8">
+            <a
+              href="#roadmap"
+              className="group inline-flex items-center gap-2 rounded-full px-5 py-3 text-xs font-bold uppercase tracking-wide text-white transition-all duration-200 hover:-translate-y-0.5 sm:px-6 sm:py-3.5 sm:text-sm"
+              style={{
+                backgroundColor: COLORS.orange,
+                boxShadow: "0 12px 32px rgba(245,107,10,0.20)",
+              }}
+            >
+              EXPLORE THE ROADMAP
+              <ArrowRight
+                size={15}
+                className="transition-transform duration-200 group-hover:translate-x-1"
+              />
+            </a>
+
+            <a
+              href="#tools"
+              className="inline-flex items-center gap-2 rounded-full border px-5 py-3 text-xs font-bold uppercase tracking-wide text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/5 sm:px-6 sm:py-3.5 sm:text-sm"
+              style={{ borderColor: "rgba(255,255,255,0.18)" }}
+            >
+              EXPLORE THE TOOLS
+            </a>
           </div>
         </div>
       </div>
 
+      {/* =====================================================
+          CONSTRUCTION SCENE
+          Integrated into the lower hero instead of taking
+          normal document space.
+      ====================================================== */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-[390px] sm:h-[390px]">
+        {/* Soft transition behind the buildings */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-[72%]"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(6,21,34,0) 0%, rgba(6,21,34,0.16) 42%, rgba(6,21,34,0.48) 100%)",
+          }}
+        />
+        <ConstructionScene />
+      </div>
+
+      {/* =====================================================
+          HERO CSS
+      ====================================================== */}
       <style>{`
         .civil-float {
           position: absolute;
@@ -556,43 +631,48 @@ function Hero() {
             Menlo,
             Consolas,
             monospace;
-          font-size: 11px;
+          font-size: 9px;
           font-weight: 600;
-          color: rgba(255,255,255,0.10);
-          animation: civilFloat 9s ease-in-out infinite;
+          letter-spacing: 0.08em;
+          color: rgba(174,214,230,0.12);
+          animation: civilFloat 10s ease-in-out infinite;
+          white-space: nowrap;
         }
 
         .civil-float-1 {
-          top: 15%;
+          top: 17%;
           left: 5%;
         }
 
         .civil-float-2 {
-          top: 72%;
-          left: 9%;
+          top: 62%;
+          left: 8%;
           animation-delay: 1.5s;
         }
 
         .civil-float-3 {
           top: 27%;
-          left: 91%;
+          right: 5%;
+          left: auto;
           animation-delay: 2.5s;
         }
 
         .civil-float-4 {
-          top: 82%;
-          left: 80%;
+          top: 72%;
+          right: 8%;
+          left: auto;
           animation-delay: 3s;
         }
 
         .civil-float-5 {
-          top: 9%;
-          left: 84%;
+          top: 12%;
+          right: 10%;
+          left: auto;
           animation-delay: 1s;
         }
 
         .civil-float-6 {
-          top: 52%;
+          top: 50%;
           left: 3%;
           animation-delay: 4s;
         }
@@ -600,18 +680,34 @@ function Hero() {
         @keyframes civilFloat {
           0%, 100% {
             transform: translateY(0);
-            opacity: .10;
+            opacity: 0.10;
           }
 
           50% {
-            transform: translateY(-12px);
-            opacity: .22;
+            transform: translateY(-6px);
+            opacity: 0.16;
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
           .civil-float {
             animation: none !important;
+          }
+        }
+
+        @media (max-width: 767px) {
+          .civil-float-1,
+          .civil-float-4,
+          .civil-float-5,
+          .civil-float-6 {
+            display: none;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .civil-float-2,
+          .civil-float-3 {
+            display: none;
           }
         }
       `}</style>
@@ -628,7 +724,7 @@ function RoadmapSection() {
     <section
       id="roadmap"
       className="relative overflow-hidden px-5 py-20 sm:px-8 lg:px-10 lg:py-28"
-      style={{ backgroundColor: COLORS.slate50 }}
+      style={{ backgroundColor: "#FFFCF8" }}
     >
       {/* Background */}
       <div className="pointer-events-none absolute inset-0">
