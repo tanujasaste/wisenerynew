@@ -1,6 +1,5 @@
 import Hero from "./Hero";
 import AboutUs from "./AboutUs";
-import Footer from "./Footer";
 
 export default function Home() {
   return (
@@ -19,7 +18,6 @@ export default function Home() {
         </section>
       </main>
 
-      <Footer />
     </>
   );
 }

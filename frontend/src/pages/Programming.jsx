@@ -870,145 +870,313 @@ function buildPath(count, rowHeight, width) {
 
 
 function RoadmapSection() {
-  const courses = [
-    {
-      id: 1,
-      number: "01",
-      title: "Programming Fundamentals",
-      description:
-        "Build the mental model behind programming. Learn variables, conditions, loops, functions and problem-solving.",
-      topics: ["Variables", "Loops", "Functions", "Logic"],
-      level: "BEGINNER",
-      duration: "4 weeks",
-      progress: "Start here",
-      icon: Braces,
-      featured: true,
-    },
-    {
-      id: 2,
-      number: "02",
-      title: "Programming with JavaScript",
-      description:
-        "Turn programming concepts into working applications and start writing code like a developer.",
-      topics: ["JavaScript", "ES6", "Arrays", "Functions"],
-      level: "BEGINNER",
-      duration: "5 weeks",
-      progress: "Core skill",
-      icon: Code2,
-    },
-    {
-      id: 3,
-      number: "03",
-      title: "Object-Oriented Programming",
-      description:
-        "Understand how larger applications are structured using objects, classes and reusable code.",
-      topics: ["Objects", "Classes", "Inheritance", "Patterns"],
-      level: "INTERMEDIATE",
-      duration: "3 weeks",
-      progress: "Level up",
-      icon: Boxes,
-    },
-    {
-      id: 4,
-      number: "04",
-      title: "Git & GitHub",
-      description:
-        "Learn the workflow real developers use to manage code, collaborate and ship projects.",
-      topics: ["Git", "GitHub", "Branches", "Pull Requests"],
-      level: "BEGINNER",
-      duration: "2 weeks",
-      progress: "Developer tool",
-      icon: GitBranch,
-    },
-    {
-      id: 5,
-      number: "05",
-      title: "Data Structures & Algorithms",
-      description:
-        "Train your problem-solving skills and learn the foundations behind efficient software.",
-      topics: ["Arrays", "Stacks", "Trees", "Algorithms"],
-      level: "INTERMEDIATE",
-      duration: "6 weeks",
-      progress: "Deep dive",
-      icon: Binary,
-    },
-    {
-      id: 6,
-      number: "06",
-      title: "Web Development",
-      description:
-        "Bring your programming skills to the browser and start building interfaces people can use.",
-      topics: ["HTML", "CSS", "React", "APIs"],
-      level: "INTERMEDIATE",
-      duration: "6 weeks",
-      progress: "Build things",
-      icon: Globe2,
-    },
-    {
-      id: 7,
-      number: "07",
-      title: "Databases",
-      description:
-        "Learn how applications store, query and organize the data behind the interface.",
-      topics: ["SQL", "PostgreSQL", "Queries", "Schema"],
-      level: "INTERMEDIATE",
-      duration: "4 weeks",
-      progress: "Backend",
-      icon: Database,
-    },
-    {
-      id: 8,
-      number: "08",
-      title: "Real-World Projects",
-      description:
-        "Stop following tutorials. Plan, build, debug and ship projects you can actually show.",
-      topics: ["Planning", "APIs", "Debugging", "Projects"],
-      level: "ADVANCED",
-      duration: "6 weeks",
-      progress: "Portfolio",
-      icon: Rocket,
-      featured: true,
-    },
-    {
-      id: 9,
-      number: "09",
-      title: "Deployment & Tools",
-      description:
-        "Learn what happens after your code works — environments, deployment and developer tooling.",
-      topics: ["Deploy", "CLI", "Docker", "CI/CD"],
-      level: "ADVANCED",
-      duration: "3 weeks",
-      progress: "Ship it",
-      icon: Terminal,
-    },
-    {
-      id: 10,
-      number: "10",
-      title: "Career Launch",
-      description:
-        "Turn your skills and projects into a portfolio, interview preparation and your first opportunity.",
-      topics: ["Portfolio", "Resume", "Interviews", "Internships"],
-      level: "CAREER",
-      duration: "4 weeks",
-      progress: "Get hired",
-      icon: BriefcaseBusiness,
-      featured: true,
-    },
+  const [selectedLevel, setSelectedLevel] = useState(4);
+
+  const levels = [
+    { id: 4, label: "Class 4", group: "Primary" },
+    { id: 5, label: "Class 5", group: "Primary" },
+    { id: 6, label: "Class 6", group: "Middle School" },
+    { id: 7, label: "Class 7", group: "Middle School" },
+    { id: 8, label: "Class 8", group: "Middle School" },
+    { id: 9, label: "Class 9", group: "Secondary" },
+    { id: 10, label: "Class 10", group: "Secondary" },
+    { id: 11, label: "Class 11", group: "Senior Secondary" },
+    { id: 12, label: "Class 12", group: "Senior Secondary" },
+    { id: 13, label: "Engineering", group: "Engineering" },
   ];
 
-  const filters = [
-    "All topics",
-    "Foundations",
-    "Development",
-    "Data",
-    "Tools",
-    "Career",
-  ];
+  const roadmap = {
+    4: {
+      title: "Class 4 Programming",
+      subtitle: "Build curiosity and learn the basics of computational thinking.",
+      topics: [
+        {
+          title: "Computational Thinking",
+          description: "Learn how to break problems into simple logical steps.",
+          icon: Braces,
+        },
+        {
+          title: "Scratch",
+          description: "Create animations, stories and simple games using blocks.",
+          icon: Code2,
+        },
+        {
+          title: "Logic & Patterns",
+          description: "Develop sequencing, patterns and basic problem-solving skills.",
+          icon: Binary,
+        },
+        {
+          title: "Creative Projects",
+          description: "Turn ideas into small interactive projects.",
+          icon: Rocket,
+        },
+      ],
+    },
+
+    5: {
+      title: "Class 5 Programming",
+      subtitle: "Move from simple blocks to structured thinking and mini projects.",
+      topics: [
+        {
+          title: "Scratch Projects",
+          description: "Build games, animations and interactive stories.",
+          icon: Code2,
+        },
+        {
+          title: "Algorithms",
+          description: "Understand instructions, sequences and step-by-step solutions.",
+          icon: Binary,
+        },
+        {
+          title: "Problem Solving",
+          description: "Use logical thinking to solve beginner programming challenges.",
+          icon: Braces,
+        },
+        {
+          title: "Digital Skills",
+          description: "Learn safe and productive use of computers and technology.",
+          icon: Terminal,
+        },
+      ],
+    },
+
+    6: {
+      title: "Class 6 Programming",
+      subtitle: "Start writing real code while strengthening your logical thinking.",
+      topics: [
+        {
+          title: "Python Basics",
+          description: "Write your first programs using Python.",
+          icon: Code2,
+        },
+        {
+          title: "Variables",
+          description: "Store and work with numbers, text and other values.",
+          icon: Braces,
+        },
+        {
+          title: "Conditions",
+          description: "Make programs take decisions using if and else.",
+          icon: Binary,
+        },
+        {
+          title: "Mini Projects",
+          description: "Build calculators, quizzes and simple interactive programs.",
+          icon: Rocket,
+        },
+      ],
+    },
+
+    7: {
+      title: "Class 7 Programming",
+      subtitle: "Go deeper into Python and start building more useful programs.",
+      topics: [
+        {
+          title: "Python",
+          description: "Strengthen Python fundamentals through practical programs.",
+          icon: Code2,
+        },
+        {
+          title: "Loops",
+          description: "Automate repetitive tasks using for and while loops.",
+          icon: Binary,
+        },
+        {
+          title: "Functions",
+          description: "Create reusable blocks of code to solve problems.",
+          icon: Braces,
+        },
+        {
+          title: "Problem Solving",
+          description: "Apply programming logic to real-world challenges.",
+          icon: Rocket,
+        },
+      ],
+    },
+
+    8: {
+      title: "Class 8 Programming",
+      subtitle: "Build stronger programming foundations and start exploring the web.",
+      topics: [
+        {
+          title: "Python",
+          description: "Work with lists, strings, functions and structured programs.",
+          icon: Code2,
+        },
+        {
+          title: "HTML & CSS",
+          description: "Create and style your first webpages.",
+          icon: Globe2,
+        },
+        {
+          title: "Logic Building",
+          description: "Solve increasingly complex programming problems.",
+          icon: Binary,
+        },
+        {
+          title: "Projects",
+          description: "Build games, websites and useful beginner applications.",
+          icon: Rocket,
+        },
+      ],
+    },
+
+    9: {
+      title: "Class 9 Programming",
+      subtitle: "Move toward text-based development and real-world coding.",
+      topics: [
+        {
+          title: "Python",
+          description: "Master core Python concepts and structured programming.",
+          icon: Code2,
+        },
+        {
+          title: "HTML & CSS",
+          description: "Build responsive webpages and understand web structure.",
+          icon: Globe2,
+        },
+        {
+          title: "JavaScript Basics",
+          description: "Add interaction and dynamic behaviour to webpages.",
+          icon: Braces,
+        },
+        {
+          title: "Problem Solving",
+          description: "Develop algorithmic thinking through coding challenges.",
+          icon: Binary,
+        },
+      ],
+    },
+
+    10: {
+      title: "Class 10 Programming",
+      subtitle: "Strengthen your coding foundation before moving into advanced development.",
+      topics: [
+        {
+          title: "Python / Java",
+          description: "Learn programming fundamentals through a structured language.",
+          icon: Code2,
+        },
+        {
+          title: "Data Structures",
+          description: "Understand arrays, strings and basic data organization.",
+          icon: Database,
+        },
+        {
+          title: "Web Development",
+          description: "Build webpages using HTML, CSS and JavaScript.",
+          icon: Globe2,
+        },
+        {
+          title: "Algorithms",
+          description: "Learn how to approach problems efficiently.",
+          icon: Binary,
+        },
+      ],
+    },
+
+    11: {
+      title: "Class 11 Programming",
+      subtitle: "Enter serious programming with computer science and development concepts.",
+      topics: [
+        {
+          title: "Python / C++",
+          description: "Build strong programming fundamentals with a powerful language.",
+          icon: Code2,
+        },
+        {
+          title: "Data Structures",
+          description: "Learn arrays, stacks, queues and other core structures.",
+          icon: Database,
+        },
+        {
+          title: "OOP",
+          description: "Understand classes, objects, inheritance and reusable code.",
+          icon: Boxes,
+        },
+        {
+          title: "SQL & Databases",
+          description: "Learn how applications store and retrieve structured data.",
+          icon: Database,
+        },
+      ],
+    },
+
+    12: {
+      title: "Class 12 Programming",
+      subtitle: "Prepare for engineering, competitive programming and real-world development.",
+      topics: [
+        {
+          title: "Advanced Programming",
+          description: "Strengthen C++, Python or Java through practical problems.",
+          icon: Code2,
+        },
+        {
+          title: "DSA",
+          description: "Learn important data structures and algorithmic techniques.",
+          icon: Binary,
+        },
+        {
+          title: "Web Development",
+          description: "Build complete frontend projects using modern web technologies.",
+          icon: Globe2,
+        },
+        {
+          title: "Projects & Git",
+          description: "Create portfolio projects and learn professional development workflows.",
+          icon: GitBranch,
+        },
+      ],
+    },
+
+    13: {
+      title: "Engineering Programming",
+      subtitle: "Move from learning syntax to becoming a software developer.",
+      topics: [
+        {
+          title: "C / C++ / Java",
+          description: "Build strong programming and object-oriented foundations.",
+          icon: Code2,
+        },
+        {
+          title: "Data Structures & Algorithms",
+          description: "Master DSA for software development and technical interviews.",
+          icon: Binary,
+        },
+        {
+          title: "Full-Stack Development",
+          description: "Learn HTML, CSS, JavaScript, React, Node.js and APIs.",
+          icon: Globe2,
+        },
+        {
+          title: "Databases & Backend",
+          description: "Work with SQL, MongoDB, APIs and backend architecture.",
+          icon: Database,
+        },
+        {
+          title: "Git & GitHub",
+          description: "Use professional version control and collaboration workflows.",
+          icon: GitBranch,
+        },
+        {
+          title: "Projects & Deployment",
+          description: "Build, deploy and showcase real-world software projects.",
+          icon: Rocket,
+        },
+      ],
+    },
+  };
+
+  const active = roadmap[selectedLevel];
+
+  const currentIndex = levels.findIndex(
+    (level) => level.id === selectedLevel
+  );
 
   return (
     <section
       id="roadmap"
-      className="relative overflow-hidden px-5 py-20 sm:px-8 lg:px-10 lg:py-28"
+      className="relative overflow-hidden px-5 py-16 sm:px-8 lg:px-10 lg:py-24"
       style={{ backgroundColor: COLORS.slate50 }}
     >
       {/* =====================================================
@@ -1018,29 +1186,28 @@ function RoadmapSection() {
         className="pointer-events-none absolute inset-0"
         aria-hidden="true"
       >
-        {/* Orange ambient glow */}
         <div
-          className="absolute -left-32 top-20 h-96 w-96 rounded-full blur-3xl"
+          className="absolute -left-40 top-20 h-96 w-96 rounded-full blur-3xl"
           style={{
-            backgroundColor: "rgba(245,107,10,0.07)",
+            backgroundColor: "rgba(245,107,10,0.055)",
           }}
         />
 
         <div
-          className="absolute -right-32 top-[35%] h-96 w-96 rounded-full blur-3xl"
+          className="absolute -right-40 bottom-10 h-96 w-96 rounded-full blur-3xl"
           style={{
-            backgroundColor: "rgba(245,107,10,0.045)",
+            backgroundColor: "rgba(37,99,235,0.045)",
           }}
         />
 
         {/* Technical grid */}
         <svg
-          className="absolute inset-0 h-full w-full opacity-50"
+          className="absolute inset-0 h-full w-full opacity-40"
           aria-hidden="true"
         >
           <defs>
             <pattern
-              id="programming-grid"
+              id="programming-grade-grid"
               width="44"
               height="44"
               patternUnits="userSpaceOnUse"
@@ -1057,35 +1224,31 @@ function RoadmapSection() {
           <rect
             width="100%"
             height="100%"
-            fill="url(#programming-grid)"
+            fill="url(#programming-grade-grid)"
           />
         </svg>
       </div>
 
       <div className="relative mx-auto max-w-7xl">
 
-        {/* =================================================
+        {/* =====================================================
             HEADER
-        ================================================= */}
-        <div className="relative">
-
-          {/* Orange accent line */}
+        ===================================================== */}
+        <div className="mb-10">
           <div
-            className="mb-7 h-1 w-12 rounded-full"
+            className="mb-5 h-1 w-12 rounded-full"
             style={{
               backgroundColor: COLORS.orange,
             }}
           />
 
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-
-            <div className="max-w-2xl">
-
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
               <div
                 className="inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5"
                 style={{
-                  borderColor: "rgba(245,107,10,0.28)",
-                  backgroundColor: "rgba(245,107,10,0.07)",
+                  borderColor: "rgba(245,107,10,0.25)",
+                  backgroundColor: "rgba(245,107,10,0.06)",
                 }}
               >
                 <Compass
@@ -1095,465 +1258,361 @@ function RoadmapSection() {
 
                 <span
                   className="text-[11px] font-bold uppercase tracking-[0.16em]"
-                  style={{
-                    color: COLORS.orange,
-                  }}
+                  style={{ color: COLORS.orange }}
                 >
-                  Programming Explorer
+                  Programming Roadmap
                 </span>
               </div>
 
               <h2
-                className="mt-5 text-4xl font-black tracking-tight sm:text-5xl"
+                className="mt-4 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl"
                 style={{ color: COLORS.navy }}
               >
-                Explore the
+                Learn programming,
                 <span
                   className="ml-2"
                   style={{ color: COLORS.orange }}
                 >
-                  programming world.
+                  step by step.
                 </span>
               </h2>
 
               <p
-                className="mt-5 max-w-xl text-base leading-7"
-                style={{
-                  color: COLORS.slate500,
-                }}
+                className="mt-4 max-w-2xl text-sm leading-6 sm:text-base"
+                style={{ color: COLORS.slate500 }}
               >
-                Programming isn't one skill. It's a whole world of
-                concepts, tools and technologies. Explore the areas
-                that turn you from someone who writes code into
-                someone who can build with it.
+                Choose your class and discover the programming concepts,
+                languages and skills you can learn at each stage.
               </p>
             </div>
+          </div>
+        </div>
 
-            {/* Explorer counter */}
+        {/* =====================================================
+            GRADE SELECTOR
+        ===================================================== */}
+        <div
+          className="overflow-hidden rounded-2xl border bg-white p-6 sm:p-8"
+          style={{
+            borderColor: "rgba(245,107,10,0.18)",
+          }}
+        >
+          {/* Selector heading */}
+          <div className="flex items-center gap-4">
             <div
-              className="relative overflow-hidden rounded-2xl border bg-white px-6 py-5 shadow-sm"
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
               style={{
-                borderColor: COLORS.slate200,
+                backgroundColor: "rgba(245,107,10,0.10)",
+                color: COLORS.orange,
               }}
             >
-              {/* Orange corner */}
+              <Code2 size={23} />
+            </div>
+
+            <div className="flex-1">
+              <h3
+                className="text-xl font-black sm:text-2xl"
+                style={{ color: COLORS.navy }}
+              >
+                1. Select your level
+              </h3>
+
               <div
-                className="absolute right-0 top-0 h-12 w-12"
+                className="mt-2 h-px w-full"
                 style={{
-                  background:
-                    "linear-gradient(135deg, transparent 50%, rgba(245,107,10,0.12) 50%)",
+                  backgroundColor: "rgba(245,107,10,0.18)",
                 }}
               />
+            </div>
+          </div>
 
-              <div className="flex items-center gap-4">
+          {/* =================================================
+              TIMELINE
+          ================================================= */}
+          <div className="mt-9 overflow-x-auto pb-2">
+            <div className="min-w-[850px]">
 
+              {/* Circles + connecting line */}
+              <div className="relative flex items-start justify-between">
+
+                {/* Background line */}
                 <div
-                  className="flex h-11 w-11 items-center justify-center rounded-xl"
+                  className="absolute left-[3.5%] right-[3.5%] top-7 h-0.5"
                   style={{
-                    backgroundColor: COLORS.navy,
-                    color: COLORS.orange,
+                    backgroundColor: COLORS.slate200,
+                  }}
+                />
+
+                {/* Active progress line */}
+                <div
+                  className="absolute left-[3.5%] top-7 h-0.5 transition-all duration-500"
+                  style={{
+                    width: `${
+                      currentIndex === 0
+                        ? 0
+                        : (currentIndex / (levels.length - 1)) * 93
+                    }%`,
+                    backgroundColor: COLORS.orange,
+                  }}
+                />
+
+                {levels.map((level, index) => {
+                  const isActive = selectedLevel === level.id;
+                  const isCompleted = index < currentIndex;
+
+                  return (
+                    <button
+                      key={level.id}
+                      onClick={() => setSelectedLevel(level.id)}
+                      className="group relative z-10 flex w-20 flex-col items-center outline-none"
+                    >
+                      <div
+                        className="flex h-14 w-14 items-center justify-center rounded-full border text-sm font-semibold transition-all duration-300"
+                        style={{
+                          backgroundColor: isActive
+                            ? COLORS.orange
+                            : "#fff",
+                          borderColor:
+                            isActive || isCompleted
+                              ? COLORS.orange
+                              : "#cbd5e1",
+                          color: isActive
+                            ? "#fff"
+                            : COLORS.navy,
+                          boxShadow: isActive
+                            ? "0 8px 22px rgba(245,107,10,0.25)"
+                            : "none",
+                          transform: isActive
+                            ? "scale(1.08)"
+                            : "scale(1)",
+                        }}
+                      >
+                        {level.id === 13 ? "ENG" : level.id}
+                      </div>
+
+                      <span
+                        className="mt-3 whitespace-nowrap text-xs font-medium transition-colors"
+                        style={{
+                          color: isActive
+                            ? COLORS.orange
+                            : COLORS.navy,
+                          fontWeight: isActive ? 700 : 500,
+                        }}
+                      >
+                        {level.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Grade group labels */}
+              <div className="mt-8 grid grid-cols-5 text-center">
+                <div
+                  className="border-t pt-3 text-xs"
+                  style={{
+                    borderColor: COLORS.slate200,
+                    color: COLORS.slate500,
                   }}
                 >
-                  <Compass size={21} />
+                  Primary
                 </div>
 
-                <div>
-                  <div
-                    className="font-mono text-[10px] font-bold uppercase tracking-widest"
-                    style={{
-                      color: COLORS.orange,
-                    }}
-                  >
-                    Explore
-                  </div>
+                <div
+                  className="border-t pt-3 text-xs"
+                  style={{
+                    borderColor: COLORS.slate200,
+                    color: COLORS.slate500,
+                  }}
+                >
+                  Middle School
+                </div>
 
-                  <div
-                    className="mt-1 text-sm font-black"
-                    style={{
-                      color: COLORS.navy,
-                    }}
-                  >
-                    10 learning areas
-                  </div>
+                <div
+                  className="border-t pt-3 text-xs"
+                  style={{
+                    borderColor: COLORS.orange,
+                    color: COLORS.orange,
+                    fontWeight: 700,
+                  }}
+                >
+                  Secondary
+                </div>
+
+                <div
+                  className="border-t pt-3 text-xs"
+                  style={{
+                    borderColor: COLORS.slate200,
+                    color: COLORS.slate500,
+                  }}
+                >
+                  Senior Secondary
+                </div>
+
+                <div
+                  className="border-t pt-3 text-xs"
+                  style={{
+                    borderColor: COLORS.slate200,
+                    color: COLORS.slate500,
+                  }}
+                >
+                  Engineering
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* =================================================
-            FILTER BAR
-        ================================================= */}
-        <div className="mt-12 flex flex-wrap items-center gap-2">
+        {/* =====================================================
+            ACTIVE LEVEL CONTENT
+        ===================================================== */}
+        <div
+          className="relative mt-4 overflow-hidden rounded-2xl border bg-white"
+          style={{
+            borderColor: "rgba(37,99,235,0.18)",
+          }}
+        >
+          {/* Small active-level pointer */}
+          <div
+            className="absolute -top-3 left-1/2 h-6 w-6 -translate-x-1/2 rotate-45"
+            style={{
+              backgroundColor: "#2563eb",
+            }}
+          />
 
-          {filters.map((filter, index) => (
-            <button
-              key={filter}
-              className="group rounded-full border px-4 py-2.5 text-xs font-bold transition-all duration-200"
-              style={{
-                backgroundColor:
-                  index === 0 ? COLORS.orange : "#fff",
-                borderColor:
-                  index === 0
-                    ? COLORS.orange
-                    : COLORS.slate200,
-                color:
-                  index === 0
-                    ? "#fff"
-                    : COLORS.slate500,
-                boxShadow:
-                  index === 0
-                    ? "0 6px 18px rgba(245,107,10,0.18)"
-                    : "none",
-              }}
-            >
-              {filter}
-            </button>
-          ))}
+          {/* Header */}
+          <div className="relative flex flex-col gap-5 p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
 
-          <div className="ml-auto hidden items-center gap-2 sm:flex">
-            <span
-              className="h-2 w-2 rounded-full"
-              style={{
-                backgroundColor: COLORS.orange,
-                boxShadow: "0 0 0 4px rgba(245,107,10,0.10)",
-              }}
-            />
-
-            <span
-              className="font-mono text-[10px] font-semibold uppercase tracking-wider"
-              style={{
-                color: COLORS.slate400,
-              }}
-            >
-              30+ practical topics
-            </span>
-          </div>
-        </div>
-
-        {/* =================================================
-            COURSE GRID
-        ================================================= */}
-        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-
-          {courses.map((course) => {
-            const Icon = course.icon;
-
-            return (
-              <article
-                key={course.id}
-                className={`
-                  group relative overflow-hidden rounded-2xl
-                  border bg-white
-                  transition-all duration-300
-                  hover:-translate-y-1
-                  hover:shadow-[0_20px_45px_rgba(7,29,52,0.10)]
-                  ${course.featured ? "lg:col-span-1" : ""}
-                `}
+            <div className="flex items-center gap-4">
+              <div
+                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full"
                 style={{
-                  borderColor: course.featured
-                    ? "rgba(245,107,10,0.25)"
-                    : COLORS.slate200,
+                  backgroundColor: "#eff6ff",
+                  color: "#2563eb",
                 }}
               >
-                {/* Orange top accent */}
-                <div
-                  className="absolute left-0 right-0 top-0 h-1 transition-all duration-300 group-hover:h-1.5"
-                  style={{
-                    backgroundColor: course.featured
-                      ? COLORS.orange
-                      : "rgba(245,107,10,0.16)",
-                  }}
-                />
+                <Code2 size={27} />
+              </div>
 
-                {/* Background number */}
-                <div
-                  className="pointer-events-none absolute -bottom-8 -right-2 select-none font-mono text-8xl font-black transition-all duration-300 group-hover:-translate-y-2"
+              <div>
+                <h3
+                  className="text-2xl font-black sm:text-3xl"
+                  style={{ color: COLORS.navy }}
+                >
+                  {active.title}
+                </h3>
+
+                <p
+                  className="mt-1 text-sm leading-6"
+                  style={{ color: COLORS.slate500 }}
+                >
+                  {active.subtitle}
+                </p>
+              </div>
+            </div>
+
+            <div
+              className="inline-flex shrink-0 items-center gap-2 self-start rounded-full border px-4 py-2 text-xs font-bold md:self-center"
+              style={{
+                borderColor: "#dbeafe",
+                backgroundColor: "#eff6ff",
+                color: "#2563eb",
+              }}
+            >
+              {selectedLevel === 13
+                ? "Software Development"
+                : `Class ${selectedLevel} Curriculum`}
+            </div>
+          </div>
+
+          {/* =================================================
+              TOPICS
+          ================================================= */}
+          <div className="grid gap-4 px-6 pb-7 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
+            {active.topics.map((topic, index) => {
+              const Icon = topic.icon;
+
+              return (
+                <article
+                  key={topic.title}
+                  className="group rounded-xl border p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_35px_rgba(7,29,52,0.08)]"
                   style={{
-                    color: course.featured
-                      ? "rgba(245,107,10,0.055)"
-                      : "rgba(7,29,52,0.035)",
+                    borderColor: "#dbeafe",
+                    backgroundColor: "#fff",
                   }}
                 >
-                  {course.number}
-                </div>
-
-                <div className="relative p-6 sm:p-7">
-
-                  {/* Card header */}
-                  <div className="flex items-start justify-between">
-
+                  <div className="flex items-start gap-4">
                     <div
-                      className="flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-105"
+                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-105"
                       style={{
-                        backgroundColor: course.featured
-                          ? "rgba(245,107,10,0.10)"
-                          : COLORS.slate50,
-                        color: course.featured
-                          ? COLORS.orange
-                          : COLORS.navy,
+                        backgroundColor: "#eff6ff",
+                        color: "#2563eb",
                       }}
                     >
                       <Icon size={22} />
                     </div>
 
-                    <div className="text-right">
-
+                    <div className="min-w-0">
                       <div
-                        className="font-mono text-xs font-black"
+                        className="mb-1 font-mono text-[10px] font-bold uppercase tracking-widest"
                         style={{
-                          color: course.featured
-                            ? COLORS.orange
-                            : COLORS.slate300,
+                          color: COLORS.orange,
                         }}
                       >
-                        {course.number}
+                        {String(index + 1).padStart(2, "0")}
                       </div>
 
-                      <div
-                        className="mt-1 text-[9px] font-bold uppercase tracking-wider"
+                      <h4
+                        className="text-base font-black"
                         style={{
-                          color: COLORS.slate300,
+                          color: COLORS.navy,
                         }}
                       >
-                        {course.progress}
-                      </div>
+                        {topic.title}
+                      </h4>
+
+                      <p
+                        className="mt-2 text-sm leading-5"
+                        style={{
+                          color: COLORS.slate500,
+                        }}
+                      >
+                        {topic.description}
+                      </p>
                     </div>
                   </div>
-
-                  {/* Title */}
-                  <h3
-                    className="mt-6 text-xl font-black tracking-tight"
-                    style={{
-                      color: COLORS.navy,
-                    }}
-                  >
-                    {course.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p
-                    className="mt-3 text-sm leading-6"
-                    style={{
-                      color: COLORS.slate500,
-                    }}
-                  >
-                    {course.description}
-                  </p>
-
-                  {/* Topics */}
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {course.topics.map((topic, topicIndex) => (
-                      <span
-                        key={topic}
-                        className="rounded-md border px-2.5 py-1 font-mono text-[10px] font-semibold"
-                        style={{
-                          borderColor:
-                            topicIndex === 0 && course.featured
-                              ? "rgba(245,107,10,0.20)"
-                              : COLORS.slate200,
-                          backgroundColor:
-                            topicIndex === 0 && course.featured
-                              ? "rgba(245,107,10,0.06)"
-                              : COLORS.slate50,
-                          color:
-                            topicIndex === 0 && course.featured
-                              ? COLORS.orange
-                              : COLORS.slate500,
-                        }}
-                      >
-                        {topic}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Progress line */}
-                  <div className="mt-7">
-
-                    <div className="mb-2 flex items-center justify-between">
-                      <span
-                        className="text-[9px] font-bold uppercase tracking-wider"
-                        style={{
-                          color: COLORS.slate400,
-                        }}
-                      >
-                        Skill path
-                      </span>
-
-                      <span
-                        className="font-mono text-[9px] font-bold"
-                        style={{
-                          color: course.featured
-                            ? COLORS.orange
-                            : COLORS.slate400,
-                        }}
-                      >
-                        {course.number} / 10
-                      </span>
-                    </div>
-
-                    <div
-                      className="h-1 overflow-hidden rounded-full"
-                      style={{
-                        backgroundColor: COLORS.slate100,
-                      }}
-                    >
-                      <div
-                        className="h-full rounded-full transition-all duration-500 group-hover:w-full"
-                        style={{
-                          width: `${course.id * 10}%`,
-                          backgroundColor: course.featured
-                            ? COLORS.orange
-                            : "rgba(245,107,10,0.45)",
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Footer */}
-                  <div
-                    className="mt-6 flex items-center justify-between border-t pt-5"
-                    style={{
-                      borderColor: COLORS.slate100,
-                    }}
-                  >
-                    <div className="flex items-center gap-3">
-
-                      <span
-                        className="text-[10px] font-black tracking-wider"
-                        style={{
-                          color:
-                            course.level === "ADVANCED" ||
-                            course.level === "CAREER"
-                              ? COLORS.orange
-                              : COLORS.slate400,
-                        }}
-                      >
-                        {course.level}
-                      </span>
-
-                      <span
-                        className="h-1 w-1 rounded-full"
-                        style={{
-                          backgroundColor: COLORS.slate300,
-                        }}
-                      />
-
-                      <span
-                        className="text-[10px] font-semibold"
-                        style={{
-                          color: COLORS.slate400,
-                        }}
-                      >
-                        {course.duration}
-                      </span>
-                    </div>
-
-                    {/* Explore */}
-                    <div
-                      className="flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-300 group-hover:translate-x-1"
-                      style={{
-                        borderColor: course.featured
-                          ? "rgba(245,107,10,0.25)"
-                          : COLORS.slate200,
-                        backgroundColor: course.featured
-                          ? "rgba(245,107,10,0.05)"
-                          : "transparent",
-                        color: course.featured
-                          ? COLORS.orange
-                          : COLORS.slate400,
-                      }}
-                    >
-                      <ArrowUpRight size={15} />
-                    </div>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-
-        {/* =================================================
-            BOTTOM CTA
-        ================================================= */}
-        <div
-          className="relative mt-8 overflow-hidden rounded-2xl"
-          style={{
-            backgroundColor: COLORS.navy,
-          }}
-        >
-          {/* Orange glow */}
-          <div
-            className="pointer-events-none absolute -right-20 -top-32 h-72 w-72 rounded-full blur-3xl"
-            style={{
-              backgroundColor: "rgba(245,107,10,0.18)",
-            }}
-          />
-
-          {/* Decorative code */}
-          <div
-            className="pointer-events-none absolute right-8 top-6 hidden font-mono text-xs leading-6 opacity-20 md:block"
-            style={{
-              color: COLORS.orangeLight,
-            }}
-          >
-            <div>{"const skills = ["}</div>
-            <div className="pl-4">"build",</div>
-            <div className="pl-4">"ship",</div>
-            <div className="pl-4">"grow"</div>
-            <div>{"];"}</div>
+                </article>
+              );
+            })}
           </div>
 
-          <div className="relative flex flex-col gap-6 p-7 sm:p-8 lg:flex-row lg:items-center lg:justify-between">
-
-            <div>
-              <div
-                className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em]"
-                style={{
-                  color: COLORS.orangeLight,
-                }}
-              >
-                <span
-                  className="h-1.5 w-1.5 rounded-full"
-                  style={{
-                    backgroundColor: COLORS.orange,
-                  }}
-                />
-                Your programming journey
-              </div>
-
-              <h3 className="mt-2 text-xl font-black text-white sm:text-2xl">
-                Learn the skill. Build the thing.
-              </h3>
-
-              <p
-                className="mt-2 max-w-xl text-sm leading-6"
-                style={{
-                  color: COLORS.slate300,
-                }}
-              >
-                Explore a topic, build something with it, then move
-                deeper. That's how programming starts to click.
-              </p>
-            </div>
-
-            <a
-              href="#build"
-              className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-0.5"
+          {/* Footer */}
+          <div
+            className="flex flex-col gap-3 border-t px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8"
+            style={{
+              borderColor: COLORS.slate100,
+              backgroundColor: "#fafcff",
+            }}
+          >
+            <span
+              className="text-xs font-semibold"
               style={{
-                backgroundColor: COLORS.orange,
-                boxShadow:
-                  "0 10px 30px rgba(245,107,10,0.22)",
+                color: COLORS.slate400,
               }}
             >
-              Start building
+              {selectedLevel === 13
+                ? "From fundamentals to industry-ready development"
+                : `Recommended programming path for ${active.title}`}
+            </span>
 
-              <ArrowRight
-                size={16}
-                className="transition-transform duration-200 group-hover:translate-x-1"
-              />
-            </a>
-
+            <span
+              className="font-mono text-[10px] font-bold uppercase tracking-widest"
+              style={{
+                color: COLORS.orange,
+              }}
+            >
+              Learn • Build • Grow
+            </span>
           </div>
         </div>
       </div>
@@ -1660,62 +1719,6 @@ function BuildSection() {
 }
 
 /* =============================================================
-   FINAL CTA
-============================================================= */
-function InternshipCTA() {
-  return (
-    <section className="px-5 pb-20 sm:px-8 lg:px-10">
-      <div className="mx-auto max-w-6xl">
-        <div
-          className="relative overflow-hidden rounded-3xl px-7 py-16 text-center sm:px-14"
-          style={{ backgroundColor: COLORS.navy }}
-        >
-          <span
-            className="pointer-events-none absolute -right-6 -top-10 select-none text-9xl font-black"
-            style={{ color: "rgba(255,255,255,0.05)" }}
-          >
-            10
-          </span>
-
-          <div className="relative mx-auto max-w-2xl">
-            <div
-              className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl"
-              style={{ backgroundColor: COLORS.orange }}
-            >
-              <Briefcase size={24} className="text-white" />
-            </div>
-
-            <h2 className="mt-7 text-3xl font-black tracking-tight text-white sm:text-4xl">
-              Stage ten is a job, not a certificate.
-            </h2>
-
-            <p className="mx-auto mt-5 max-w-lg text-sm leading-7" style={{ color: COLORS.slate300 }}>
-              Follow the roadmap, ship the projects, and walk into your first
-              internship ready to contribute from day one.
-            </p>
-
-            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-              <button
-                className="inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-bold text-white transition hover:opacity-90"
-                style={{ backgroundColor: COLORS.orange }}
-              >
-                Start your journey
-              </button>
-              <button
-                className="inline-flex items-center justify-center rounded-full border px-7 py-3.5 text-sm font-bold text-white transition hover:opacity-80"
-                style={{ borderColor: "rgba(255,255,255,0.15)" }}
-              >
-                Explore courses
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* =============================================================
    PAGE
 ============================================================= */
 export default function Programming() {
@@ -1728,7 +1731,6 @@ export default function Programming() {
       <Hero />
       <RoadmapSection />
       <BuildSection />
-      <InternshipCTA />
     </div>
   );
 }

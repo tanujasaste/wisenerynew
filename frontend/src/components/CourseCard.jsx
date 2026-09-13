@@ -10,13 +10,16 @@ function CourseCard({ image, title }) {
       navigate("/programming");
     } else if (title === "Civil Engineering") {
       navigate("/civil-engineering");
+    } else if (title === "Robotics") {
+      navigate("/robotics");
     }
   };
 
   const isClickable =
     title === "Teaching" ||
     title === "Programming" ||
-    title === "Civil Engineering";
+    title === "Civil Engineering" ||
+    title === "Robotics";
 
   return (
     <div

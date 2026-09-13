@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -720,35 +720,395 @@ function Hero() {
 ============================================================= */
 
 function RoadmapSection() {
+  const [selectedLevel, setSelectedLevel] = useState(4);
+
+  const levels = [
+    { id: 4, label: "Class 4", group: "Primary" },
+    { id: 5, label: "Class 5", group: "Primary" },
+    { id: 6, label: "Class 6", group: "Middle School" },
+    { id: 7, label: "Class 7", group: "Middle School" },
+    { id: 8, label: "Class 8", group: "Middle School" },
+    { id: 9, label: "Class 9", group: "Secondary" },
+    { id: 10, label: "Class 10", group: "Secondary" },
+    { id: 11, label: "Class 11", group: "Senior Secondary" },
+    { id: 12, label: "Class 12", group: "Senior Secondary" },
+    { id: 13, label: "Engineering", group: "Engineering" },
+  ];
+
+  const roadmap = {
+    4: {
+      title: "Class 4 Civil Engineering",
+      subtitle:
+        "Discover how buildings, roads and bridges are designed and built.",
+      topics: [
+        {
+          title: "Amazing Structures",
+          description:
+            "Explore buildings, bridges, towers and other structures around us.",
+          icon: Building2,
+        },
+        {
+          title: "Shapes & Structures",
+          description:
+            "Understand how basic shapes are used to create strong structures.",
+          icon: Boxes,
+        },
+        {
+          title: "Measurement",
+          description:
+            "Learn basic length, height, distance and measurement concepts.",
+          icon: Ruler,
+        },
+        {
+          title: "Build & Create",
+          description:
+            "Design simple structures through fun hands-on activities.",
+          icon: HardHat,
+        },
+      ],
+    },
+
+    5: {
+      title: "Class 5 Civil Engineering",
+      subtitle:
+        "Start understanding the science behind the structures we see every day.",
+      topics: [
+        {
+          title: "Buildings",
+          description:
+            "Learn the basic parts of a building and how they work together.",
+          icon: Building2,
+        },
+        {
+          title: "Bridges",
+          description:
+            "Discover different bridge types and why their shapes matter.",
+          icon: Layers3,
+        },
+        {
+          title: "Measurement",
+          description:
+            "Practice measurements, dimensions and simple scale concepts.",
+          icon: Ruler,
+        },
+        {
+          title: "Construction Basics",
+          description:
+            "Explore materials such as concrete, steel, bricks and wood.",
+          icon: Boxes,
+        },
+      ],
+    },
+
+    6: {
+      title: "Class 6 Civil Engineering",
+      subtitle:
+        "Build a foundation in geometry, materials and construction concepts.",
+      topics: [
+        {
+          title: "Engineering Geometry",
+          description:
+            "Use lines, angles, shapes and measurements in engineering problems.",
+          icon: Compass,
+        },
+        {
+          title: "Construction Materials",
+          description:
+            "Understand common materials used to construct buildings and roads.",
+          icon: Boxes,
+        },
+        {
+          title: "Plans & Drawings",
+          description:
+            "Learn how simple drawings can represent real-world structures.",
+          icon: Ruler,
+        },
+        {
+          title: "Structures",
+          description:
+            "Explore how loads are transferred through simple structures.",
+          icon: Building2,
+        },
+      ],
+    },
+
+    7: {
+      title: "Class 7 Civil Engineering",
+      subtitle:
+        "Understand how engineers plan, measure and represent structures.",
+      topics: [
+        {
+          title: "Technical Drawing",
+          description:
+            "Learn basic technical drawing, dimensions and visual representation.",
+          icon: Ruler,
+        },
+        {
+          title: "Forces & Loads",
+          description:
+            "Discover how forces act on buildings, bridges and other structures.",
+          icon: Layers3,
+        },
+        {
+          title: "Surveying Basics",
+          description:
+            "Understand how engineers measure land and determine locations.",
+          icon: Map,
+        },
+        {
+          title: "Construction Process",
+          description:
+            "Follow the basic stages involved in constructing a building.",
+          icon: HardHat,
+        },
+      ],
+    },
+
+    8: {
+      title: "Class 8 Civil Engineering",
+      subtitle:
+        "Move from basic concepts toward real engineering drawings and design.",
+      topics: [
+        {
+          title: "Engineering Drawing",
+          description:
+            "Read and create basic technical drawings and plans.",
+          icon: Ruler,
+        },
+        {
+          title: "Structural Concepts",
+          description:
+            "Understand beams, columns, slabs and foundations.",
+          icon: Building2,
+        },
+        {
+          title: "Surveying",
+          description:
+            "Learn the purpose of surveying in construction and land development.",
+          icon: Map,
+        },
+        {
+          title: "AutoCAD Introduction",
+          description:
+            "Get introduced to computer-aided drafting and digital drawings.",
+          icon: Compass,
+        },
+      ],
+    },
+
+    9: {
+      title: "Class 9 Civil Engineering",
+      subtitle:
+        "Begin exploring the tools and principles used by real civil engineers.",
+      topics: [
+        {
+          title: "AutoCAD Basics",
+          description:
+            "Create basic 2D drawings, plans and engineering layouts.",
+          icon: Ruler,
+        },
+        {
+          title: "Building Components",
+          description:
+            "Understand foundations, walls, columns, beams, slabs and roofs.",
+          icon: Building2,
+        },
+        {
+          title: "Surveying Concepts",
+          description:
+            "Learn basic instruments, measurements and site surveying.",
+          icon: Map,
+        },
+        {
+          title: "Construction Materials",
+          description:
+            "Study concrete, cement, steel, aggregates and their applications.",
+          icon: Boxes,
+        },
+      ],
+    },
+
+    10: {
+      title: "Class 10 Civil Engineering",
+      subtitle:
+        "Develop practical engineering awareness through drawings, structures and estimation.",
+      topics: [
+        {
+          title: "AutoCAD 2D",
+          description:
+            "Create floor plans, elevations and basic construction drawings.",
+          icon: Ruler,
+        },
+        {
+          title: "Structural Basics",
+          description:
+            "Understand how beams, columns and slabs carry loads.",
+          icon: Building2,
+        },
+        {
+          title: "Quantity Estimation",
+          description:
+            "Learn the basics of measuring construction quantities and materials.",
+          icon: Calculator,
+        },
+        {
+          title: "Site Planning",
+          description:
+            "Understand basic site layouts, dimensions and construction planning.",
+          icon: ClipboardList,
+        },
+      ],
+    },
+
+    11: {
+      title: "Class 11 Civil Engineering",
+      subtitle:
+        "Start thinking like an engineer with mathematics, mechanics and technical drawing.",
+      topics: [
+        {
+          title: "Engineering Drawing",
+          description:
+            "Develop technical drawing and visualization skills.",
+          icon: Ruler,
+        },
+        {
+          title: "Engineering Mechanics",
+          description:
+            "Understand forces, equilibrium, moments and basic mechanics.",
+          icon: Settings2,
+        },
+        {
+          title: "Surveying",
+          description:
+            "Learn fundamental surveying methods and measurements.",
+          icon: Map,
+        },
+        {
+          title: "Construction Materials",
+          description:
+            "Study properties and applications of concrete, steel and other materials.",
+          icon: Boxes,
+        },
+      ],
+    },
+
+    12: {
+      title: "Class 12 Civil Engineering",
+      subtitle:
+        "Prepare for civil engineering with structures, surveying and construction fundamentals.",
+      topics: [
+        {
+          title: "Structural Engineering",
+          description:
+            "Understand fundamental concepts of structural behaviour and design.",
+          icon: Building2,
+        },
+        {
+          title: "Surveying & Mapping",
+          description:
+            "Explore surveying, mapping and digital representation of land.",
+          icon: Map,
+        },
+        {
+          title: "Estimation & Costing",
+          description:
+            "Learn how quantities, materials and project costs are estimated.",
+          icon: Calculator,
+        },
+        {
+          title: "CAD & BIM Basics",
+          description:
+            "Get familiar with digital construction drawings and building models.",
+          icon: Layers3,
+        },
+      ],
+    },
+
+    13: {
+      title: "Civil Engineering",
+      subtitle:
+        "Build industry-ready skills across design, construction, infrastructure and project management.",
+      topics: [
+        {
+          title: "AutoCAD & Civil 3D",
+          description:
+            "Create professional 2D drawings and civil infrastructure designs.",
+          icon: Ruler,
+        },
+        {
+          title: "Structural Design",
+          description:
+            "Study structural analysis, RCC, steel structures and design principles.",
+          icon: Building2,
+        },
+        {
+          title: "Quantity & Estimation",
+          description:
+            "Prepare BOQs, quantity estimates and construction cost calculations.",
+          icon: Calculator,
+        },
+        {
+          title: "BIM & Revit",
+          description:
+            "Create intelligent 3D building models and coordinate project information.",
+          icon: Layers3,
+        },
+        {
+          title: "Surveying & GIS",
+          description:
+            "Work with surveying, mapping, GIS and modern land-development tools.",
+          icon: Map,
+        },
+        {
+          title: "Project Management",
+          description:
+            "Learn planning, scheduling, site management and project coordination.",
+          icon: ClipboardList,
+        },
+      ],
+    },
+  };
+
+  const active = roadmap[selectedLevel];
+
+  const currentIndex = levels.findIndex(
+    (level) => level.id === selectedLevel
+  );
+
   return (
     <section
       id="roadmap"
-      className="relative overflow-hidden px-5 py-20 sm:px-8 lg:px-10 lg:py-28"
+      className="relative overflow-hidden px-5 py-16 sm:px-8 lg:px-10 lg:py-24"
       style={{ backgroundColor: "#FFFCF8" }}
     >
-      {/* Background */}
-      <div className="pointer-events-none absolute inset-0">
+      {/* =====================================================
+          BACKGROUND
+      ===================================================== */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+      >
         <div
-          className="absolute -left-32 top-20 h-96 w-96 rounded-full blur-3xl"
+          className="absolute -left-40 top-20 h-96 w-96 rounded-full blur-3xl"
           style={{
-            backgroundColor: "rgba(245,107,10,0.07)",
+            backgroundColor: "rgba(245,107,10,0.055)",
           }}
         />
 
         <div
-          className="absolute -right-32 top-[35%] h-96 w-96 rounded-full blur-3xl"
+          className="absolute -right-40 bottom-10 h-96 w-96 rounded-full blur-3xl"
           style={{
-            backgroundColor: "rgba(245,107,10,0.045)",
+            backgroundColor: "rgba(37,99,235,0.04)",
           }}
         />
 
         <svg
-          className="absolute inset-0 h-full w-full opacity-50"
+          className="absolute inset-0 h-full w-full opacity-40"
           aria-hidden="true"
         >
           <defs>
             <pattern
-              id="civilRoadmapGrid"
+              id="civil-grade-grid"
               width="44"
               height="44"
               patternUnits="userSpaceOnUse"
@@ -765,26 +1125,31 @@ function RoadmapSection() {
           <rect
             width="100%"
             height="100%"
-            fill="url(#civilRoadmapGrid)"
+            fill="url(#civil-grade-grid)"
           />
         </svg>
       </div>
 
       <div className="relative mx-auto max-w-7xl">
-        {/* Header */}
-        <div className="mb-12">
+
+        {/* =====================================================
+            HEADER
+        ===================================================== */}
+        <div className="mb-10">
           <div
-            className="mb-7 h-1 w-12 rounded-full"
-            style={{ backgroundColor: COLORS.orange }}
+            className="mb-5 h-1 w-12 rounded-full"
+            style={{
+              backgroundColor: COLORS.orange,
+            }}
           />
 
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
               <div
                 className="inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5"
                 style={{
-                  borderColor: "rgba(245,107,10,0.28)",
-                  backgroundColor: "rgba(245,107,10,0.07)",
+                  borderColor: "rgba(245,107,10,0.25)",
+                  backgroundColor: "rgba(245,107,10,0.06)",
                 }}
               >
                 <Compass
@@ -794,239 +1159,386 @@ function RoadmapSection() {
 
                 <span
                   className="text-[11px] font-bold uppercase tracking-[0.16em]"
-                  style={{ color: COLORS.orange }}
+                  style={{
+                    color: COLORS.orange,
+                  }}
                 >
-                  Civil Engineering Explorer
+                  Civil Engineering Roadmap
                 </span>
               </div>
 
               <h2
-                className="mt-5 text-4xl font-black tracking-tight sm:text-5xl"
-                style={{ color: COLORS.navy }}
+                className="mt-4 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl"
+                style={{
+                  color: COLORS.navy,
+                }}
               >
-                One engineering path.
+                Build your engineering
                 <span
                   className="ml-2"
-                  style={{ color: COLORS.orange }}
+                  style={{
+                    color: COLORS.orange,
+                  }}
                 >
-                  Multiple disciplines.
+                  journey step by step.
                 </span>
               </h2>
 
               <p
-                className="mt-5 max-w-xl text-base leading-7"
-                style={{ color: COLORS.slate500 }}
+                className="mt-4 max-w-2xl text-sm leading-6 sm:text-base"
+                style={{
+                  color: COLORS.slate500,
+                }}
               >
-                Start with drafting and modelling, move into
-                structural analysis and estimation, then understand
-                how projects are planned and managed.
+                Choose your level and discover the civil engineering
+                concepts, tools and practical skills you can learn at
+                each stage.
               </p>
             </div>
+          </div>
+        </div>
 
-            {/* Counter */}
+        {/* =====================================================
+            LEVEL SELECTOR
+        ===================================================== */}
+        <div
+          className="overflow-hidden rounded-2xl border bg-white p-6 sm:p-8"
+          style={{
+            borderColor: "rgba(245,107,10,0.18)",
+          }}
+        >
+          {/* Heading */}
+          <div className="flex items-center gap-4">
             <div
-              className="relative overflow-hidden rounded-2xl border bg-white px-6 py-5 shadow-sm"
-              style={{ borderColor: COLORS.slate200 }}
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
+              style={{
+                backgroundColor: "rgba(245,107,10,0.10)",
+                color: COLORS.orange,
+              }}
             >
-              <div
-                className="absolute right-0 top-0 h-12 w-12"
+              <Building2 size={23} />
+            </div>
+
+            <div className="flex-1">
+              <h3
+                className="text-xl font-black sm:text-2xl"
                 style={{
-                  background:
-                    "linear-gradient(135deg, transparent 50%, rgba(245,107,10,0.12) 50%)",
+                  color: COLORS.navy,
+                }}
+              >
+                1. Select your level
+              </h3>
+
+              <div
+                className="mt-2 h-px w-full"
+                style={{
+                  backgroundColor: "rgba(245,107,10,0.18)",
                 }}
               />
+            </div>
+          </div>
 
-              <div className="flex items-center gap-4">
+          {/* =================================================
+              TIMELINE
+          ================================================= */}
+          <div className="mt-9 overflow-x-auto pb-2">
+            <div className="min-w-[850px]">
+
+              <div className="relative flex items-start justify-between">
+
+                {/* Background line */}
                 <div
-                  className="flex h-11 w-11 items-center justify-center rounded-xl"
+                  className="absolute left-[3.5%] right-[3.5%] top-7 h-0.5"
                   style={{
-                    backgroundColor: COLORS.navy,
-                    color: COLORS.orange,
+                    backgroundColor: COLORS.slate200,
+                  }}
+                />
+
+                {/* Active progress */}
+                <div
+                  className="absolute left-[3.5%] top-7 h-0.5 transition-all duration-500"
+                  style={{
+                    width: `${
+                      currentIndex === 0
+                        ? 0
+                        : (currentIndex / (levels.length - 1)) * 93
+                    }%`,
+                    backgroundColor: COLORS.orange,
+                  }}
+                />
+
+                {levels.map((level, index) => {
+                  const isActive = selectedLevel === level.id;
+                  const isCompleted = index < currentIndex;
+
+                  return (
+                    <button
+                      key={level.id}
+                      onClick={() => setSelectedLevel(level.id)}
+                      className="group relative z-10 flex w-20 flex-col items-center outline-none"
+                    >
+                      <div
+                        className="flex h-14 w-14 items-center justify-center rounded-full border text-sm font-semibold transition-all duration-300"
+                        style={{
+                          backgroundColor: isActive
+                            ? COLORS.orange
+                            : "#fff",
+                          borderColor:
+                            isActive || isCompleted
+                              ? COLORS.orange
+                              : "#cbd5e1",
+                          color: isActive
+                            ? "#fff"
+                            : COLORS.navy,
+                          boxShadow: isActive
+                            ? "0 8px 22px rgba(245,107,10,0.25)"
+                            : "none",
+                          transform: isActive
+                            ? "scale(1.08)"
+                            : "scale(1)",
+                        }}
+                      >
+                        {level.id === 13 ? "ENG" : level.id}
+                      </div>
+
+                      <span
+                        className="mt-3 whitespace-nowrap text-xs transition-colors"
+                        style={{
+                          color: isActive
+                            ? COLORS.orange
+                            : COLORS.navy,
+                          fontWeight: isActive ? 700 : 500,
+                        }}
+                      >
+                        {level.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Group labels */}
+              <div className="mt-8 grid grid-cols-5 text-center">
+                <div
+                  className="border-t pt-3 text-xs"
+                  style={{
+                    borderColor: COLORS.slate200,
+                    color: COLORS.slate500,
                   }}
                 >
-                  <Building2 size={21} />
+                  Primary
                 </div>
 
-                <div>
-                  <div
-                    className="font-mono text-[10px] font-bold uppercase tracking-widest"
-                    style={{ color: COLORS.orange }}
-                  >
-                    Curriculum
-                  </div>
+                <div
+                  className="border-t pt-3 text-xs"
+                  style={{
+                    borderColor: COLORS.slate200,
+                    color: COLORS.slate500,
+                  }}
+                >
+                  Middle School
+                </div>
 
-                  <div
-                    className="mt-1 text-sm font-black"
-                    style={{ color: COLORS.navy }}
-                  >
-                    5 core engineering areas
-                  </div>
+                <div
+                  className="border-t pt-3 text-xs"
+                  style={{
+                    borderColor: COLORS.orange,
+                    color: COLORS.orange,
+                    fontWeight: 700,
+                  }}
+                >
+                  Secondary
+                </div>
+
+                <div
+                  className="border-t pt-3 text-xs"
+                  style={{
+                    borderColor: COLORS.slate200,
+                    color: COLORS.slate500,
+                  }}
+                >
+                  Senior Secondary
+                </div>
+
+                <div
+                  className="border-t pt-3 text-xs"
+                  style={{
+                    borderColor: COLORS.slate200,
+                    color: COLORS.slate500,
+                  }}
+                >
+                  Engineering
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Stack */}
+        {/* =====================================================
+            ACTIVE LEVEL CONTENT
+        ===================================================== */}
         <div
-          id="tools"
-          className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
+          className="relative mt-4 overflow-hidden rounded-2xl border bg-white"
+          style={{
+            borderColor: "rgba(37,99,235,0.18)",
+          }}
         >
-          {CIVIL_STACK.map((item) => {
-            const Icon = item.icon;
+          {/* Pointer */}
+          <div
+            className="absolute -top-3 left-1/2 h-6 w-6 -translate-x-1/2 rotate-45"
+            style={{
+              backgroundColor: "#2563eb",
+            }}
+          />
 
-            return (
-              <article
-                key={item.number}
-                className="group relative overflow-hidden rounded-2xl border bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(7,29,52,0.10)]"
+          {/* Header */}
+          <div className="relative flex flex-col gap-5 p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
+
+            <div className="flex items-center gap-4">
+              <div
+                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full"
                 style={{
-                  borderColor: item.featured
-                    ? "rgba(245,107,10,0.25)"
-                    : COLORS.slate200,
+                  backgroundColor: "#eff6ff",
+                  color: "#2563eb",
                 }}
               >
-                {/* Top orange line */}
-                <div
-                  className="absolute left-0 right-0 top-0 h-1 transition-all duration-300 group-hover:h-1.5"
-                  style={{
-                    backgroundColor: item.featured
-                      ? COLORS.orange
-                      : "rgba(245,107,10,0.16)",
-                  }}
-                />
+                <Building2 size={27} />
+              </div>
 
-                {/* Background number */}
-                <div
-                  className="pointer-events-none absolute -bottom-8 -right-2 select-none font-mono text-8xl font-black"
+              <div>
+                <h3
+                  className="text-2xl font-black sm:text-3xl"
                   style={{
-                    color: item.featured
-                      ? "rgba(245,107,10,0.055)"
-                      : "rgba(7,29,52,0.035)",
+                    color: COLORS.navy,
                   }}
                 >
-                  {item.number}
-                </div>
+                  {active.title}
+                </h3>
 
-                <div className="relative p-6 sm:p-7">
-                  <div className="flex items-start justify-between">
+                <p
+                  className="mt-1 text-sm leading-6"
+                  style={{
+                    color: COLORS.slate500,
+                  }}
+                >
+                  {active.subtitle}
+                </p>
+              </div>
+            </div>
+
+            <div
+              className="inline-flex shrink-0 items-center gap-2 self-start rounded-full border px-4 py-2 text-xs font-bold md:self-center"
+              style={{
+                borderColor: "#dbeafe",
+                backgroundColor: "#eff6ff",
+                color: "#2563eb",
+              }}
+            >
+              {selectedLevel === 13
+                ? "Professional Path"
+                : `Class ${selectedLevel} Curriculum`}
+            </div>
+          </div>
+
+          {/* =================================================
+              TOPICS
+          ================================================= */}
+          <div className="grid gap-4 px-6 pb-7 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
+            {active.topics.map((topic, index) => {
+              const Icon = topic.icon;
+
+              return (
+                <article
+                  key={topic.title}
+                  className="group rounded-xl border p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_35px_rgba(7,29,52,0.08)]"
+                  style={{
+                    borderColor: "#dbeafe",
+                    backgroundColor: "#fff",
+                  }}
+                >
+                  <div className="flex items-start gap-4">
                     <div
-                      className="flex h-12 w-12 items-center justify-center rounded-xl"
+                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-105"
                       style={{
-                        backgroundColor: item.featured
-                          ? "rgba(245,107,10,0.10)"
-                          : COLORS.slate50,
-                        color: item.featured
-                          ? COLORS.orange
-                          : COLORS.navy,
+                        backgroundColor: "#eff6ff",
+                        color: "#2563eb",
                       }}
                     >
                       <Icon size={22} />
                     </div>
 
-                    <div className="text-right">
+                    <div className="min-w-0">
                       <div
-                        className="font-mono text-xs font-black"
+                        className="mb-1 font-mono text-[10px] font-bold uppercase tracking-widest"
                         style={{
-                          color: item.featured
-                            ? COLORS.orange
-                            : COLORS.slate300,
+                          color: COLORS.orange,
                         }}
                       >
-                        {item.number}
+                        {String(index + 1).padStart(2, "0")}
                       </div>
 
-                      <div
-                        className="mt-1 text-[9px] font-bold uppercase tracking-wider"
-                        style={{ color: COLORS.slate300 }}
-                      >
-                        {item.level}
-                      </div>
-                    </div>
-                  </div>
-
-                  <h3
-                    className="mt-6 text-xl font-black tracking-tight"
-                    style={{ color: COLORS.navy }}
-                  >
-                    {item.title}
-                  </h3>
-
-                  <p
-                    className="mt-3 text-sm leading-6"
-                    style={{ color: COLORS.slate500 }}
-                  >
-                    {item.description}
-                  </p>
-
-                  {/* Topics */}
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {item.topics.map((topic, index) => (
-                      <span
-                        key={topic}
-                        className="rounded-md border px-2.5 py-1 font-mono text-[10px] font-semibold"
+                      <h4
+                        className="text-base font-black"
                         style={{
-                          borderColor:
-                            index === 0 && item.featured
-                              ? "rgba(245,107,10,0.20)"
-                              : COLORS.slate200,
-                          backgroundColor:
-                            index === 0 && item.featured
-                              ? "rgba(245,107,10,0.06)"
-                              : COLORS.slate50,
-                          color:
-                            index === 0 && item.featured
-                              ? COLORS.orange
-                              : COLORS.slate500,
+                          color: COLORS.navy,
                         }}
                       >
-                        {topic}
-                      </span>
-                    ))}
-                  </div>
+                        {topic.title}
+                      </h4>
 
-                  {/* Footer */}
-                  <div
-                    className="mt-6 flex items-center justify-between border-t pt-5"
-                    style={{ borderColor: COLORS.slate100 }}
-                  >
-                    <span
-                      className="text-[10px] font-black uppercase tracking-wider"
-                      style={{
-                        color: item.featured
-                          ? COLORS.orange
-                          : COLORS.slate400,
-                      }}
-                    >
-                      Skill area
-                    </span>
-
-                    <div
-                      className="flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-300 group-hover:translate-x-1"
-                      style={{
-                        borderColor: item.featured
-                          ? "rgba(245,107,10,0.25)"
-                          : COLORS.slate200,
-                        backgroundColor: item.featured
-                          ? "rgba(245,107,10,0.05)"
-                          : "transparent",
-                        color: item.featured
-                          ? COLORS.orange
-                          : COLORS.slate400,
-                      }}
-                    >
-                      <ArrowUpRight size={15} />
+                      <p
+                        className="mt-2 text-sm leading-5"
+                        style={{
+                          color: COLORS.slate500,
+                        }}
+                      >
+                        {topic.description}
+                      </p>
                     </div>
                   </div>
-                </div>
-              </article>
-            );
-          })}
+                </article>
+              );
+            })}
+          </div>
+
+          {/* Footer */}
+          <div
+            className="flex flex-col gap-3 border-t px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8"
+            style={{
+              borderColor: COLORS.slate100,
+              backgroundColor: "#fafcff",
+            }}
+          >
+            <span
+              className="text-xs font-semibold"
+              style={{
+                color: COLORS.slate400,
+              }}
+            >
+              {selectedLevel === 13
+                ? "From construction fundamentals to industry-ready civil engineering"
+                : `Recommended civil engineering path for Class ${selectedLevel}`}
+            </span>
+
+            <span
+              className="font-mono text-[10px] font-bold uppercase tracking-widest"
+              style={{
+                color: COLORS.orange,
+              }}
+            >
+              Design • Build • Manage
+            </span>
+          </div>
         </div>
 
-        {/* Tool strip */}
+        {/* =====================================================
+            ENGINEERING TOOL STRIP
+        ===================================================== */}
         <div
           className="mt-8 overflow-hidden rounded-2xl"
-          style={{ backgroundColor: COLORS.navy }}
+          style={{
+            backgroundColor: COLORS.navy,
+          }}
         >
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 px-7 py-5">
             {[
@@ -1056,7 +1568,9 @@ function RoadmapSection() {
                 {index < 8 && (
                   <span
                     className="hidden h-1 w-1 rounded-full sm:block"
-                    style={{ backgroundColor: COLORS.orange }}
+                    style={{
+                      backgroundColor: COLORS.orange,
+                    }}
                   />
                 )}
               </React.Fragment>
@@ -1253,88 +1767,6 @@ function WorkflowSection() {
 }
 
 /* =============================================================
-   FINAL CTA
-============================================================= */
-
-function CivilCTA() {
-  return (
-    <section className="px-5 pb-20 sm:px-8 lg:px-10">
-      <div className="mx-auto max-w-6xl">
-        <div
-          className="relative overflow-hidden rounded-3xl px-7 py-16 text-center sm:px-14"
-          style={{ backgroundColor: COLORS.navy }}
-        >
-          {/* Decorative drawing */}
-          <div
-            className="pointer-events-none absolute -right-10 -top-16 select-none font-mono text-[150px] font-black"
-            style={{ color: "rgba(255,255,255,0.035)" }}
-          >
-            A-01
-          </div>
-
-          <div
-            className="pointer-events-none absolute -left-10 bottom-0 h-64 w-64 rounded-full blur-3xl"
-            style={{
-              backgroundColor: "rgba(245,107,10,0.12)",
-            }}
-          />
-
-          <div className="relative mx-auto max-w-2xl">
-            <div
-              className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl"
-              style={{ backgroundColor: COLORS.orange }}
-            >
-              <HardHat size={24} className="text-white" />
-            </div>
-
-            <h2 className="mt-7 text-3xl font-black tracking-tight text-white sm:text-4xl">
-              Turn engineering knowledge into
-              <span style={{ color: COLORS.orangeLight }}>
-                {" "}
-                practical skills.
-              </span>
-            </h2>
-
-            <p
-              className="mx-auto mt-5 max-w-lg text-sm leading-7"
-              style={{ color: COLORS.slate300 }}
-            >
-              Learn the tools, understand the workflow and build the
-              confidence to work on real civil engineering projects.
-            </p>
-
-            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-              <a
-                href="#roadmap"
-                className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-white transition hover:-translate-y-0.5"
-                style={{
-                  backgroundColor: COLORS.orange,
-                  boxShadow:
-                    "0 10px 30px rgba(245,107,10,0.22)",
-                }}
-              >
-                Start the pathway
-                <ArrowRight size={16} />
-              </a>
-
-              <a
-                href="#tools"
-                className="inline-flex items-center justify-center rounded-full border px-7 py-3.5 text-sm font-bold text-white transition hover:bg-white/5"
-                style={{
-                  borderColor: "rgba(255,255,255,0.15)",
-                }}
-              >
-                View all tools
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* =============================================================
    PAGE
 ============================================================= */
 
@@ -1351,7 +1783,6 @@ export default function CivilEngineering() {
       <Hero />
       <RoadmapSection />
       <WorkflowSection />
-      <CivilCTA />
     </div>
   );
 }

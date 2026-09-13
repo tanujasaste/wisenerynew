@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { X, ArrowUpRight } from "lucide-react";
-
+import axios from "axios";
 function FreeDemoModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
     name: "",
@@ -47,25 +47,37 @@ function FreeDemoModal({ isOpen, onClose }) {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    console.log("Free Demo Registration:", formData);
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/demo-requests`,
+      formData
+    );
 
-    // Add your API / backend submission here
+    if (response.data.success) {
+      alert("Your free demo request has been submitted!");
 
-    alert("Your free demo request has been submitted!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        grade: "",
+        message: "",
+      });
 
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      grade: "",
-      message: "",
-    });
+      onClose();
+    }
+  } catch (error) {
+    console.error("Demo request submission failed:", error);
 
-    onClose();
-  };
+    alert(
+      error.response?.data?.message ||
+        "Something went wrong. Please try again."
+    );
+  }
+};
 
   if (!isOpen) return null;
 
@@ -177,30 +189,48 @@ function FreeDemoModal({ isOpen, onClose }) {
             {/* GRADE */}
             <div>
               <label className="mb-1.5 block text-xs font-semibold text-[#222]">
-                Student's Class / Grade
+                Student's Class / Year
               </label>
 
-              <select
-                name="grade"
-                value={formData.grade}
-                onChange={handleChange}
-                required
-                className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-[#151515] outline-none transition-all focus:border-[#FF7A29] focus:ring-2 focus:ring-[#FF7A29]/10"
-              >
-                <option value="">Select class / grade</option>
-                <option value="Grade 1">Grade 1</option>
-                <option value="Grade 2">Grade 2</option>
-                <option value="Grade 3">Grade 3</option>
-                <option value="Grade 4">Grade 4</option>
-                <option value="Grade 5">Grade 5</option>
-                <option value="Grade 6">Grade 6</option>
-                <option value="Grade 7">Grade 7</option>
-                <option value="Grade 8">Grade 8</option>
-                <option value="Grade 9">Grade 9</option>
-                <option value="Grade 10">Grade 10</option>
-                <option value="Grade 11">Grade 11</option>
-                <option value="Grade 12">Grade 12</option>
-              </select>
+<select
+  name="grade"
+  value={formData.grade}
+  onChange={handleChange}
+  required
+  className="h-12 w-full rounded-xl border border-black/10 bg-white px-4 text-sm text-[#151515] outline-none transition-all focus:border-[#FF7A29] focus:ring-2 focus:ring-[#FF7A29]/10"
+>
+  <option value="">Select class / year</option>
+
+  {/* School */}
+  <option value="Grade 1">Grade 1</option>
+  <option value="Grade 2">Grade 2</option>
+  <option value="Grade 3">Grade 3</option>
+  <option value="Grade 4">Grade 4</option>
+  <option value="Grade 5">Grade 5</option>
+  <option value="Grade 6">Grade 6</option>
+  <option value="Grade 7">Grade 7</option>
+  <option value="Grade 8">Grade 8</option>
+  <option value="Grade 9">Grade 9</option>
+  <option value="Grade 10">Grade 10</option>
+  <option value="Grade 11">Grade 11</option>
+  <option value="Grade 12">Grade 12</option>
+
+  {/* Engineering */}
+  <option value="Engineering - 1st Year">
+    Engineering - 1st Year
+  </option>
+  <option value="Engineering - 2nd Year">
+    Engineering - 2nd Year
+  </option>
+  <option value="Engineering - 3rd Year">
+    Engineering - 3rd Year
+  </option>
+  <option value="Engineering - 4th Year">
+    Engineering - 4th Year
+  </option>
+
+  <option value="Other">Other</option>
+</select>
             </div>
 
             {/* MESSAGE */}

@@ -62,29 +62,29 @@ const handlePhoneClick = async () => {
 };
 
   return (
-    <main className="relative overflow-hidden bg-[#fffdf9]">
+    <main className="relative overflow-hidden bg-[#fffdf9]" id="home">
 
       {/* FLOATING CONTACT BUTTONS */}
       <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-3 sm:bottom-8 sm:right-8 sm:gap-4">
 
         {/* WhatsApp */}
-        <a
-          href="https://chat.whatsapp.com/FiR7Wt8i8ez2CSiL0BCTvJ"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Join Wisenery WhatsApp Group"
-          className="group flex h-[48px] w-[48px] items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_25px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-[0_12px_30px_rgba(0,0,0,0.2)] sm:h-[58px] sm:w-[58px]"
-        >
-          <FaWhatsapp
-            size={26}
-            className="transition-transform duration-300 group-hover:scale-110 sm:hidden"
-          />
+<a
+  href="https://wa.me/919322984718?text=Hi%2C%20I%20want%20to%20know%20more%20about%20Wisenery."
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Chat with Wisenery on WhatsApp"
+  className="group flex h-[48px] w-[48px] items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_25px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-[0_12px_30px_rgba(0,0,0,0.2)] sm:h-[58px] sm:w-[58px]"
+>
+  <FaWhatsapp
+    size={26}
+    className="transition-transform duration-300 group-hover:scale-110 sm:hidden"
+  />
 
-          <FaWhatsapp
-            size={32}
-            className="hidden transition-transform duration-300 group-hover:scale-110 sm:block"
-          />
-        </a>
+  <FaWhatsapp
+    size={32}
+    className="hidden transition-transform duration-300 group-hover:scale-110 sm:block"
+  />
+</a>
 
         {/* Phone */}
         <button
@@ -195,13 +195,13 @@ const handlePhoneClick = async () => {
       </section>
 
       {/* COURSE AREA */}
-      <section className="relative mx-auto mt-0 max-w-[1450px] px-5 sm:px-8 lg:mt-[-20px]">
+      <section className="relative mx-auto mt-0 max-w-[1450px] px-5 sm:px-8 lg:mt-[-20px]" id="courses">
 
         {/* Navy background */}
         <div className="absolute inset-x-0 bottom-0 top-[40px] rounded-[20px] bg-[#0c1e30] sm:top-[60px] sm:rounded-[30px] lg:top-[80px]" />
 
         {/* Cards */}
-        <div className="relative z-10 flex flex-wrap justify-center gap-4 py-8 sm:gap-5 sm:py-10 lg:flex-nowrap lg:py-0">
+        <div className="relative z-10 flex flex-wrap justify-center gap-4 py-8 sm:gap-5 sm:py-10 lg:flex-nowrap lg:py-0" >
           {[
             { image: teachingImage, title: "Teaching" },
             { image: programmingImage, title: "Programming" },

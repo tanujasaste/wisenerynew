@@ -3,9 +3,11 @@ import { Routes, Route } from "react-router-dom";
 
 import Programming from "./pages/Programming";
 import Navbar from "./components/Navbar";
+import Footer from "./pages/Footer";
 import IntroAnimation from "./components/IntroAnimation";
 import Home from "./pages/Home";
 import CivilEngineering from "./pages/CivilEngineering";
+import Robotics from "./pages/Robotics";
 
 const Teaching = lazy(() => import("./pages/Teaching"));
 const BoardDetails = lazy(() => import("./pages/BoardDetails"));
@@ -27,12 +29,15 @@ function App() {
     <div className="min-h-screen bg-[#fffdf9]">
 
       {/* =========================================================
-          WEBSITE
-          Mounted immediately underneath the intro.
-          This prevents the white gap after the animation.
+          NAVBAR
+          Global — appears on every page
       ========================================================= */}
 
       <Navbar />
+
+      {/* =========================================================
+          PAGE CONTENT
+      ========================================================= */}
 
       <Suspense
         fallback={
@@ -40,6 +45,7 @@ function App() {
         }
       >
         <Routes>
+
           <Route
             path="/"
             element={<Home />}
@@ -64,13 +70,25 @@ function App() {
             path="/civil-engineering"
             element={<CivilEngineering />}
           />
+
+          <Route
+            path="/robotics"
+            element={<Robotics />}
+          />
+
         </Routes>
       </Suspense>
 
+      {/* =========================================================
+          FOOTER
+          Global — appears on every page
+      ========================================================= */}
+
+      <Footer />
 
       {/* =========================================================
           INTRO OVERLAY
-          The website is already underneath this.
+          Only shown on the home page
       ========================================================= */}
 
       {showIntro && (
