@@ -136,7 +136,79 @@ function IntroAnimation({
     }
   };
 
+/* ============================================================
+   MOBILE + DESKTOP SCROLL LOCK
+   Keeps the website completely frozen during the intro.
+============================================================ */
 
+useLayoutEffect(() => {
+  const body = document.body;
+  const html = document.documentElement;
+
+  const scrollY = window.scrollY;
+
+  // Save existing styles so we can restore them safely.
+  const previousBodyStyles = {
+    overflow: body.style.overflow,
+    position: body.style.position,
+    top: body.style.top,
+    left: body.style.left,
+    right: body.style.right,
+    width: body.style.width,
+    touchAction: body.style.touchAction,
+  };
+
+  const previousHtmlStyles = {
+    overflow: html.style.overflow,
+    overscrollBehavior: html.style.overscrollBehavior,
+  };
+
+  // Freeze the page at its current scroll position.
+  body.style.position = "fixed";
+  body.style.top = `-${scrollY}px`;
+  body.style.left = "0";
+  body.style.right = "0";
+  body.style.width = "100%";
+  body.style.overflow = "hidden";
+  body.style.touchAction = "none";
+
+  html.style.overflow = "hidden";
+  html.style.overscrollBehavior = "none";
+
+  const preventScroll = (event) => {
+    event.preventDefault();
+  };
+
+  // Prevent touch swiping and mouse-wheel scrolling.
+  document.addEventListener("touchmove", preventScroll, {
+    passive: false,
+  });
+
+  document.addEventListener("wheel", preventScroll, {
+    passive: false,
+  });
+
+  return () => {
+    document.removeEventListener("touchmove", preventScroll);
+    document.removeEventListener("wheel", preventScroll);
+
+    // Restore the original page styles.
+    body.style.overflow = previousBodyStyles.overflow;
+    body.style.position = previousBodyStyles.position;
+    body.style.top = previousBodyStyles.top;
+    body.style.left = previousBodyStyles.left;
+    body.style.right = previousBodyStyles.right;
+    body.style.width = previousBodyStyles.width;
+    body.style.touchAction = previousBodyStyles.touchAction;
+
+    html.style.overflow = previousHtmlStyles.overflow;
+    html.style.overscrollBehavior =
+      previousHtmlStyles.overscrollBehavior;
+
+    // Restore the exact position the user was at.
+    window.scrollTo(0, scrollY);
+  };
+}, []);
   /* ==========================================================
      MAIN TIMELINE
      ========================================================== */
@@ -1107,20 +1179,23 @@ function IntroAnimation({
   return (
     <div
       ref={containerRef}
-      className="
-        fixed
-        inset-0
-        z-[9999]
-
-        flex
-        items-center
-        justify-center
-
-        overflow-hidden
-
-        bg-[#fff8ef]
-        text-[#171717]
-      "
+className="
+  fixed
+  inset-0
+  z-[9999]
+  flex
+  h-[100dvh]
+  min-h-0
+  w-full
+  max-w-full
+  items-center
+  justify-center
+  overflow-hidden
+  overscroll-none
+  touch-none
+  bg-[#fff8ef]
+  text-[#171717]
+"
     >
 
       {/* =====================================================

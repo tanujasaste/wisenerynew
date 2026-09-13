@@ -278,7 +278,7 @@ const CameraFocusAnimation = ({ onComplete }) => {
 
 
   return (
-    <div className="absolute inset-0 h-full w-full max-w-full overflow-hidden bg-[#050505]">
+<div className="absolute inset-0 z-0 h-full w-full max-w-full overflow-hidden overscroll-none touch-none bg-[#050505]">
       <div
         className="
           absolute
