@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Programming from "./pages/Programming";
 import Navbar from "./components/Navbar";
@@ -13,9 +13,20 @@ const Teaching = lazy(() => import("./pages/Teaching"));
 const BoardDetails = lazy(() => import("./pages/BoardDetails"));
 
 function App() {
+  const location = useLocation();
+
   const [showIntro, setShowIntro] = useState(
     window.location.pathname === "/"
   );
+
+  // Scroll to the top whenever the route changes
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  }, [location.pathname]);
 
   useEffect(() => {
     document.body.style.overflow = showIntro ? "hidden" : "";
@@ -27,70 +38,40 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#fffdf9]">
-
-      {/* =========================================================
-          NAVBAR
-          Global — appears on every page
-      ========================================================= */}
-
+      {/* NAVBAR */}
       <Navbar />
 
-      {/* =========================================================
-          PAGE CONTENT
-      ========================================================= */}
-
+      {/* PAGE CONTENT */}
       <Suspense
         fallback={
           <div className="min-h-screen bg-[#fffdf9]" />
         }
       >
         <Routes>
+          <Route path="/" element={<Home />} />
 
-          <Route
-            path="/"
-            element={<Home />}
-          />
-
-          <Route
-            path="/teaching"
-            element={<Teaching />}
-          />
+          <Route path="/teaching" element={<Teaching />} />
 
           <Route
             path="/teaching/boards/:boardId"
             element={<BoardDetails />}
           />
 
-          <Route
-            path="/programming"
-            element={<Programming />}
-          />
+          <Route path="/programming" element={<Programming />} />
 
           <Route
             path="/civil-engineering"
             element={<CivilEngineering />}
           />
 
-          <Route
-            path="/robotics"
-            element={<Robotics />}
-          />
-
+          <Route path="/robotics" element={<Robotics />} />
         </Routes>
       </Suspense>
 
-      {/* =========================================================
-          FOOTER
-          Global — appears on every page
-      ========================================================= */}
-
+      {/* FOOTER */}
       <Footer />
 
-      {/* =========================================================
-          INTRO OVERLAY
-          Only shown on the home page
-      ========================================================= */}
-
+      {/* INTRO OVERLAY */}
       {showIntro && (
         <div className="fixed inset-0 z-[9999]">
           <IntroAnimation
@@ -100,7 +81,6 @@ function App() {
           />
         </div>
       )}
-
     </div>
   );
 }
