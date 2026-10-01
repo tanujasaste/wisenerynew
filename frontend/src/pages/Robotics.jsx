@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -13,7 +14,6 @@ import {
   Brain,
   Factory,
   GraduationCap,
-  CheckCircle2,
   ChevronRight,
   Sparkles,
 } from "lucide-react";
@@ -93,6 +93,10 @@ function CircuitPattern() {
 ========================================================= */
 
 export default function Robotics() {
+
+  useEffect(() => {
+  document.title = "Wisenery | Robotics";
+}, []);
   const learningCards = [
     {
       icon: Bot,
@@ -220,14 +224,6 @@ export default function Robotics() {
                   size={18}
                   className="transition-transform duration-300 group-hover:translate-x-1"
                 />
-              </a>
-
-              <a
-                href="#robotics-projects"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-[#0B2A4A] transition-all duration-300 hover:-translate-y-1 hover:border-[#0B2A4A]"
-              >
-                See Projects
-                <ArrowUpRight size={17} />
               </a>
 
             </div>
@@ -542,106 +538,6 @@ export default function Robotics() {
       </section>
 
 
-      {/* =====================================================
-          PROJECTS
-      ===================================================== */}
-
-      <section
-        id="robotics-projects"
-        className="relative overflow-hidden bg-[#0B2A4A] py-24 text-white"
-      >
-
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-0 h-[500px] w-[700px] -translate-x-1/2 rounded-full bg-orange-500/10 blur-[120px]" />
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
-
-          <Reveal>
-
-            <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-
-              <div>
-                <div className="mb-4 text-xs font-bold tracking-[0.25em] text-orange-400">
-                  BUILD SOMETHING REAL
-                </div>
-
-                <h2 className="text-4xl font-black tracking-[-0.03em] sm:text-5xl">
-                  Projects that
-                  <br />
-                  make learning stick.
-                </h2>
-              </div>
-
-              <p className="max-w-md leading-7 text-slate-400">
-                Students learn faster when they can see their ideas
-                physically come alive. That's why projects are at the
-                heart of robotics learning.
-              </p>
-
-            </div>
-
-          </Reveal>
-
-
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
-
-            {projects.map((project, index) => {
-              const Icon = project.icon;
-
-              return (
-                <Reveal
-                  key={project.title}
-                  delay={index * 100}
-                >
-
-                  <div className="group relative h-full overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] p-7 transition-all duration-500 hover:-translate-y-2 hover:border-orange-400/40">
-
-                    <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-orange-500/10 blur-[60px] transition-opacity duration-500 group-hover:bg-orange-500/20" />
-
-                    <div className="relative z-10">
-
-                      <div className="flex items-start justify-between">
-
-                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-500 text-white">
-                          <Icon size={25} />
-                        </div>
-
-                        <span className="rounded-full border border-white/10 px-3 py-1 text-[10px] font-bold tracking-[0.15em] text-slate-400">
-                          {project.tag}
-                        </span>
-
-                      </div>
-
-                      <h3 className="mt-8 text-2xl font-black">
-                        {project.title}
-                      </h3>
-
-                      <p className="mt-4 leading-7 text-slate-400">
-                        {project.text}
-                      </p>
-
-                      <div className="mt-8 flex items-center gap-2 text-sm font-bold text-orange-400">
-                        BUILD & EXPLORE
-                        <ArrowRight
-                          size={16}
-                          className="transition-transform duration-300 group-hover:translate-x-1"
-                        />
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </Reveal>
-              );
-            })}
-
-          </div>
-
-        </div>
-
-      </section>
 
 
       {/* =====================================================
@@ -787,68 +683,6 @@ export default function Robotics() {
       </section>
 
 
-      {/* =====================================================
-          FINAL CTA
-      ===================================================== */}
-
-      <section className="relative overflow-hidden bg-[#F56B0A] py-24 text-white">
-
-        <div className="pointer-events-none absolute inset-0">
-
-          <div className="absolute -left-20 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full bg-white/10 blur-[90px]" />
-
-          <div className="absolute right-0 top-0 h-96 w-96 rounded-full bg-orange-300/20 blur-[100px]" />
-
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-4xl px-6 text-center sm:px-8">
-
-          <Reveal>
-
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15">
-              <Sparkles size={30} />
-            </div>
-
-            <h2 className="mt-7 text-4xl font-black tracking-[-0.04em] sm:text-6xl">
-              Ready to build
-              <br />
-              something amazing?
-            </h2>
-
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-orange-50">
-              Start exploring robotics with Wisenery and discover what
-              you can create when technology becomes your playground.
-            </p>
-
-            <div className="mt-9 flex flex-wrap justify-center gap-4">
-
-              <a
-                href="#courses"
-                className="group inline-flex items-center gap-3 rounded-full bg-white px-7 py-4 text-sm font-black text-[#F56B0A] shadow-xl transition-all duration-300 hover:-translate-y-1"
-              >
-                Explore Courses
-
-                <ArrowRight
-                  size={18}
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                />
-              </a>
-
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-white/40 px-7 py-4 text-sm font-black text-white transition-all duration-300 hover:bg-white/10"
-              >
-                Talk to Us
-                <ArrowUpRight size={17} />
-              </a>
-
-            </div>
-
-          </Reveal>
-
-        </div>
-
-      </section>
 
     </main>
   );

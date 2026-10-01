@@ -1726,6 +1726,10 @@ export default function Programming() {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
 
+useEffect(() => {
+  document.title = "Wisenery | Programming";
+}, []);
+
   return (
     <div className="min-h-screen bg-white font-sans" style={{ color: COLORS.navy }}>
       <Hero />

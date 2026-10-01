@@ -160,7 +160,12 @@ const handlePhoneClick = async () => {
           {/* Actions */}
           <Reveal trigger="mount" delay={160}>
             <div className="mt-8 flex items-center justify-center gap-10 sm:mt-10 lg:justify-start">
-              <button className="flex h-[50px] items-center gap-3 rounded-[10px] bg-[#f56b0a] px-6 text-[15px] font-semibold text-white shadow-sm transition-all hover:-translate-y-1 hover:bg-[#e65f05] sm:h-[58px] sm:px-7 sm:text-[17px]">
+              <button    onClick={() => {
+    document.getElementById("courses")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }} className="flex h-[50px] items-center gap-3 rounded-[10px] bg-[#f56b0a] px-6 text-[15px] font-semibold text-white shadow-sm transition-all hover:-translate-y-1 hover:bg-[#e65f05] sm:h-[58px] sm:px-7 sm:text-[17px]">
                 Explore Courses
 
                 <ArrowRight
@@ -189,6 +194,7 @@ const handlePhoneClick = async () => {
             src={heroIllustration}
             alt="Wisenery learning"
             className="relative z-10 h-full w-full object-contain"
+
           />
         </Reveal>
 

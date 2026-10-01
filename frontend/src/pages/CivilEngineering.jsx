@@ -521,86 +521,148 @@ function Hero() {
         <span className="civil-float civil-float-6">LEVEL +3.600</span>
       </div>
 
-      {/* =====================================================
-          HERO CONTENT
-      ====================================================== */}
+{/* =====================================================
+    HERO CONTENT
+====================================================== */}
+<div
+  className="
+    relative z-10 mx-auto flex w-full max-w-7xl flex-col
+    px-4 pt-12 pb-[235px]
+    sm:px-8 sm:pt-16 sm:pb-[280px]
+    lg:min-h-[730px] lg:px-10 lg:pt-[72px] lg:pb-[285px]
+  "
+>
+  <div className="mx-auto w-full text-center">
+
+    {/* Badge */}
+    <div className="flex justify-center">
       <div
-        className="relative z-10 mx-auto flex min-h-[710px] max-w-7xl flex-col px-5 pb-[275px] pt-14 sm:px-8 sm:pb-[280px] sm:pt-16 lg:min-h-[730px] lg:px-10 lg:pb-[285px] lg:pt-[72px]"
+        className="
+          inline-flex max-w-full items-center gap-2
+          rounded-full border px-3 py-1.5
+          sm:px-4
+        "
+        style={{
+          borderColor: "rgba(245,107,10,0.42)",
+          background:
+            "linear-gradient(180deg, rgba(245,107,10,0.10), rgba(245,107,10,0.035))",
+          boxShadow: "0 0 0 1px rgba(245,107,10,0.025)",
+        }}
       >
-        <div className="mx-auto w-full text-center">
-          {/* Badge */}
-          <div className="flex justify-center">
-            <div
-              className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
-              style={{
-                borderColor: "rgba(245,107,10,0.42)",
-                background:
-                  "linear-gradient(180deg, rgba(245,107,10,0.10), rgba(245,107,10,0.035))",
-                boxShadow: "0 0 0 1px rgba(245,107,10,0.025)",
-              }}
-            >
-              <HardHat size={13} style={{ color: COLORS.orange }} />
-              <span
-                className="text-[10px] font-bold uppercase tracking-[0.10em] sm:text-xs"
-                style={{ color: COLORS.orangeLight }}
-              >
-                CIVIL ENGINEERING • INDUSTRY SKILLS
-              </span>
-            </div>
-          </div>
+        <HardHat
+          size={13}
+          className="shrink-0"
+          style={{ color: COLORS.orange }}
+        />
 
-          {/* Heading */}
-          <h1
-            className="mx-auto mt-6 w-full max-w-[1240px] text-center text-[2.45rem] font-black uppercase leading-[0.96] tracking-[-0.045em] text-white sm:mt-7 sm:text-5xl md:text-6xl lg:text-[4.15rem] xl:text-[4.55rem] 2xl:text-[4.8rem]"
-          >
-            <span className="block whitespace-nowrap">
-              FROM TECHNICAL DRAWINGS
-            </span>
-            <span
-              className="mt-1 block whitespace-nowrap"
-              style={{ color: COLORS.orange }}
-            >
-              REAL-WORLD STRUCTURES.
-            </span>
-          </h1>
-
-          {/* Description */}
-          <p
-            className="mx-auto mt-7 max-w-4xl text-xs font-medium uppercase leading-6 tracking-[0.015em] sm:mt-8 sm:text-sm sm:leading-7 md:text-base"
-            style={{ color: "rgba(226,232,240,0.78)" }}
-          >
-            BUILD PRACTICAL CIVIL ENGINEERING SKILLS ACROSS CAD, BIM,
-            STRUCTURAL DESIGN, ESTIMATION, PROJECT PLANNING AND GIS — USING
-            THE TOOLS PROFESSIONALS WORK WITH.
-          </p>
-
-          {/* CTAs */}
-          <div className="mt-7 flex justify-center gap-3 sm:mt-8">
-            <a
-              href="#roadmap"
-              className="group inline-flex items-center gap-2 rounded-full px-5 py-3 text-xs font-bold uppercase tracking-wide text-white transition-all duration-200 hover:-translate-y-0.5 sm:px-6 sm:py-3.5 sm:text-sm"
-              style={{
-                backgroundColor: COLORS.orange,
-                boxShadow: "0 12px 32px rgba(245,107,10,0.20)",
-              }}
-            >
-              EXPLORE THE ROADMAP
-              <ArrowRight
-                size={15}
-                className="transition-transform duration-200 group-hover:translate-x-1"
-              />
-            </a>
-
-            <a
-              href="#tools"
-              className="inline-flex items-center gap-2 rounded-full border px-5 py-3 text-xs font-bold uppercase tracking-wide text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/5 sm:px-6 sm:py-3.5 sm:text-sm"
-              style={{ borderColor: "rgba(255,255,255,0.18)" }}
-            >
-              EXPLORE THE TOOLS
-            </a>
-          </div>
-        </div>
+        <span
+          className="
+            truncate text-[9px] font-bold uppercase
+            tracking-[0.08em]
+            sm:text-xs sm:tracking-[0.10em]
+          "
+          style={{ color: COLORS.orangeLight }}
+        >
+          CIVIL ENGINEERING • INDUSTRY SKILLS
+        </span>
       </div>
+    </div>
+
+    {/* Heading */}
+    <h1
+      className="
+        mx-auto mt-6 w-full
+        max-w-[1240px]
+        text-center
+        text-[2.15rem]
+        font-black
+        uppercase
+        leading-[0.98]
+        tracking-[-0.04em]
+        text-white
+        sm:mt-7
+        sm:text-5xl
+        md:text-6xl
+        lg:text-[4.15rem]
+        xl:text-[4.55rem]
+        2xl:text-[4.8rem]
+      "
+    >
+      <span className="block">
+        FROM TECHNICAL DRAWINGS
+      </span>
+
+      <span
+        className="mt-1 block"
+        style={{ color: COLORS.orange }}
+      >
+        REAL-WORLD STRUCTURES.
+      </span>
+    </h1>
+
+    {/* Description */}
+    <p
+      className="
+        mx-auto mt-6 max-w-4xl
+        px-1
+        text-[11px]
+        font-medium
+        uppercase
+        leading-5
+        tracking-[0.01em]
+        sm:mt-8
+        sm:px-0
+        sm:text-sm
+        sm:leading-7
+        md:text-base
+      "
+      style={{ color: "rgba(226,232,240,0.78)" }}
+    >
+      BUILD PRACTICAL CIVIL ENGINEERING SKILLS ACROSS CAD, BIM,
+      STRUCTURAL DESIGN, ESTIMATION, PROJECT PLANNING AND GIS —
+      USING THE TOOLS PROFESSIONALS WORK WITH.
+    </p>
+
+    {/* CTA */}
+    <div
+      className="
+        mt-6 flex flex-col items-center justify-center
+        gap-3
+        sm:mt-8 sm:flex-row
+      "
+    >
+      <a
+        href="#roadmap"
+        className="
+          group inline-flex
+          w-full max-w-[240px]
+          items-center justify-center
+          gap-2 rounded-full
+          px-5 py-3
+          text-xs font-bold
+          uppercase tracking-wide
+          text-white
+          transition-all duration-200
+          hover:-translate-y-0.5
+          sm:w-auto sm:max-w-none
+          sm:px-6 sm:py-3.5 sm:text-sm
+        "
+        style={{
+          backgroundColor: COLORS.orange,
+          boxShadow: "0 12px 32px rgba(245,107,10,0.20)",
+        }}
+      >
+        EXPLORE THE ROADMAP
+
+        <ArrowRight
+          size={15}
+          className="transition-transform duration-200 group-hover:translate-x-1"
+        />
+      </a>
+    </div>
+
+  </div>
+</div>
 
       {/* =====================================================
           CONSTRUCTION SCENE
@@ -1167,22 +1229,33 @@ function RoadmapSection() {
                 </span>
               </div>
 
-              <h2
-                className="mt-4 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl"
-                style={{
-                  color: COLORS.navy,
-                }}
-              >
-                Build your engineering
-                <span
-                  className="ml-2"
-                  style={{
-                    color: COLORS.orange,
-                  }}
-                >
-                  journey step by step.
-                </span>
-              </h2>
+<h2
+  className="
+    mt-4
+    text-2xl
+    font-black
+    leading-[1.1]
+    tracking-tight
+    sm:text-4xl
+    lg:text-5xl
+  "
+  style={{
+    color: COLORS.navy,
+  }}
+>
+  <span className="block sm:inline">
+    Build your engineering
+  </span>
+
+  <span
+    className="mt-1 block sm:ml-2 sm:mt-0 sm:inline"
+    style={{
+      color: COLORS.orange,
+    }}
+  >
+    journey step by step.
+  </span>
+</h2>
 
               <p
                 className="mt-4 max-w-2xl text-sm leading-6 sm:text-base"
@@ -1774,6 +1847,9 @@ export default function CivilEngineering() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
+  useEffect(() => {
+  document.title = "Wisenery | Civil Engineering";
+}, []);
 
   return (
     <div

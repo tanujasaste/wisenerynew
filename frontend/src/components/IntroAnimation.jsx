@@ -1198,6 +1198,33 @@ className="
 "
     >
 
+<button
+  type="button"
+  onClick={onComplete}
+  className="
+    absolute
+    right-5
+    top-5
+    z-[70]
+    
+    border
+    border-black/10
+    bg-white/70
+    px-4
+    py-2
+    text-sm
+    font-medium
+    text-black/70
+    backdrop-blur-md
+    transition
+    hover:bg-white
+    hover:text-black
+    sm:right-7
+    sm:top-7
+  "
+>
+  Skip Intro
+</button>
       {/* =====================================================
           BACKGROUND
       ===================================================== */}
@@ -1498,7 +1525,6 @@ className="
               absolute
 
               w-[94%]
-
               text-[22px]
               font-medium
               leading-snug
@@ -1514,7 +1540,7 @@ className="
               md:tracking-[-1px]
             "
           >
-            Learning is changing.
+            LEARNING IS CHANGING
           </h1>
 
 
@@ -1528,7 +1554,6 @@ className="
               absolute
 
               w-[94%]
-
               text-[22px]
               font-medium
               leading-snug
@@ -1544,7 +1569,7 @@ className="
               md:tracking-[-1px]
             "
           >
-            {splitWords("Technology is evolving.")}
+            {splitWords("TECHNOLOGY IS EVOLVING ")}
           </h1>
 
 
@@ -1552,30 +1577,33 @@ className="
               MESSAGE 3
           ================================================= */}
 
-          <h1
-            ref={line3Ref}
-            className="
-              absolute
+<h1
+  ref={line3Ref}
+  className="
+    absolute
+    w-full
+    whitespace-nowrap
 
-              w-[95%]
+    text-[19px]
+    font-medium
+    leading-snug
+    tracking-[-0.5px]
 
-              text-[21px]
-              font-medium
-              leading-snug
-              tracking-[-0.3px]
+    text-[#171717]
 
-              text-[#171717]
+    sm:w-[93%]
+    sm:text-[32px]
+    sm:tracking-[-0.5px]
 
-              sm:w-[92%]
-              sm:text-[32px]
-              sm:tracking-[-0.5px]
-
-              md:text-[50px]
-              md:tracking-[-1px]
-            "
-          >
-            {splitChars("Education should evolve too.")}
-          </h1>
+    md:text-[50px]
+    md:tracking-[-1px]
+  "
+  style={{
+    fontFamily: "'Manrope', sans-serif",
+  }}
+>
+  {splitChars("EDUCATION SHOULD EVOLVE TOO.")}
+</h1>
 
         </div>
 
@@ -1776,7 +1804,7 @@ className="
             </h1>
 
 
-            <div
+            {/* <div
               ref={brandShineRef}
               className="
                 pointer-events-none
@@ -1794,7 +1822,7 @@ className="
                   "linear-gradient(75deg, transparent 35%, rgba(255,255,255,0.85) 48%, rgba(255,154,92,0.85) 52%, transparent 65%)",
                 mixBlendMode: "overlay",
               }}
-            />
+            /> */}
 
           </div>
 

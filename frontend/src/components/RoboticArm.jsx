@@ -100,28 +100,32 @@ export default function RoboticArm() {
   }, []);
 
   return (
-    <div
-      className="
-        absolute
-        right-[-200px]
-        bottom-[-10px]
-        z-[5]
-        h-[560px]
-        w-[560px]
-        overflow-visible
-        pointer-events-auto
+<div
+  className="
+    absolute
+    right-[-200px]
+    bottom-[-10px]
+    z-[5]
+    h-[560px]
+    w-[560px]
+    overflow-visible
+    pointer-events-auto
+    origin-bottom-right
 
-        max-md:right-[-100px]
-        max-md:bottom-[-30px]
-        max-md:h-[430px]
-        max-md:w-[430px]
+    md:scale-[0.85]
+    md:right-[-100px]
+    md:bottom-[-20px]
 
-        max-[480px]:right-[-120px]
-        max-[480px]:bottom-[-20px]
-        max-[480px]:h-[360px]
-        max-[480px]:w-[360px]
-      "
-    >
+    max-md:scale-[0.76]
+    max-md:right-1/2
+    max-md:translate-x-1/2
+    max-md:bottom-[40px]
+    max-md:origin-bottom-center
+
+    max-[480px]:scale-[0.70]
+    max-[480px]:bottom-[50px]
+  "
+>
       <div className="relative h-full w-full">
 
         {/* BASE */}
@@ -133,15 +137,6 @@ export default function RoboticArm() {
             h-[25px]
             w-[300px]
             bg-[#4d4d4d]
-
-            max-md:left-[250px]
-            max-md:top-[305px]
-            max-md:h-[22px]
-            max-md:w-[220px]
-
-            max-[480px]:left-[210px]
-            max-[480px]:top-[255px]
-            max-[480px]:w-[190px]
           "
         >
 
@@ -221,36 +216,35 @@ export default function RoboticArm() {
                 "
               >
                 {/* SCREEN */}
-{/* SCREEN */}
-<div
-  className="
-    relative
-    top-[6%]
-    mx-auto
-    h-[85%]
-    w-[90%]
-    bg-[#222]
-    flex
-    items-center
-    justify-center
-    text-center
-  "
->
-  <p
-    className="
-      text-[18px]
-      font-semibold
-      tracking-[0.12em]
-      text-[#F56B0A]
+                <div
+                  className="
+                    relative
+                    top-[6%]
+                    mx-auto
+                    h-[85%]
+                    w-[90%]
+                    bg-[#222]
+                    flex
+                    items-center
+                    justify-center
+                    text-center
+                  "
+                >
+                  <p
+                    className="
+                      text-[18px]
+                      font-semibold
+                      tracking-[0.12em]
+                      text-[#F56B0A]
 
-      max-md:text-[14px]
-      max-[480px]:text-[11px]
-      rotate-180
-    "
-  >
-    BUILD • CREATE • INNOVATE
-  </p>
-</div>
+                      max-md:text-[14px]
+                      max-[480px]:text-[11px]
+                      rotate-180
+                    "
+                  >
+                    BUILD • CREATE • INNOVATE
+                  </p>
+                </div>
               </div>
             </div>
           </div>

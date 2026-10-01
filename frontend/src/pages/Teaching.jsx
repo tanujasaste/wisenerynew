@@ -9,8 +9,10 @@ import {
   Medal,
   Rocket,
   Award,
+  ChevronRight ,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useEffect , useState } from "react";
 
 const schoolBoards = [
   {
@@ -47,29 +49,128 @@ const schoolBoards = [
 
 const competitiveExams = [
   {
+    id: "olympiads",
     title: "Olympiads",
     description: "Classes 1–10 | Maths, Science, English & more",
     icon: Medal,
+    exams: [
+      {
+        title: "Mathematics Olympiads",
+        description:
+          "Build mathematical reasoning, problem-solving and logical thinking skills.",
+      },
+      {
+        title: "Science Olympiads",
+        description:
+          "Strengthen scientific understanding, reasoning and application skills.",
+      },
+      {
+        title: "English Olympiads",
+        description:
+          "Develop English vocabulary, grammar, comprehension and language skills.",
+      },
+    ],
   },
+
   {
+    id: "school-entrance",
     title: "School Entrance Exams",
     description: "Classes 5–10 | JNVST, AISSEE & more",
     icon: School,
+    exams: [
+      {
+        title: "JNVST",
+        description:
+          "Preparation for Jawahar Navodaya Vidyalaya entrance examinations.",
+      },
+      {
+        title: "AISSEE",
+        description:
+          "Preparation for All India Sainik Schools Entrance Examination.",
+      },
+    ],
   },
+
   {
+    id: "scholarship",
     title: "Scholarship / Talent Search",
     description: "NMMS, State & National Scholarships",
     icon: Award,
+    exams: [
+      {
+        title: "NMMS",
+        description:
+          "Build aptitude, reasoning and academic skills for scholarship examination preparation.",
+      },
+      {
+        title: "State Scholarship Exams",
+        description:
+          "Preparation support for relevant state-level scholarship examinations.",
+      },
+      {
+        title: "National Scholarship Exams",
+        description:
+          "Strengthen academic and aptitude skills for national-level scholarship opportunities.",
+      },
+    ],
   },
+
   {
+    id: "foundation",
     title: "Competitive Foundation",
     description: "JEE, NEET, UPSC, SSC & more",
     icon: Rocket,
+    exams: [
+      {
+        title: "JEE Foundation",
+        description:
+          "Build early foundations in Mathematics, Physics and Chemistry.",
+      },
+      {
+        title: "NEET Foundation",
+        description:
+          "Build early foundations in Biology, Physics and Chemistry.",
+      },
+      {
+        title: "UPSC Foundation",
+        description:
+          "Develop foundational awareness, analytical thinking and general knowledge skills.",
+      },
+      {
+        title: "SSC Foundation",
+        description:
+          "Build foundations in quantitative aptitude, reasoning and language skills.",
+      },
+    ],
   },
+
   {
+    id: "international",
     title: "International School Competitions",
     description: "Math • Science • Computing • English",
     icon: Globe2,
+    exams: [
+      {
+        title: "Mathematics Competitions",
+        description:
+          "Develop mathematical reasoning, problem-solving and logical thinking.",
+      },
+      {
+        title: "Science Competitions",
+        description:
+          "Strengthen scientific reasoning, concepts and application skills.",
+      },
+      {
+        title: "Computing Competitions",
+        description:
+          "Develop computational thinking, logic and problem-solving skills.",
+      },
+      {
+        title: "English Competitions",
+        description:
+          "Strengthen vocabulary, comprehension and English communication skills.",
+      },
+    ],
   },
 ];
 
@@ -235,8 +336,12 @@ const ExamItem = ({ item }) => {
 };
 
 export default function Teaching() {
-  const navigate = useNavigate();
 
+  const [openExamCategory, setOpenExamCategory] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+  document.title = "Wisenery | Teaching";
+}, []);
   return (
     <div className="min-h-screen bg-white text-slate-900">
       <main className="relative overflow-hidden">
@@ -523,14 +628,171 @@ export default function Teaching() {
               </div>
 
               {/* Exam list */}
+{/* Exam list */}
+<div className="space-y-2">
+  {competitiveExams.map((item) => {
+    const Icon = item.icon;
+    const isOpen = openExamCategory === item.id;
+
+    return (
+      <div
+        key={item.id}
+        className={`
+          overflow-hidden
+          rounded-[14px]
+          border
+          transition-all duration-300
+          ${
+            isOpen
+              ? "border-orange-200 bg-orange-50/30"
+              : "border-gray-200 bg-white hover:border-orange-200"
+          }
+        `}
+      >
+        {/* Category */}
+        <button
+          type="button"
+          onClick={() =>
+            setOpenExamCategory(isOpen ? null : item.id)
+          }
+          className="
+            flex w-full items-center
+            gap-3
+            px-4 py-3.5
+            text-left
+            transition-colors
+            hover:bg-orange-50/40
+            sm:px-5 sm:py-4
+          "
+        >
+          {/* Icon */}
+          <div
+            className="
+              flex h-10 w-10
+              shrink-0
+              items-center justify-center
+              rounded-xl
+              bg-orange-100/70
+              text-orange-500
+              sm:h-11 sm:w-11
+            "
+          >
+            <Icon
+              size={22}
+              strokeWidth={1.8}
+            />
+          </div>
+
+          {/* Text */}
+          <div className="min-w-0 flex-1">
+            <h3
+              className="
+                text-[15px]
+                font-semibold
+                text-slate-900
+                sm:text-base
+              "
+            >
+              {item.title}
+            </h3>
+
+            <p
+              className="
+                mt-0.5
+                text-[12px]
+                leading-5
+                text-slate-600
+                sm:text-[13px]
+              "
+            >
+              {item.description}
+            </p>
+          </div>
+
+          {/* Arrow */}
+          <ChevronRight
+            size={20}
+            strokeWidth={1.8}
+            className={`
+              shrink-0
+              text-orange-500
+              transition-transform duration-300
+              ${isOpen ? "rotate-90" : ""}
+            `}
+          />
+        </button>
+
+        {/* Expanded exams */}
+        <div
+          className={`
+            grid transition-all duration-300 ease-in-out
+            ${
+              isOpen
+                ? "grid-rows-[1fr] opacity-100"
+                : "grid-rows-[0fr] opacity-0"
+            }
+          `}
+        >
+          <div className="min-h-0 overflow-hidden">
+            <div className="border-t border-orange-100 px-4 pb-4 pt-3 sm:px-5 sm:pb-5">
               <div className="space-y-2">
-                {competitiveExams.map((item) => (
-                  <ExamItem
-                    key={item.title}
-                    item={item}
-                  />
+                {item.exams.map((exam) => (
+                  <div
+                    key={exam.title}
+                    className="
+                      rounded-xl
+                      border border-gray-100
+                      bg-white
+                      px-4 py-3
+                      transition-all duration-200
+                      hover:border-orange-200
+                      hover:shadow-sm
+                    "
+                  >
+                    <div className="flex items-start gap-3">
+                      <div
+                        className="
+                          mt-1.5
+                          h-1.5 w-1.5
+                          shrink-0
+                          rounded-full
+                          bg-orange-400
+                        "
+                      />
+
+                      <div>
+                        <h4
+                          className="
+                            text-sm
+                            font-semibold
+                            text-slate-900
+                          "
+                        >
+                          {exam.title}
+                        </h4>
+
+                        <p
+                          className="
+                            mt-0.5
+                            text-xs
+                            leading-5
+                            text-slate-600
+                          "
+                        >
+                          {exam.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  })}
+</div>
             </div>
           </div>
         </section>
