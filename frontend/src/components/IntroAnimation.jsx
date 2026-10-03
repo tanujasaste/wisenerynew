@@ -130,23 +130,42 @@ function IntroAnimation({
      AUDIO
      ========================================================== */
 
-useLayoutEffect(() => {
-  const audio = new Audio("/wisenery-intro.mp3");
+  /* ==========================================================
+     AUDIO
+     ========================================================== */
 
-  audioRef.current = audio;
-  audio.volume = 1;
-  audio.preload = "auto";
+  useEffect(() => {
+    const audio = new Audio("/wisenery-intro.mp3");
 
-  audio.play().catch((error) => {
-    console.log("Intro audio autoplay blocked:", error);
-  });
+    audio.preload = "auto";
+    audio.volume = 1;
+    audio.loop = false;
 
-  return () => {
-    audio.pause();
-    audio.currentTime = 0;
-    audioRef.current = null;
-  };
-}, []);
+    audioRef.current = audio;
+
+    // Start loading immediately.
+    audio.load();
+
+    // Try audible autoplay immediately.
+    audio
+      .play()
+      .then(() => {
+        console.log("INTRO AUDIO STARTED");
+      })
+      .catch((error) => {
+        console.warn(
+          "INTRO AUDIO AUTOPLAY BLOCKED:",
+          error.name
+        );
+      });
+
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.src = "";
+      audioRef.current = null;
+    };
+  }, []);
 
 
   /* ==========================================================
@@ -154,59 +173,43 @@ useLayoutEffect(() => {
      Click/tap anywhere or press Enter/Next to skip.
      ========================================================== */
 
-useEffect(() => {
-  let audioUnlocked = false;
+/* ==========================================================
+   SKIP INTRO + AUDIO AUTOPLAY
+   ========================================================== */
 
-  const startAudio = () => {
-    if (!audioRef.current) return;
+  /* ==========================================================
+     SKIP INTRO
+     Click/tap anywhere or press Enter/Escape to skip.
+     ========================================================== */
 
-    audioRef.current
-      .play()
-      .then(() => {
-        audioUnlocked = true;
-      })
-      .catch(() => {
-        // Browser still blocked playback.
-      });
-  };
-
-const handleSkip = () => {
-  onComplete?.();
-
-  if (audioRef.current) {
-    audioRef.current.pause();
-    audioRef.current.currentTime = 0;
-  }
-};
-
-  const handleKeyDown = (event) => {
-    if (
-      event.key === "Enter" ||
-      event.key === "NumpadEnter" ||
-      event.key === "Next"
-    ) {
-      if (!audioUnlocked) {
-        startAudio();
-        return;
-      }
-
+  useEffect(() => {
+    const handleSkip = () => {
       onComplete?.();
 
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
       }
-    }
-  };
+    };
 
-  document.addEventListener("click", handleSkip);
-  document.addEventListener("keydown", handleKeyDown);
+    const handleKeyDown = (event) => {
+      if (
+        event.key === "Enter" ||
+        event.key === "NumpadEnter" ||
+        event.key === "Escape"
+      ) {
+        handleSkip();
+      }
+    };
 
-  return () => {
-    document.removeEventListener("click", handleSkip);
-    document.removeEventListener("keydown", handleKeyDown);
-  };
-}, [onComplete]);
+    document.addEventListener("click", handleSkip);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("click", handleSkip);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onComplete]);
 
 
   /* ==========================================================
@@ -314,13 +317,7 @@ const handleSkip = () => {
         timelineRef.current = tl;
 
 
-        /* ====================================================
-           START INTRO AUDIO
-           ==================================================== */
 
-audioRef.current?.play().catch((error) => {
-  console.error("INTRO AUDIO FAILED:", error);
-});
 
 
         /* ====================================================

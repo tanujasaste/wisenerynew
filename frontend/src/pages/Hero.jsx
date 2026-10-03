@@ -11,7 +11,7 @@ import teachingImage from "../assets/teaching.webp";
 import Reveal from "../components/Reveal";
 
 function Hero() {
-const WISENERY_PHONE = "+919322984718";
+const WISENERY_PHONE = "+917498552866";
 
 const [copied, setCopied] = useState(false);
 
@@ -69,7 +69,7 @@ const handlePhoneClick = async () => {
 
         {/* WhatsApp */}
 <a
-  href="https://wa.me/919322984718?text=Hi%2C%20I%20want%20to%20know%20more%20about%20Wisenery."
+  href="https://wa.me/917498552866?text=Hi%2C%20I%20want%20to%20know%20more%20about%20Wisenery."
   target="_blank"
   rel="noopener noreferrer"
   aria-label="Chat with Wisenery on WhatsApp"
