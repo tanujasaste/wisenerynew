@@ -4,7 +4,7 @@ function CourseCard({ image, title }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (title === "Teaching") {
+    if (title === "School & Competitive Exams") {
       navigate("/teaching");
     } else if (title === "Programming") {
       navigate("/programming");
@@ -16,7 +16,7 @@ function CourseCard({ image, title }) {
   };
 
   const isClickable =
-    title === "Teaching" ||
+    title === "School & Competitive Exams" ||
     title === "Programming" ||
     title === "Civil Engineering" ||
     title === "Robotics";

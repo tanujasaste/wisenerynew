@@ -2,6 +2,7 @@ import {
   useLayoutEffect,
   useRef,
   useState,
+  useEffect,
 } from "react";
 
 import gsap from "gsap";
@@ -81,6 +82,7 @@ function IntroAnimation({
   onComplete,
 }) {
   const containerRef = useRef(null);
+  const audioRef = useRef(null);
 
   /* Main moving glow */
   const glowRef = useRef(null);
@@ -125,6 +127,89 @@ function IntroAnimation({
 
 
   /* ==========================================================
+     AUDIO
+     ========================================================== */
+
+useLayoutEffect(() => {
+  const audio = new Audio("/wisenery-intro.mp3");
+
+  audioRef.current = audio;
+  audio.volume = 1;
+  audio.preload = "auto";
+
+  audio.play().catch((error) => {
+    console.log("Intro audio autoplay blocked:", error);
+  });
+
+  return () => {
+    audio.pause();
+    audio.currentTime = 0;
+    audioRef.current = null;
+  };
+}, []);
+
+
+  /* ==========================================================
+     SKIP INTRO
+     Click/tap anywhere or press Enter/Next to skip.
+     ========================================================== */
+
+useEffect(() => {
+  let audioUnlocked = false;
+
+  const startAudio = () => {
+    if (!audioRef.current) return;
+
+    audioRef.current
+      .play()
+      .then(() => {
+        audioUnlocked = true;
+      })
+      .catch(() => {
+        // Browser still blocked playback.
+      });
+  };
+
+const handleSkip = () => {
+  onComplete?.();
+
+  if (audioRef.current) {
+    audioRef.current.pause();
+    audioRef.current.currentTime = 0;
+  }
+};
+
+  const handleKeyDown = (event) => {
+    if (
+      event.key === "Enter" ||
+      event.key === "NumpadEnter" ||
+      event.key === "Next"
+    ) {
+      if (!audioUnlocked) {
+        startAudio();
+        return;
+      }
+
+      onComplete?.();
+
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    }
+  };
+
+  document.addEventListener("click", handleSkip);
+  document.addEventListener("keydown", handleKeyDown);
+
+  return () => {
+    document.removeEventListener("click", handleSkip);
+    document.removeEventListener("keydown", handleKeyDown);
+  };
+}, [onComplete]);
+
+
+  /* ==========================================================
      CAMERA COMPLETE
      ========================================================== */
 
@@ -136,79 +221,82 @@ function IntroAnimation({
     }
   };
 
-/* ============================================================
-   MOBILE + DESKTOP SCROLL LOCK
-   Keeps the website completely frozen during the intro.
-============================================================ */
 
-useLayoutEffect(() => {
-  const body = document.body;
-  const html = document.documentElement;
+  /* ==========================================================
+     MOBILE + DESKTOP SCROLL LOCK
+     Keeps the website completely frozen during the intro.
+  ========================================================== */
 
-  const scrollY = window.scrollY;
+  useLayoutEffect(() => {
+    const body = document.body;
+    const html = document.documentElement;
 
-  // Save existing styles so we can restore them safely.
-  const previousBodyStyles = {
-    overflow: body.style.overflow,
-    position: body.style.position,
-    top: body.style.top,
-    left: body.style.left,
-    right: body.style.right,
-    width: body.style.width,
-    touchAction: body.style.touchAction,
-  };
+    const scrollY = window.scrollY;
 
-  const previousHtmlStyles = {
-    overflow: html.style.overflow,
-    overscrollBehavior: html.style.overscrollBehavior,
-  };
+    // Save existing styles so we can restore them safely.
+    const previousBodyStyles = {
+      overflow: body.style.overflow,
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      touchAction: body.style.touchAction,
+    };
 
-  // Freeze the page at its current scroll position.
-  body.style.position = "fixed";
-  body.style.top = `-${scrollY}px`;
-  body.style.left = "0";
-  body.style.right = "0";
-  body.style.width = "100%";
-  body.style.overflow = "hidden";
-  body.style.touchAction = "none";
+    const previousHtmlStyles = {
+      overflow: html.style.overflow,
+      overscrollBehavior: html.style.overscrollBehavior,
+    };
 
-  html.style.overflow = "hidden";
-  html.style.overscrollBehavior = "none";
+    // Freeze the page at its current scroll position.
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+    body.style.touchAction = "none";
 
-  const preventScroll = (event) => {
-    event.preventDefault();
-  };
+    html.style.overflow = "hidden";
+    html.style.overscrollBehavior = "none";
 
-  // Prevent touch swiping and mouse-wheel scrolling.
-  document.addEventListener("touchmove", preventScroll, {
-    passive: false,
-  });
+    const preventScroll = (event) => {
+      event.preventDefault();
+    };
 
-  document.addEventListener("wheel", preventScroll, {
-    passive: false,
-  });
+    // Prevent touch swiping and mouse-wheel scrolling.
+    document.addEventListener("touchmove", preventScroll, {
+      passive: false,
+    });
 
-  return () => {
-    document.removeEventListener("touchmove", preventScroll);
-    document.removeEventListener("wheel", preventScroll);
+    document.addEventListener("wheel", preventScroll, {
+      passive: false,
+    });
 
-    // Restore the original page styles.
-    body.style.overflow = previousBodyStyles.overflow;
-    body.style.position = previousBodyStyles.position;
-    body.style.top = previousBodyStyles.top;
-    body.style.left = previousBodyStyles.left;
-    body.style.right = previousBodyStyles.right;
-    body.style.width = previousBodyStyles.width;
-    body.style.touchAction = previousBodyStyles.touchAction;
+    return () => {
+      document.removeEventListener("touchmove", preventScroll);
+      document.removeEventListener("wheel", preventScroll);
 
-    html.style.overflow = previousHtmlStyles.overflow;
-    html.style.overscrollBehavior =
-      previousHtmlStyles.overscrollBehavior;
+      // Restore the original page styles.
+      body.style.overflow = previousBodyStyles.overflow;
+      body.style.position = previousBodyStyles.position;
+      body.style.top = previousBodyStyles.top;
+      body.style.left = previousBodyStyles.left;
+      body.style.right = previousBodyStyles.right;
+      body.style.width = previousBodyStyles.width;
+      body.style.touchAction = previousBodyStyles.touchAction;
 
-    // Restore the exact position the user was at.
-    window.scrollTo(0, scrollY);
-  };
-}, []);
+      html.style.overflow = previousHtmlStyles.overflow;
+      html.style.overscrollBehavior =
+        previousHtmlStyles.overscrollBehavior;
+
+      // Restore the exact position the user was at.
+      window.scrollTo(0, scrollY);
+    };
+  }, []);
+
+
   /* ==========================================================
      MAIN TIMELINE
      ========================================================== */
@@ -224,6 +312,15 @@ useLayoutEffect(() => {
         });
 
         timelineRef.current = tl;
+
+
+        /* ====================================================
+           START INTRO AUDIO
+           ==================================================== */
+
+audioRef.current?.play().catch((error) => {
+  console.error("INTRO AUDIO FAILED:", error);
+});
 
 
         /* ====================================================
@@ -267,7 +364,6 @@ useLayoutEffect(() => {
         );
 
 
-
         gsap.set(
           gridRef.current,
           {
@@ -305,7 +401,6 @@ useLayoutEffect(() => {
             }
           );
         });
-
 
 
         gsap.set(
@@ -399,9 +494,6 @@ useLayoutEffect(() => {
         );
 
 
-
-
-
         /* ====================================================
            GRAIN — quiet ambient flicker
            ==================================================== */
@@ -486,18 +578,10 @@ useLayoutEffect(() => {
           0.05
         );
 
+
         /* ====================================================
            AURORA RING + COMET ENTER
-
-           A slow conic-gradient ring and a small comet that
-           orbits it continuously — the signature premium touch.
-           Both tweens run outside the main timeline so they
-           keep drifting even while the camera sequence pauses
-           everything else.
            ==================================================== */
-
-
-
 
         tl.to(
           cometRef.current,
@@ -544,9 +628,6 @@ useLayoutEffect(() => {
 
         /* ====================================================
            CORNER GEARS ENTER
-
-           Soft blurred machinery tucked into the frame's
-           corners, easing in with the background.
            ==================================================== */
 
         cornerGearRefs.current.forEach((gear, index) => {
@@ -564,6 +645,7 @@ useLayoutEffect(() => {
             0.1 + index * 0.08
           );
         });
+
 
         /* ====================================================
            WISENERY GEAR
@@ -601,10 +683,6 @@ useLayoutEffect(() => {
 
         /* ====================================================
            WORDMARK SHINE SWEEP
-
-           A soft diagonal highlight glides once across the
-           wordmark right after it lands, like light catching
-           brushed metal.
            ==================================================== */
 
         tl.to(
@@ -664,6 +742,8 @@ useLayoutEffect(() => {
           },
           0.4
         );
+
+
         /* ====================================================
            TAGLINE
            ==================================================== */
@@ -691,7 +771,8 @@ useLayoutEffect(() => {
           0.72
         );
 
- /* ====================================================
+
+        /* ====================================================
            SECOND FAST GLOW MOVEMENT
            ==================================================== */
 
@@ -722,8 +803,7 @@ useLayoutEffect(() => {
 
 
         /* ====================================================
-           BRAND HOLD — a faint breathing pulse keeps the
-           background feeling alive while the logo sits still
+           BRAND HOLD
            ==================================================== */
 
         tl.to(
@@ -833,6 +913,7 @@ useLayoutEffect(() => {
          * Glow immediately moves across the screen while
          * the text appears.
          */
+
         tl.to(
           glowRef.current,
           {
@@ -857,6 +938,7 @@ useLayoutEffect(() => {
           },
           "-=0.48"
         );
+
 
         tl.to(
           {},
@@ -923,9 +1005,8 @@ useLayoutEffect(() => {
         );
 
 
-        /*
-         * Small pulse when the second message lands.
-         */
+        /* Small pulse when the second message lands. */
+
         tl.to(
           glowRef.current,
           {
@@ -996,9 +1077,6 @@ useLayoutEffect(() => {
         );
 
 
-
-
-
         tl.to(
           line3Chars,
           {
@@ -1015,9 +1093,8 @@ useLayoutEffect(() => {
         );
 
 
-        /*
-         * Final visual pulse.
-         */
+        /* Final visual pulse. */
+
         tl.to(
           glowRef.current,
           {
@@ -1069,12 +1146,15 @@ useLayoutEffect(() => {
 
         // Mount the camera before the intro visuals disappear so
         // there is no exposed background between the two animations.
+
         tl.call(() => {
           setShowCameraFocus(true);
         });
 
+
         // Allow React/Three.js to mount the camera layer while the
         // existing intro visuals are still covering the screen.
+
         tl.to(
           {},
           {
@@ -1135,6 +1215,7 @@ useLayoutEffect(() => {
         /*
          * Pause after camera mounts and the handoff is complete.
          */
+
         tl.call(() => {
           tl.pause();
         });
@@ -1146,15 +1227,15 @@ useLayoutEffect(() => {
 
         tl.to(
           containerRef.current,
-  {
-    opacity: 0,
-    scale: 1.06,
-    y: "-2%",
-    filter: "blur(14px)",
-    duration: 0.85,
-    ease: "power2.inOut",
-    transformOrigin: "center center",
-  }
+          {
+            opacity: 0,
+            scale: 1.06,
+            y: "-2%",
+            filter: "blur(14px)",
+            duration: 0.85,
+            ease: "power2.inOut",
+            transformOrigin: "center center",
+          }
         );
 
       }, containerRef);
@@ -1167,10 +1248,16 @@ useLayoutEffect(() => {
     return () => {
       timelineRef.current = null;
 
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+
       ctx.revert();
     };
 
   }, [onComplete]);
+
 
   /* ==========================================================
      JSX
@@ -1179,52 +1266,46 @@ useLayoutEffect(() => {
   return (
     <div
       ref={containerRef}
-className="
-  fixed
-  inset-0
-  z-[9999]
-  flex
-  h-[100dvh]
-  min-h-0
-  w-full
-  max-w-full
-  items-center
-  justify-center
-  overflow-hidden
-  overscroll-none
-  touch-none
-  bg-[#fff8ef]
-  text-[#171717]
-"
+      className="
+        fixed
+        inset-0
+        z-[9999]
+        flex
+        h-[100dvh]
+        min-h-0
+        w-full
+        max-w-full
+        items-center
+        justify-center
+        overflow-hidden
+        overscroll-none
+        touch-none
+        bg-[#fff8ef]
+        text-[#171717]
+      "
     >
 
-<button
-  type="button"
-  onClick={onComplete}
-  className="
-    absolute
-    right-5
-    top-5
-    z-[70]
-    
-    border
-    border-black/10
-    bg-white/70
-    px-4
-    py-2
-    text-sm
-    font-medium
-    text-black/70
-    backdrop-blur-md
-    transition
-    hover:bg-white
-    hover:text-black
-    sm:right-7
-    sm:top-7
-  "
->
-  Skip Intro
-</button>
+      <div
+        className="
+          absolute
+          bottom-7
+          left-1/2
+          z-[70]
+          -translate-x-1/2
+          text-center
+          text-[11px]
+          font-medium
+          tracking-[0.08em]
+          text-black/40
+          pointer-events-none
+          sm:bottom-9
+          sm:text-xs
+        "
+      >
+        PRESS ANYWHERE TO SKIP INTRO
+      </div>
+
+
       {/* =====================================================
           BACKGROUND
       ===================================================== */}
@@ -1262,9 +1343,6 @@ className="
 
         {/* =================================================
             DEPTH VIGNETTE
-
-            A near-invisible darkening toward the edges that
-            gives the flat white field a sense of depth.
         ================================================= */}
 
         <div
@@ -1282,9 +1360,6 @@ className="
 
         {/* =================================================
             CORNER GEARS
-
-            Blurred, low-opacity machinery anchoring each
-            corner of the frame.
         ================================================= */}
 
         {[
@@ -1402,11 +1477,9 @@ className="
           "
         />
 
+
         {/* =================================================
             GRAIN
-
-            A whisper of film-like texture so the flat
-            gradients don't feel too clean or synthetic.
         ================================================= */}
 
         <svg
@@ -1440,6 +1513,7 @@ className="
               "
             />
           </filter>
+
           <rect
             width="100%"
             height="100%"
@@ -1452,8 +1526,6 @@ className="
 
       {/* =====================================================
           CAMERA FOCUS ANIMATION
-
-          This remains a completely separate layer.
       ===================================================== */}
 
       {showCameraFocus && (
@@ -1577,33 +1649,33 @@ className="
               MESSAGE 3
           ================================================= */}
 
-<h1
-  ref={line3Ref}
-  className="
-    absolute
-    w-full
-    whitespace-nowrap
+          <h1
+            ref={line3Ref}
+            className="
+              absolute
+              w-full
+              whitespace-nowrap
 
-    text-[19px]
-    font-medium
-    leading-snug
-    tracking-[-0.5px]
+              text-[19px]
+              font-medium
+              leading-snug
+              tracking-[-0.5px]
 
-    text-[#171717]
+              text-[#171717]
 
-    sm:w-[93%]
-    sm:text-[32px]
-    sm:tracking-[-0.5px]
+              sm:w-[93%]
+              sm:text-[32px]
+              sm:tracking-[-0.5px]
 
-    md:text-[50px]
-    md:tracking-[-1px]
-  "
-  style={{
-    fontFamily: "'Manrope', sans-serif",
-  }}
->
-  {splitChars("EDUCATION SHOULD EVOLVE TOO.")}
-</h1>
+              md:text-[50px]
+              md:tracking-[-1px]
+            "
+            style={{
+              fontFamily: "'Manrope', sans-serif",
+            }}
+          >
+            {splitChars("EDUCATION SHOULD EVOLVE TOO.")}
+          </h1>
 
         </div>
 
@@ -1768,9 +1840,6 @@ className="
 
           {/* =================================================
               WISENERY WORDMARK
-
-              Wrapped so the shine sweep can be clipped to
-              exactly the text's footprint.
           ================================================= */}
 
           <div

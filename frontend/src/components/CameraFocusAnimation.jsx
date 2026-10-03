@@ -1,37 +1,54 @@
+
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { gsap } from "gsap";
 
 const courses = [
   {
-    id: "coding",
-    name: "CODING",
-    x: 23,
-    y: 27,
+    id: "teaching",
+    name: "TEACHING",
   },
   {
-    id: "robotics",
-    name: "ROBOTICS",
-    x: 77,
-    y: 27,
+    id: "coding",
+    name: "CODING",
   },
   {
     id: "engineering",
     name: "ENGINEERING",
-    x: 77,
-    y: 73,
   },
   {
-    id: "autocad",
-    name: "AUTOCAD",
-    x: 23,
-    y: 73,
+    id: "robotics",
+    name: "ROBOTICS",
   },
 ];
 
 const CameraFocusAnimation = ({ onComplete }) => {
   const [active, setActive] = useState(0);
   const [revealedCourse, setRevealedCourse] = useState(-1);
+
+  // =====================================================
+  // CAMERA NARRATION AUDIO
+  // =====================================================
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    const audio = new Audio("/wisenery-camera.mp3");
+
+    audioRef.current = audio;
+    audio.volume = 1;
+    audio.preload = "auto";
+
+    // Try to start narration automatically
+    audio.play().catch((error) => {
+      console.log("Camera narration autoplay blocked:", error);
+    });
+
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+      audioRef.current = null;
+    };
+  }, []);
 
   const getCameraAngles = () => {
     if (typeof window === "undefined") {
@@ -73,6 +90,7 @@ const CameraFocusAnimation = ({ onComplete }) => {
     };
 
     window.addEventListener("resize", handleResize);
+
     return () => window.removeEventListener("resize", handleResize);
   }, [active]);
 
@@ -96,7 +114,7 @@ const CameraFocusAnimation = ({ onComplete }) => {
       } else {
         setTimeout(() => {
           onComplete?.();
-        }, 1100);
+        }, 1300);
       }
     }, 1600);
 
@@ -114,49 +132,109 @@ const CameraFocusAnimation = ({ onComplete }) => {
     const H = mount.clientHeight || 170;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(28, W / H, 0.1, 20);
+
+    const camera = new THREE.PerspectiveCamera(
+      28,
+      W / H,
+      0.1,
+      20,
+    );
+
     camera.position.set(0, 0, 6);
     camera.lookAt(0, 0, 0);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+    });
+
     const pixelRatio = Math.min(window.devicePixelRatio, 1.5);
+
     renderer.setPixelRatio(pixelRatio);
     renderer.setSize(W, H);
+
     mount.appendChild(renderer.domElement);
 
-    const hemi = new THREE.HemisphereLight(0xffffff, 0x4a4a4a, 0.6);
+    const hemi = new THREE.HemisphereLight(
+      0xffffff,
+      0x4a4a4a,
+      0.6,
+    );
+
     scene.add(hemi);
-    const key = new THREE.DirectionalLight(0xfff7ea, 0.9);
+
+    const key = new THREE.DirectionalLight(
+      0xfff7ea,
+      0.9,
+    );
+
     key.position.set(-2, 3, 4);
     scene.add(key);
-    const fill = new THREE.DirectionalLight(0xffffff, 0.25);
+
+    const fill = new THREE.DirectionalLight(
+      0xffffff,
+      0.25,
+    );
+
     fill.position.set(2, -1, 3);
     scene.add(fill);
 
     function roundedRectShape(w, h, r) {
       const s = new THREE.Shape();
-      const x = -w / 2,
-        y = -h / 2;
+
+      const x = -w / 2;
+      const y = -h / 2;
+
       s.moveTo(x, y + r);
       s.lineTo(x, y + h - r);
-      s.quadraticCurveTo(x, y + h, x + r, y + h);
+
+      s.quadraticCurveTo(
+        x,
+        y + h,
+        x + r,
+        y + h,
+      );
+
       s.lineTo(x + w - r, y + h);
-      s.quadraticCurveTo(x + w, y + h, x + w, y + h - r);
+
+      s.quadraticCurveTo(
+        x + w,
+        y + h,
+        x + w,
+        y + h - r,
+      );
+
       s.lineTo(x + w, y + r);
-      s.quadraticCurveTo(x + w, y, x + w - r, y);
+
+      s.quadraticCurveTo(
+        x + w,
+        y,
+        x + w - r,
+        y,
+      );
+
       s.lineTo(x + r, y);
-      s.quadraticCurveTo(x, y, x, y + r);
+
+      s.quadraticCurveTo(
+        x,
+        y,
+        x,
+        y + r,
+      );
+
       return s;
     }
 
-
-
     function createRadialGlowTexture() {
       const size = 256;
+
       const canvas = document.createElement("canvas");
+
       canvas.width = size;
       canvas.height = size;
+
       const ctx = canvas.getContext("2d");
+
       const grad = ctx.createRadialGradient(
         size / 2,
         size / 2,
@@ -165,22 +243,49 @@ const CameraFocusAnimation = ({ onComplete }) => {
         size / 2,
         size / 2,
       );
-      grad.addColorStop(0, "rgba(255,255,255,0.85)");
-      grad.addColorStop(0.4, "rgba(255,255,255,0.3)");
-      grad.addColorStop(1, "rgba(255,255,255,0)");
+
+      grad.addColorStop(
+        0,
+        "rgba(255,255,255,0.85)",
+      );
+
+      grad.addColorStop(
+        0.4,
+        "rgba(255,255,255,0.3)",
+      );
+
+      grad.addColorStop(
+        1,
+        "rgba(255,255,255,0)",
+      );
+
       ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, size, size);
+
+      ctx.fillRect(
+        0,
+        0,
+        size,
+        size,
+      );
+
       const tex = new THREE.CanvasTexture(canvas);
+
       tex.needsUpdate = true;
+
       return tex;
     }
 
-    const plateW = 1.3,
-      plateH = 2.0,
-      plateR = 0.4,
-      plateDepth = 0.32;
+    const plateW = 1.3;
+    const plateH = 2.0;
+    const plateR = 0.4;
+    const plateDepth = 0.32;
+
     const plateGeo = new THREE.ExtrudeGeometry(
-      roundedRectShape(plateW, plateH, plateR),
+      roundedRectShape(
+        plateW,
+        plateH,
+        plateR,
+      ),
       {
         depth: plateDepth,
         bevelEnabled: true,
@@ -190,26 +295,50 @@ const CameraFocusAnimation = ({ onComplete }) => {
         curveSegments: 24,
       },
     );
-    plateGeo.translate(0, 0, -plateDepth / 2);
-    const plateMat = new THREE.MeshStandardMaterial({
-      color: 0x2c2d30,
-      roughness: 0.5,
-      metalness: 0.2,
-    });
-    const plate = new THREE.Mesh(plateGeo, plateMat);
+
+    plateGeo.translate(
+      0,
+      0,
+      -plateDepth / 2,
+    );
+
+    const plateMat =
+      new THREE.MeshStandardMaterial({
+        color: 0x2c2d30,
+        roughness: 0.5,
+        metalness: 0.2,
+      });
+
+    const plate = new THREE.Mesh(
+      plateGeo,
+      plateMat,
+    );
+
     scene.add(plate);
 
+    const haloTex =
+      createRadialGlowTexture();
 
-    const haloTex = createRadialGlowTexture();
-    const haloMat = new THREE.MeshBasicMaterial({
-      map: haloTex,
-      transparent: true,
-      opacity: 0,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    });
-    const halo = new THREE.Mesh(new THREE.PlaneGeometry(2.1, 2.1), haloMat);
-    halo.position.set(0, 0, plateDepth / 2 + 0.01);
+    const haloMat =
+      new THREE.MeshBasicMaterial({
+        map: haloTex,
+        transparent: true,
+        opacity: 0,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      });
+
+    const halo = new THREE.Mesh(
+      new THREE.PlaneGeometry(2.1, 2.1),
+      haloMat,
+    );
+
+    halo.position.set(
+      0,
+      0,
+      plateDepth / 2 + 0.01,
+    );
+
     scene.add(halo);
 
     // Render only when Three.js properties actually change.
@@ -224,9 +353,16 @@ const CameraFocusAnimation = ({ onComplete }) => {
     const resizeThree = () => {
       const nextW = mount.clientWidth || W;
       const nextH = mount.clientHeight || H;
+
       camera.aspect = nextW / nextH;
       camera.updateProjectionMatrix();
-      renderer.setSize(nextW, nextH, false);
+
+      renderer.setSize(
+        nextW,
+        nextH,
+        false,
+      );
+
       renderScene();
     };
 
@@ -236,49 +372,89 @@ const CameraFocusAnimation = ({ onComplete }) => {
         : null;
 
     resizeObserver?.observe(mount);
-    window.addEventListener("orientationchange", resizeThree);
 
-    gsap.set(plate.scale, { x: 0.001, y: 0.001, z: 0.001 });
+    window.addEventListener(
+      "orientationchange",
+      resizeThree,
+    );
 
-    const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+    gsap.set(plate.scale, {
+      x: 0.001,
+      y: 0.001,
+      z: 0.001,
+    });
 
-    tl.to(plate.scale, {
-      x: 1,
-      y: 1,
-      z: 1,
-      duration: 0.9,
-      onUpdate: renderScene,
-    }, 0)
-      .to(haloMat, {
+    const tl = gsap.timeline({
+      defaults: {
+        ease: "power2.out",
+      },
+    });
+
+    tl.to(
+      plate.scale,
+      {
+        x: 1,
+        y: 1,
+        z: 1,
+        duration: 0.9,
+        onUpdate: renderScene,
+      },
+      0,
+    ).to(
+      haloMat,
+      {
         opacity: 0.5,
         duration: 0.9,
         onUpdate: renderScene,
-      }, 0.35)
+      },
+      0.35,
+    );
 
     // Draw the initial frame once.
     renderScene();
 
     return () => {
       tl.kill();
-      gsap.killTweensOf([plate.scale, plate.rotation, haloMat]);
+
+      gsap.killTweensOf([
+        plate.scale,
+        plate.rotation,
+        haloMat,
+      ]);
+
       scene.traverse((obj) => {
-        if (obj.geometry) obj.geometry.dispose();
-        if (obj.material) obj.material.dispose();
+        if (obj.geometry) {
+          obj.geometry.dispose();
+        }
+
+        if (obj.material) {
+          obj.material.dispose();
+        }
       });
 
       resizeObserver?.disconnect();
-      window.removeEventListener("orientationchange", resizeThree);
+
+      window.removeEventListener(
+        "orientationchange",
+        resizeThree,
+      );
+
       haloTex.dispose();
+
       renderer.dispose();
-      if (renderer.domElement.parentNode === mount) {
-        mount.removeChild(renderer.domElement);
+
+      if (
+        renderer.domElement.parentNode === mount
+      ) {
+        mount.removeChild(
+          renderer.domElement,
+        );
       }
     };
   }, []);
 
-
   return (
-<div className="absolute inset-0 z-0 h-full w-full max-w-full overflow-hidden overscroll-none touch-none bg-[#050505]">
+    <div className="absolute inset-0 z-0 h-full w-full max-w-full overflow-hidden overscroll-none touch-none bg-[#050505]">
       <div
         className="
           absolute
@@ -305,7 +481,7 @@ const CameraFocusAnimation = ({ onComplete }) => {
       >
         {/* =====================================================
           COURSES
-      ====================================================== */}
+        ====================================================== */}
 
         {courses.map((course, index) => {
           const isActive = index === active;
@@ -315,97 +491,104 @@ const CameraFocusAnimation = ({ onComplete }) => {
             <div
               key={course.id}
               className={`
-              absolute
-              -translate-x-1/2
-              -translate-y-1/2
-              transition-all
-              duration-700
-              ease-out
-${
-  isActive && isRevealed
-    ? "scale-105 opacity-100"
-    : isRevealed
-      ? "scale-100 opacity-20"
-      : "scale-100 opacity-0"
-}
-            `}
-style={{
-  left:
-    course.id === "coding" || course.id === "autocad"
-      ? "23%"
-      : "77%",
+                absolute
+                -translate-x-1/2
+                -translate-y-1/2
+                transition-all
+                duration-700
+                ease-out
+                ${
+                  isActive && isRevealed
+                    ? "scale-105 opacity-100"
+                    : isRevealed
+                      ? "scale-100 opacity-20"
+                      : "scale-100 opacity-0"
+                }
+              `}
+              style={{
+                left:
+                  course.id === "teaching" ||
+                  course.id === "robotics"
+                    ? "23%"
+                    : "77%",
 
-  top:
-    course.id === "coding" || course.id === "robotics"
-      ? "27%"
-      : "73%",
+                top:
+                  course.id === "teaching" ||
+                  course.id === "coding"
+                    ? "27%"
+                    : "73%",
 
-  width: "clamp(90px, 18vw, 150px)",
-}}
+                width: "clamp(90px, 18vw, 150px)",
+              }}
             >
               {/* Focus illumination */}
 
               <div
                 className={`
-                absolute
-                left-1/2
-                top-1/2
-                -z-10
-                h-[150px]
-                w-[150px]
-                -translate-x-1/2
-                -translate-y-1/2
-                rounded-full
-                bg-white
-                blur-[50px]
-                transition-opacity
-                duration-700
+                  absolute
+                  left-1/2
+                  top-1/2
+                  -z-10
+                  h-[150px]
+                  w-[150px]
+                  -translate-x-1/2
+                  -translate-y-1/2
+                  rounded-full
+                  bg-white
+                  blur-[50px]
+                  transition-opacity
+                  duration-700
 
-                sm:blur-[clamp(55px,8vw,65px)]
+                  sm:blur-[clamp(55px,8vw,65px)]
 
-                md:blur-[80px]
-${isActive && isRevealed ? "opacity-[0.14]" : "opacity-0"}
-              `}
+                  md:blur-[80px]
+
+                  ${
+                    isActive && isRevealed
+                      ? "opacity-[0.14]"
+                      : "opacity-0"
+                  }
+                `}
               />
 
               {/* Course */}
 
               <div
                 className={`
-                flex
-                h-[clamp(42px,11vw,100px)]
-                w-[clamp(72px,18vw,150px)]
-                items-center
-                justify-center
-                border
-                transition-all
-                duration-700
+                  flex
+                  h-[clamp(42px,11vw,100px)]
+                  w-[clamp(72px,18vw,150px)]
+                  items-center
+                  justify-center
+                  border
+                  transition-all
+                  duration-700
 
-${
-  isActive && isRevealed
-    ? "border-white/70 bg-white/[0.06]"
-    : isRevealed
-      ? "border-white/10 bg-white/[0.015]"
-      : "border-transparent bg-transparent"
-}
-              `}
+                  ${
+                    isActive && isRevealed
+                      ? "border-white/70 bg-white/[0.06]"
+                      : isRevealed
+                        ? "border-white/10 bg-white/[0.015]"
+                        : "border-transparent bg-transparent"
+                  }
+                `}
               >
                 <span
                   className={`
-                  text-[clamp(7px,1.8vw,12px)]
-                  font-medium
-                  tracking-[clamp(1px,0.45vw,3px)]
-                  transition-colors
-                  duration-700
+                    text-[clamp(7px,1.8vw,12px)]
+                    font-medium
+                    tracking-[clamp(1px,0.45vw,3px)]
+                    transition-colors
+                    duration-700
 
-${
-  isActive && isRevealed
-    ? "text-white"
-    : isRevealed
-      ? "text-white/25"
-      : "text-transparent"
-}
-                `}
+                    ${
+                      isActive && isRevealed
+                        ? "text-white"
+                        : isRevealed
+                          ? "text-white/25"
+                          : "text-transparent"
+                    }
+                  `}
                 >
                   {course.name}
                 </span>
@@ -415,197 +598,191 @@ ${
         })}
 
         {/* =====================================================
-    CAMERA + SPOTLIGHT ASSEMBLY
-====================================================== */}
+            CAMERA + SPOTLIGHT ASSEMBLY
+        ====================================================== */}
 
         <div
           className="
-    absolute
-    left-1/2
-    top-1/2
-    z-30
-    h-[clamp(120px,34vw,220px)]
-    w-[clamp(120px,34vw,220px)]
-    max-w-[100%]
-    transition-transform
-    duration-1000
-    ease-[cubic-bezier(0.65,0,0.35,1)]
+            absolute
+            left-1/2
+            top-1/2
+            z-30
+            h-[clamp(120px,34vw,220px)]
+            w-[clamp(120px,34vw,220px)]
+            max-w-[100%]
+            transition-transform
+            duration-1000
+            ease-[cubic-bezier(0.65,0,0.35,1)]
 
-    sm:h-[clamp(145px,28vw,185px)]
-    sm:w-[clamp(145px,28vw,185px)]
+            sm:h-[clamp(145px,28vw,185px)]
+            sm:w-[clamp(145px,28vw,185px)]
 
-    md:h-[220px]
-    md:w-[220px]
-  "
+            md:h-[220px]
+            md:w-[220px]
+          "
           style={{
             transform: `
-      translate(-50%, -50%)
-       translateY(clamp(-10px, -2.5vw, -14px))
-       translateX(clamp(-10px, -2.5vw, -14px))
-      rotate(${rotation}deg)
-    `,
+              translate(-50%, -50%)
+              translateY(clamp(-10px, -2.5vw, -14px))
+              translateX(clamp(-10px, -2.5vw, -14px))
+              rotate(${rotation}deg)
+            `,
           }}
         >
           {/* =================================================
-      SPOTLIGHT BEAM
-
-      IMPORTANT:
-      This has NO rotation of its own.
-      It is positioned relative to the camera body.
-  ================================================== */}
+              SPOTLIGHT BEAM
+          ================================================== */}
 
           <div
             className="
-      pointer-events-none
-      absolute
-      left-[calc(50%+clamp(60px,17vw,110px))]
-      top-1/2
-      h-px
-      w-[55vw]
-      origin-left
-      -translate-y-1/2
+              pointer-events-none
+              absolute
+              left-[calc(50%+clamp(60px,17vw,110px))]
+              top-1/2
+              h-px
+              w-[55vw]
+              origin-left
+              -translate-y-1/2
 
-      sm:left-[calc(50%+clamp(72px,14vw,92px))]
+              sm:left-[calc(50%+clamp(72px,14vw,92px))]
 
-      md:left-[calc(50%+110px)]
-    "
+              md:left-[calc(50%+110px)]
+            "
           >
             {/* Main soft beam */}
 
             <div
               className="
-        absolute
-        left-0
-        top-1/2
-        h-[160px]
-        w-full
-        -translate-y-1/2
-        bg-gradient-to-r
-        from-white/[0.14]
-        via-white/[0.065]
-        to-transparent
-        blur-[26px]
+                absolute
+                left-0
+                top-1/2
+                h-[160px]
+                w-full
+                -translate-y-1/2
+                bg-gradient-to-r
+                from-white/[0.14]
+                via-white/[0.065]
+                to-transparent
+                blur-[26px]
 
-        sm:h-[200px]
-        sm:blur-[32px]
+                sm:h-[200px]
+                sm:blur-[32px]
 
-        md:h-[240px]
-        md:blur-[38px]
-      "
+                md:h-[240px]
+                md:blur-[38px]
+              "
             />
 
             {/* Outer falloff */}
 
             <div
               className="
-        absolute
-        left-0
-        top-1/2
-        h-[280px]
-        w-full
-        -translate-y-1/2
-        bg-gradient-to-r
-        from-white/[0.035]
-        via-white/[0.015]
-        to-transparent
-        blur-[50px]
+                absolute
+                left-0
+                top-1/2
+                h-[280px]
+                w-full
+                -translate-y-1/2
+                bg-gradient-to-r
+                from-white/[0.035]
+                via-white/[0.015]
+                to-transparent
+                blur-[50px]
 
-        sm:h-[350px]
-        sm:blur-[62px]
+                sm:h-[350px]
+                sm:blur-[62px]
 
-        md:h-[420px]
-        md:blur-[75px]
-      "
+                md:h-[420px]
+                md:blur-[75px]
+              "
             />
           </div>
 
           {/* =================================================
-      SEMICIRCLE NECK
-
-      Straight edge faces the rectangle.
-      Curved edge faces outward.
-  ================================================== */}
-
-<div
-  className="
-    absolute
-    left-1/2
-    top-1/2
-
-    h-[clamp(45px,13vw,128px)]
-    w-[clamp(18px,5vw,60px)]
-
-    -translate-y-1/2
-
-    z-[5]
-
-    shadow-[0_14px_30px_rgba(0,0,0,0.35)]
-
-    translate-x-[clamp(23px,7vw,54px)]
-
-    sm:translate-x-[clamp(32px,7vw,47px)]
-    md:translate-x-[54px]
-  "
-  style={{
-    borderRadius: "999px 0 0 999px",
-    background: "linear-gradient(135deg, #3a3d43, #202226)",
-  }}
-/>
-
-          {/* =================================================
-      CAMERA RECTANGLE
-  ================================================== */}
+              SEMICIRCLE NECK
+          ================================================== */}
 
           <div
             className="
-  absolute
-  left-1/2
-  top-1/2
-  z-10
+              absolute
+              left-1/2
+              top-1/2
 
-  h-[clamp(76px,21vw,172px)]
-  w-[clamp(48px,14vw,108px)]
-  -translate-x-1/2
-  -translate-y-1/2
+              h-[clamp(45px,13vw,128px)]
+              w-[clamp(18px,5vw,60px)]
 
-  overflow-hidden
-  rounded-[clamp(10px,3vw,15px)]
-  bg-[#2c2d30]
-  shadow-[0_18px_40px_rgba(0,0,0,0.45)]
+              -translate-y-1/2
 
-  rounded-[clamp(13px,3.5vw,28px)]
-"
+              z-[5]
+
+              shadow-[0_14px_30px_rgba(0,0,0,0.35)]
+
+              translate-x-[clamp(23px,7vw,54px)]
+
+              sm:translate-x-[clamp(32px,7vw,47px)]
+              md:translate-x-[54px]
+            "
+            style={{
+              borderRadius: "999px 0 0 999px",
+              background:
+                "linear-gradient(135deg, #3a3d43, #202226)",
+            }}
+          />
+
+          {/* =================================================
+              CAMERA RECTANGLE
+          ================================================== */}
+
+          <div
+            className="
+              absolute
+              left-1/2
+              top-1/2
+              z-10
+
+              h-[clamp(76px,21vw,172px)]
+              w-[clamp(48px,14vw,108px)]
+              -translate-x-1/2
+              -translate-y-1/2
+
+              overflow-hidden
+              rounded-[clamp(10px,3vw,15px)]
+              bg-[#2c2d30]
+              shadow-[0_18px_40px_rgba(0,0,0,0.45)]
+
+              rounded-[clamp(13px,3.5vw,28px)]
+            "
           >
             {/* Three.js spotlight body */}
 
             <div
               ref={headRef}
               className="
-        absolute
-        inset-0
-        flex
-        items-center
-        justify-center
-      "
+                absolute
+                inset-0
+                flex
+                items-center
+                justify-center
+              "
             />
 
             {/* Surface highlight */}
 
             <div
               className="
-        pointer-events-none
-        absolute
-        inset-0
-        rounded-[19px]
-        bg-gradient-to-br
-        from-white/[0.12]
-        via-transparent
-        to-black/[0.18]
+                pointer-events-none
+                absolute
+                inset-0
+                rounded-[19px]
+                bg-gradient-to-br
+                from-white/[0.12]
+                via-transparent
+                to-black/[0.18]
 
-        sm:rounded-[24px]
+                sm:rounded-[24px]
 
-        md:rounded-[28px]
-      "
+                md:rounded-[28px]
+              "
             />
           </div>
         </div>
@@ -629,3 +806,4 @@ ${
 };
 
 export default CameraFocusAnimation;
+

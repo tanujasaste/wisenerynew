@@ -209,7 +209,7 @@ const handlePhoneClick = async () => {
         {/* Cards */}
         <div className="relative z-10 flex flex-wrap justify-center gap-4 py-8 sm:gap-5 sm:py-10 lg:flex-nowrap lg:py-0" >
           {[
-            { image: teachingImage, title: "Teaching" },
+            { image: teachingImage, title: "School & Competitive Exams" },
             { image: programmingImage, title: "Programming" },
             { image: civilImage, title: "Civil Engineering" },
             { image: roboticsImage, title: "Robotics" },
