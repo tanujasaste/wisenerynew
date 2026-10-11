@@ -9,7 +9,7 @@ function Navbar() {
   const [isDemoOpen, setIsDemoOpen] = useState(false);
 
   const handleNavigation = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   return (

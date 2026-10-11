@@ -130,52 +130,11 @@ function IntroAnimation({
      AUDIO
      ========================================================== */
 
-  /* ==========================================================
-     AUDIO
-     ========================================================== */
-
-  useEffect(() => {
-    const audio = new Audio("/wisenery-intro.mp3");
-
-    audio.preload = "auto";
-    audio.volume = 1;
-    audio.loop = false;
-
-    audioRef.current = audio;
-
-    // Start loading immediately.
-    audio.load();
-
-    // Try audible autoplay immediately.
-    audio
-      .play()
-      .then(() => {
-        console.log("INTRO AUDIO STARTED");
-      })
-      .catch((error) => {
-        console.warn(
-          "INTRO AUDIO AUTOPLAY BLOCKED:",
-          error.name
-        );
-      });
-
-    return () => {
-      audio.pause();
-      audio.currentTime = 0;
-      audio.src = "";
-      audioRef.current = null;
-    };
-  }, []);
 
 
-  /* ==========================================================
-     SKIP INTRO
-     Click/tap anywhere or press Enter/Next to skip.
-     ========================================================== */
 
-/* ==========================================================
-   SKIP INTRO + AUDIO AUTOPLAY
-   ========================================================== */
+
+
 
   /* ==========================================================
      SKIP INTRO
@@ -1282,7 +1241,7 @@ function IntroAnimation({
       "
     >
 
-      <div
+      {/* <div
         className="
           absolute
           bottom-7
@@ -1300,7 +1259,7 @@ function IntroAnimation({
         "
       >
         PRESS ANYWHERE TO SKIP INTRO
-      </div>
+      </div> */}
 
 
       {/* =====================================================
@@ -1870,25 +1829,6 @@ function IntroAnimation({
             </h1>
 
 
-            {/* <div
-              ref={brandShineRef}
-              className="
-                pointer-events-none
-                absolute
-                inset-0
-
-                -skew-x-12
-
-                opacity-0
-
-                will-change-transform
-              "
-              style={{
-                background:
-                  "linear-gradient(75deg, transparent 35%, rgba(255,255,255,0.85) 48%, rgba(255,154,92,0.85) 52%, transparent 65%)",
-                mixBlendMode: "overlay",
-              }}
-            /> */}
 
           </div>
 

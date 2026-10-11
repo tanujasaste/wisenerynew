@@ -3202,8 +3202,19 @@ const internationalSubjectData = {
 const boardConfigs = {
   cbse: {
     title: "CBSE BOARD",
+    pageHeading: "CBSE Online Coaching Classes",
+    aboutTitle: "What is CBSE?",
+    aboutDescription: "The CBSE Schools in Pune follow a nationally recognized education system designed to provide a balanced and structured learning experience. The board focuses on conceptual understanding, academic development, and preparation for competitive examinations. Its curriculum is widely followed across India, making it a popular choice for students who may relocate or pursue higher education in different states.",
+    aboutPoints: [
+      "Full form — Central Board of Secondary Education",
+      "National-level board in India",
+      "Offers education from primary grades through Class 12 through affiliated schools",
+      "Follows the NCERT-based curriculum for many subjects",
+      "Emphasizes conceptual learning and application-based understanding",
+      "Suitable for students preparing for competitive examinations",
+    ],
     description:
-      "Explore Wisenery's CBSE subjects and learning support across grade levels.",
+      "Explore Wisenery's CBSE online coaching classes and subject support across grade levels.",
     curriculumLabel: "CBSE Language Curriculum",
     grades: Array.from({ length: 12 }, (_, i) => i + 1),
     categories: [
@@ -3219,8 +3230,19 @@ const boardConfigs = {
 
   cisce: {
     title: "CISCE BOARD",
+    pageHeading: "ICSE / CISCE Online Coaching Classes",
+    aboutTitle: "What is ICSE / CISCE?",
+    aboutDescription: "The ICSE Schools in Pune offer a comprehensive education system that emphasizes language skills, analytical thinking, and a broad understanding of academic subjects. The curriculum encourages students to develop strong reading, writing, and problem-solving abilities. With its detailed subject coverage and balanced approach to academics, it is a popular option for students seeking an in-depth learning experience.",
+    aboutPoints: [
+      "Full form — Indian Certificate of Secondary Education (ICSE)",
+      "Conducted by the Council for the Indian School Certificate Examinations (CISCE)",
+      "ICSE examination is generally taken at Class 10",
+      "Offers a broad and detailed curriculum",
+      "Emphasizes English language proficiency and practical learning",
+      "Suitable for students who prefer in-depth subject understanding",
+    ],
     description:
-      "Explore Wisenery's CISCE subjects and learning support across grade levels.",
+      "Explore Wisenery's ICSE / CISCE online coaching classes and subject support across grade levels.",
     curriculumLabel: "CISCE Language Curriculum",
     grades: Array.from({ length: 12 }, (_, i) => i + 1),
     categories: [
@@ -3236,8 +3258,19 @@ const boardConfigs = {
 
 nios: {
   title: "NIOS",
+  pageHeading: "NIOS Online Coaching Classes",
+  aboutTitle: "What is NIOS?",
+  aboutDescription: "The NIOS Schools in Pune is one of the largest open schooling systems in the world. It is designed to provide flexible education to learners who cannot attend regular schools. Students can study at their own pace and appear for exams when they feel prepared. This makes it a highly student-friendly system compared to traditional boards.",
+  aboutPoints: [
+    "Full form — National Institute of Open Schooling",
+    "Established by Government of India",
+    "Offers Class 10 and Class 12 certification",
+    "Flexible learning and exam system",
+    "Recognized by universities and government bodies",
+    "Ideal for second chance learners",
+  ],
   description:
-    "Explore Wisenery's learning support across NIOS Open Basic Education, Secondary and Senior Secondary programmes.",
+    "Explore Wisenery's NIOS online coaching classes and learning support for Open Basic Education, Secondary and Senior Secondary programmes.",
 
   curriculumLabel: "NIOS Curriculum",
 
@@ -3274,8 +3307,19 @@ nios: {
 
   state: {
     title: "STATE BOARDS",
+    pageHeading: "Maharashtra State Board Online Coaching Classes",
+    aboutTitle: "What is the Maharashtra State Board?",
+    aboutDescription: "The Maharashtra State Board Schools in Pune follow a curriculum designed to meet the educational needs of students across Maharashtra. The board provides a structured learning pathway with subjects and syllabi aligned with state education requirements. It is a widely followed option for students who want to continue their education within Maharashtra and prepare for state-level academic opportunities.",
+    aboutPoints: [
+      "Full form — Maharashtra State Board of Secondary and Higher Secondary Education (MSBSHSE)",
+      "State-level education board in Maharashtra",
+      "Conducts SSC examinations for Class 10",
+      "Conducts HSC examinations for Class 12",
+      "Offers curriculum aligned with Maharashtra's education system",
+      "Suitable for students planning further studies within Maharashtra",
+    ],
     description:
-      "Explore Wisenery's subjects and learning support for state-board learners.",
+      "Explore Wisenery's Maharashtra State Board online coaching classes and subject support for state-board learners.",
     curriculumLabel: "State Board Language Curriculum",
     grades: Array.from({ length: 12 }, (_, i) => i + 1),
     categories: [
@@ -3291,8 +3335,19 @@ nios: {
 
   international: {
     title: "INTERNATIONAL BOARDS",
+    pageHeading: "International Board Online Coaching Classes",
+    aboutTitle: "What are International Boards?",
+    aboutDescription: "International board education in Pune provides students with learning approaches that encourage inquiry, independent thinking, and the practical application of knowledge. Boards such as Cambridge International and the International Baccalaureate (IB) offer internationally oriented curricula designed to develop academic skills and global perspectives. These programs can be suitable for students considering international higher education.",
+    aboutPoints: [
+      "Includes boards such as Cambridge International and the International Baccalaureate (IB)",
+      "Offers internationally oriented curricula",
+      "Encourages critical thinking and independent learning",
+      "Emphasizes research, inquiry, and practical application",
+      "Provides different academic pathways depending on the board and program",
+      "Suitable for students considering international universities",
+    ],
     description:
-      "Explore Wisenery's subjects and learning support for international-curriculum learners.",
+      "Explore Wisenery's international board online coaching classes and subject support for international-curriculum learners.",
     curriculumLabel: "International Language Curriculum",
     grades: Array.from({ length: 12 }, (_, i) => i + 1),
     categories: [
@@ -3365,7 +3420,7 @@ export default function BoardDetails() {
               lg:text-[52px]
             "
           >
-            Choose your class
+            {board.pageHeading}
           </h1>
 
           <p
@@ -3378,6 +3433,47 @@ export default function BoardDetails() {
           >
             {board.description}
           </p>
+        </section>
+
+        {/* =====================================================
+            ABOUT THE BOARD
+        ===================================================== */}
+        <section
+          className="
+            mb-5 rounded-2xl border border-orange-100
+            bg-gradient-to-br from-orange-50/70 via-white to-white
+            px-5 py-5 shadow-[0_2px_10px_rgba(0,0,0,0.035)]
+            sm:mb-6 sm:px-7 sm:py-6
+          "
+          aria-labelledby="about-board-heading"
+        >
+          <div className="flex items-start gap-3 sm:gap-4">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-orange-100/70 sm:h-12 sm:w-12">
+              <GraduationCap size={24} strokeWidth={1.8} className="text-[#f36f21]" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#f36f21]">
+                Know your board
+              </p>
+              <h2
+                id="about-board-heading"
+                className="mt-1 text-xl font-bold tracking-tight text-[#101318] sm:text-2xl"
+              >
+                {board.aboutTitle}
+              </h2>
+              <p className="mt-2 max-w-[1100px] text-sm leading-6 text-gray-600 sm:text-base sm:leading-7">
+                {board.aboutDescription}
+              </p>
+              <ul className="mt-4 grid gap-x-8 gap-y-2 sm:grid-cols-2">
+                {board.aboutPoints.map((point) => (
+                  <li key={point} className="flex items-start gap-2 text-sm leading-6 text-gray-700 sm:text-base">
+                    <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#f36f21]" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </section>
 
         {/* =====================================================

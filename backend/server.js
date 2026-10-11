@@ -5,7 +5,7 @@ require("dotenv").config();
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const demoRoutes = require("./routes/demoRoutes");
-
+const whatsappRoutes = require("./routes/whatsappRoutes");
 const app = express();
 
 const PORT = process.env.PORT || 5000;
@@ -54,7 +54,7 @@ app.get("/", (req, res) => {
 // ========================================
 
 app.use("/api/demo-requests", demoRoutes);
-
+app.use("/api/whatsapp", whatsappRoutes);
 // ========================================
 // MONGODB + SERVER
 // ========================================

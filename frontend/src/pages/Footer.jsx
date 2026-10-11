@@ -161,7 +161,7 @@ function Footer() {
 
               {/* Home */}
               <a
-                href="/#home"
+                href="/home"
                 className="group flex w-fit items-center gap-2 text-sm text-[#111820] transition-colors duration-300 hover:text-[#FF7A29]"
               >
                 Home
@@ -175,7 +175,7 @@ function Footer() {
 
               {/* About Us */}
               <a
-                href="/#about"
+                href="/home#about"
                 className="group flex w-fit items-center gap-2 text-sm text-[#111820] transition-colors duration-300 hover:text-[#FF7A29]"
               >
                 About Us
@@ -189,7 +189,7 @@ function Footer() {
 
               {/* All Courses */}
               <a
-                href="/#courses"
+                href="/home#courses"
                 className="group flex w-fit items-center gap-2 text-sm text-[#111820] transition-colors duration-300 hover:text-[#FF7A29]"
               >
                 All Courses

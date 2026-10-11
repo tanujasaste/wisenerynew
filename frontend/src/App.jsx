@@ -1,25 +1,23 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+
+import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import Programming from "./pages/Programming";
 import Navbar from "./components/Navbar";
 import Footer from "./pages/Footer";
-import IntroAnimation from "./components/IntroAnimation";
 import Home from "./pages/Home";
+import IntroPage from "./pages/IntroPage";
 import CivilEngineering from "./pages/CivilEngineering";
 import Robotics from "./pages/Robotics";
+import WiseneryChatbot from "./components/WiseneryChatbot";
 
 const Teaching = lazy(() => import("./pages/Teaching"));
 const BoardDetails = lazy(() => import("./pages/BoardDetails"));
 
 function App() {
   const location = useLocation();
+  const isIntroRoute = location.pathname === "/";
 
-  const [showIntro, setShowIntro] = useState(
-    window.location.pathname === "/"
-  );
-
-  // Scroll to the top whenever the route changes
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -29,58 +27,43 @@ function App() {
   }, [location.pathname]);
 
   useEffect(() => {
-    document.body.style.overflow = showIntro ? "hidden" : "";
+    document.body.style.overflow = isIntroRoute ? "hidden" : "";
 
     return () => {
       document.body.style.overflow = "";
     };
-  }, [showIntro]);
+  }, [isIntroRoute]);
 
   return (
     <div className="min-h-screen bg-[#fffdf9]">
-      {/* NAVBAR */}
-      <Navbar />
+      {!isIntroRoute && <Navbar />}
 
-      {/* PAGE CONTENT */}
       <Suspense
-        fallback={
-          <div className="min-h-screen bg-[#fffdf9]" />
-        }
+        fallback={<div className="min-h-screen bg-[#fffdf9]" />}
       >
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<IntroPage />} />
+          <Route path="/home" element={<Home />} />
 
           <Route path="/teaching" element={<Teaching />} />
-
           <Route
             path="/teaching/boards/:boardId"
             element={<BoardDetails />}
           />
 
           <Route path="/programming" element={<Programming />} />
-
           <Route
             path="/civil-engineering"
             element={<CivilEngineering />}
           />
-
           <Route path="/robotics" element={<Robotics />} />
         </Routes>
       </Suspense>
 
-      {/* FOOTER */}
-      <Footer />
+      {!isIntroRoute && <Footer />}
 
-      {/* INTRO OVERLAY */}
-      {showIntro && (
-        <div className="fixed inset-0 z-[9999]">
-          <IntroAnimation
-            onComplete={() => {
-              setShowIntro(false);
-            }}
-          />
-        </div>
-      )}
+      {/* Floating chatbot available throughout the website */}
+      {!isIntroRoute && <WiseneryChatbot />}
     </div>
   );
 }
