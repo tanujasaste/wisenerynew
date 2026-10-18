@@ -388,6 +388,7 @@ export default function Teaching() {
               text-[13px] font-medium
               text-blue-600
               sm:gap-2 sm:px-5 sm:py-2 sm:text-[15px]
+              select-none
             "
           >
             <span>Learn</span>
