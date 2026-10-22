@@ -3394,6 +3394,321 @@ export default function BoardDetails() {
 
   const selectedIndex = board.grades.indexOf(selectedGrade);
 
+  
+const maharashtraBooksByGrade = {
+  1: [
+    {
+      name: "Marathi",
+      url: "https://ebooks.ebalbharati.in/pdfs/101050001.pdf",
+    },
+    {
+      name: "Mathematics",
+      url: "https://ebooks.ebalbharati.in/pdfs/101050004.pdf",
+    },
+    {
+      name: "English",
+      url: "https://ebooks.ebalbharati.in/pdfs/103050035.pdf",
+    },
+  ],
+  2: [
+    {
+      name: "Marathi",
+      url: "https://ebooks.ebalbharati.in/pdfs/201060001.pdf",
+    },
+    {
+      name: "Mathematics",
+      url: "https://ebooks.ebalbharati.in/pdfs/201060004.pdf",
+    },
+    {
+      name: "English",
+      url: "https://ebooks.ebalbharati.in/pdfs/203060035.pdf",
+    },
+  ],
+  3: [
+    {
+      name: "Marathi",
+      url: "https://ebooks.ebalbharati.in/pdfs/301060001.pdf",
+    },
+    {
+      name: "Mathematics",
+      url: "https://ebooks.ebalbharati.in/pdfs/301060004.pdf",
+    },
+    {
+      name: "English",
+      url: "https://ebooks.ebalbharati.in/pdfs/303060035.pdf",
+    },
+    {
+      name: "Environmental Studies — Part 2",
+      url: "https://ebooks.ebalbharati.in/pdfs/301000869.pdf",
+    },
+  ],
+  4: [
+    {
+      name: "Marathi",
+      url: "https://ebooks.ebalbharati.in/pdfs/401060001.pdf",
+    },
+    {
+      name: "Mathematics",
+      url: "https://ebooks.ebalbharati.in/pdfs/401060004.pdf",
+    },
+    {
+      name: "English",
+      url: "https://ebooks.ebalbharati.in/pdfs/403060035.pdf",
+    },
+    {
+      name: "Environmental Studies — Part 1",
+      url: "https://ebooks.ebalbharati.in/pdfs/401000868.pdf",
+    },
+    {
+      name: "Environmental Studies — Part 2",
+      url: "https://ebooks.ebalbharati.in/pdfs/401000869.pdf",
+    },
+  ],
+  
+  5: [
+    {
+      name: "Balbharati (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/501020001.pdf",
+    },
+    {
+      name: "Balbharati (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/503020001.pdf",
+    },
+    {
+      name: "Mathematics (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/503020004.pdf",
+    },
+    {
+      name: "Mathematics (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/501020004.pdf",
+    },
+    {
+      name: "English",
+      url: "https://ebooks.ebalbharati.in/pdfs/501020035.pdf",
+    },
+    {
+      name: "Environmental Studies — Part 1 (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/501000541.pdf",
+    },
+    {
+      name: "Environmental Studies — Part 1 (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/503000541.pdf",
+    },
+    {
+      name: "Environmental Studies — Part 2 (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/501000542.pdf",
+    },
+    {
+      name: "Environmental Studies — Part 2 (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/503000542.pdf",
+    },
+  ],
+
+  6: [
+    {
+      name: "Balbharati (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/601060001.pdf",
+    },
+    {
+      name: "Balbharati (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/603060001.pdf",
+    },
+    {
+      name: "Mathematics (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/603060004.pdf",
+    },
+    {
+      name: "Mathematics (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/601060004.pdf",
+    },
+    {
+      name: "Geography (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/601050011.pdf",
+    },
+    {
+      name: "Geography (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/603050011.pdf",
+    },
+    {
+      name: "General Science (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/601050012.pdf",
+    },
+    {
+      name: "General Science (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/603050012.pdf",
+    },
+    {
+      name: "History (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/601030584.pdf",
+    },
+  ],
+
+  7: [
+    {
+      name: "Balbharati (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/701020001.pdf",
+    },
+    {
+      name: "Balbharati (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/703020001.pdf",
+    },
+    {
+      name: "English",
+      url: "https://ebooks.ebalbharati.in/pdfs/703020035.pdf",
+    },
+    {
+      name: "Hindi",
+      url: "https://ebooks.ebalbharati.in/pdfs/702020021.pdf",
+    },
+    {
+      name: "General Science (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/701020012.pdf",
+    },
+    {
+      name: "General Science (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/703020012.pdf",
+    },
+    {
+      name: "Geography (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/701020011.pdf",
+    },
+    {
+      name: "Geography (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/703020011.pdf",
+    },
+    {
+      name: "History and Civics (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/701000584.pdf",
+    },
+    {
+      name: "History and Civics (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/703000584.pdf",
+    },
+    {
+      name: "Mathematics (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/703020004.pdf",
+    },
+    {
+      name: "Mathematics (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/701020004.pdf",
+    },
+  ],
+
+  8: [
+    {
+      name: "Balbharati (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/801020001.pdf",
+    },
+    {
+      name: "Balbharati (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/803020001.pdf",
+    },
+    {
+      name: "English",
+      url: "https://ebooks.ebalbharati.in/pdfs/803020035.pdf",
+    },
+    {
+      name: "Hindi",
+      url: "https://ebooks.ebalbharati.in/pdfs/802020021.pdf",
+    },
+    {
+      name: "General Science (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/801020012.pdf",
+    },
+    {
+      name: "General Science (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/803020012.pdf",
+    },
+    {
+      name: "Geography (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/801020011.pdf",
+    },
+    {
+      name: "Geography (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/803020011.pdf",
+    },
+    {
+      name: "History and Civics (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/801000584.pdf",
+    },
+    {
+      name: "History and Civics (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/803000584.pdf",
+    },
+    {
+      name: "Mathematics (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/803020004.pdf",
+    },
+    {
+      name: "Mathematics (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/801020004.pdf",
+    },
+  ],
+
+  9: [
+    {
+      name: "History and Political Science (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/901010491.pdf",
+    },
+    {
+      name: "History and Political Science (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/903010491.pdf",
+    },
+    {
+      name: "Geography (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/901020011.pdf",
+    },
+    {
+      name: "Geography (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/903020011.pdf",
+    },
+    {
+      name: "Kumarbharati (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/901030024.pdf",
+    },
+    {
+      name: "Kumarbharati (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/903030024.pdf",
+    },
+    {
+      name: "Mathematics — Part 1 (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/903000608.pdf",
+    },
+    {
+      name: "Mathematics — Part 1 (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/901000608.pdf",
+    },
+    {
+      name: "Mathematics — Part 2 (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/903000609.pdf",
+    },
+    {
+      name: "Mathematics — Part 2 (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/901000609.pdf",
+    },
+    {
+      name: "Hindi",
+      url: "https://ebooks.ebalbharati.in/pdfs/902030027.pdf",
+    },
+    {
+      name: "Science and Technology (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/903020456.pdf",
+    },
+    {
+      name: "Science and Technology (medium to confirm)",
+      url: "https://ebooks.ebalbharati.in/pdfs/903000607.pdf",
+    },
+  ],
+
+};
+
+const isMaharashtraBoard = boardKey === "state";
+
+const gradeBooks = isMaharashtraBoard
+  ? maharashtraBooksByGrade[Number(selectedGrade)] || []
+  : [];
+
+
   return (
     <main className="min-h-screen bg-white px-4 py-6 text-[#111827] sm:px-6 sm:py-8 lg:px-8">
       <div className="mx-auto max-w-[1450px]">
@@ -3666,184 +3981,283 @@ export default function BoardDetails() {
         {/* =====================================================
             SUBJECT SECTION — BLUE
         ===================================================== */}
-        <section
+
+{/* =====================================================
+    SUBJECT / TEXTBOOK SECTION — BLUE
+===================================================== */}
+<section
+  className="
+    relative mt-3
+    rounded-2xl
+    border border-blue-100
+    bg-white
+    px-4 py-5
+    shadow-[0_2px_10px_rgba(0,0,0,0.04)]
+    sm:px-7 sm:py-6
+  "
+>
+  {/* Blue pointer */}
+  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+    <div
+      className="
+        h-0 w-0
+        border-x-[11px]
+        border-b-[12px]
+        border-x-transparent
+        border-b-blue-600
+      "
+    />
+  </div>
+
+  {/* Section header */}
+  <div
+    className="
+      flex flex-col gap-4
+      sm:flex-row sm:items-center sm:justify-between
+      sm:gap-5
+    "
+  >
+    <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+      <div
+        className="
+          flex h-12 w-12 shrink-0
+          items-center justify-center
+          rounded-full bg-blue-50
+          sm:h-14 sm:w-14
+        "
+      >
+        <BookOpen
+          size={26}
+          strokeWidth={1.7}
+          className="text-blue-600 sm:h-7 sm:w-7"
+        />
+      </div>
+
+      <div className="min-w-0">
+        <h2 className="text-lg font-bold sm:text-xl">
+          Class {selectedGrade}{" "}
+          {isMaharashtraBoard ? "Textbooks" : "Subjects"}
+        </h2>
+
+        <p className="mt-1 text-[13px] leading-5 text-gray-600 sm:text-sm">
+          {isMaharashtraBoard
+            ? "Explore your textbooks and open the official PDF."
+            : "Explore all subjects and start your learning journey."}
+        </p>
+      </div>
+    </div>
+
+    {/* Curriculum button */}
+    <button
+      type="button"
+      onClick={() => {
+        if (board.curriculumUrl) {
+          window.open(
+            board.curriculumUrl,
+            "_blank",
+            "noopener,noreferrer"
+          );
+        }
+      }}
+      disabled={!board.curriculumUrl}
+      className="
+        flex w-full items-center justify-center gap-2.5
+        rounded-full border border-blue-100
+        bg-blue-50/40 px-4 py-2.5
+        text-sm font-semibold
+        transition
+        hover:border-blue-300 hover:bg-blue-50
+        hover:text-blue-600
+        disabled:cursor-not-allowed disabled:opacity-50
+        sm:w-fit sm:px-5 sm:py-3
+      "
+    >
+      <FileText size={18} className="text-blue-600" />
+      <span>{board.curriculumLabel}</span>
+      <ChevronRight size={18} className="text-blue-600" />
+    </button>
+  </div>
+
+  {/* Maharashtra textbook cards */}
+  {isMaharashtraBoard && gradeBooks.length > 0 ? (
+    <div
+      className="
+        mt-5 grid grid-cols-2 gap-3
+        sm:mt-6 sm:grid-cols-3 sm:gap-4
+        lg:grid-cols-4 xl:grid-cols-5
+      "
+    >
+      {gradeBooks.map((book) => (
+        <a
+          key={book.url}
+          href={book.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open Class ${selectedGrade} ${book.name} textbook PDF`}
           className="
-            relative mt-3
-            rounded-2xl
-            border border-blue-100
-            bg-white
-            px-4 py-5
-            shadow-[0_2px_10px_rgba(0,0,0,0.04)]
-            sm:px-7 sm:py-6
+            group overflow-hidden rounded-xl
+            border border-blue-100 bg-white
+            transition-all duration-200
+            hover:-translate-y-1
+            hover:border-blue-300
+            hover:shadow-[0_5px_18px_rgba(37,99,235,0.10)]
           "
         >
-          {/* Blue pointer */}
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+          {/* Book-cover placeholder */}
+          <div
+            className="
+              relative flex aspect-[3/4]
+              items-center justify-center
+              overflow-hidden bg-gradient-to-br
+              from-blue-50 via-white to-blue-100
+              p-4
+            "
+          >
             <div
               className="
-                h-0 w-0
-                border-x-[11px]
-                border-b-[12px]
-                border-x-transparent
-                border-b-blue-600
+                absolute inset-y-0 left-0 w-2
+                bg-blue-600/15
               "
             />
+
+            <div className="flex flex-col items-center text-center">
+              <BookOpen
+                size={38}
+                strokeWidth={1.4}
+                className="
+                  mb-4 text-blue-600
+                  transition-transform duration-200
+                  group-hover:scale-110
+                "
+              />
+
+              <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-blue-600">
+                Maharashtra State Board
+              </span>
+
+              <span className="mt-2 text-sm font-bold leading-snug text-gray-900 sm:text-base">
+                {book.name}
+              </span>
+
+              <span className="mt-2 text-xs text-gray-500">
+                Standard {selectedGrade}
+              </span>
+            </div>
           </div>
 
-          {/* Subjects header */}
-          <div
-            className="
-              flex flex-col gap-4
-              sm:flex-row sm:items-center sm:justify-between
-              sm:gap-5
-            "
-          >
-            <div className="flex min-w-0 items-center gap-3 sm:gap-4">
-              <div
-                className="
-                  flex h-12 w-12 shrink-0
-                  items-center justify-center
-                  rounded-full
-                  bg-blue-50
-                  sm:h-14 sm:w-14
-                "
-              >
-                <BookOpen
-                  size={26}
-                  strokeWidth={1.7}
-                  className="text-blue-600 sm:h-7 sm:w-7"
-                />
-              </div>
+          {/* Card details */}
+          <div className="p-3 sm:p-4">
+            <h3 className="line-clamp-2 min-h-10 text-sm font-semibold text-gray-900">
+              {book.name}
+            </h3>
 
-              <div className="min-w-0">
-                <h2 className="text-lg font-bold sm:text-xl">
-                  Class {selectedGrade} Subjects
-                </h2>
-
-                <p className="mt-1 text-[13px] leading-5 text-gray-600 sm:text-sm">
-                  Explore all subjects and start your learning journey.
-                </p>
-              </div>
-            </div>
-
-            <button
-              type="button"
+            <div
               className="
-                flex w-full items-center justify-center gap-2.5
-                rounded-full
-                border border-blue-100
-                bg-blue-50/40
-                px-4 py-2.5
-                text-sm font-semibold
-                transition
-                hover:border-blue-300
-                hover:bg-blue-50
-                hover:text-blue-600
-                sm:w-fit sm:px-5 sm:py-3
+                mt-3 flex items-center justify-center gap-1.5
+                rounded-full bg-blue-50 px-2 py-2
+                text-xs font-semibold text-blue-700
+                transition-colors group-hover:bg-blue-600
+                group-hover:text-white sm:text-sm
               "
             >
-              <FileText
-                size={18}
-                className="text-blue-600"
-              />
-
-              <span>{board.curriculumLabel}</span>
-
-              <ChevronRight
-                size={18}
-                className="text-blue-600"
-              />
-            </button>
+              <FileText size={15} />
+              <span>View PDF</span>
+              <ChevronRight size={15} />
+            </div>
           </div>
+        </a>
+      ))}
+    </div>
+  ) : isMaharashtraBoard ? (
+    <div className="mt-5 rounded-xl border border-dashed border-blue-200 bg-blue-50/40 px-4 py-8 text-center">
+      <BookOpen
+        size={30}
+        className="mx-auto mb-3 text-blue-500"
+      />
+      <h3 className="font-semibold text-gray-900">
+        Textbooks coming soon
+      </h3>
+      <p className="mt-1 text-sm text-gray-600">
+        Textbook links for Class {selectedGrade} will be added soon.
+      </p>
+    </div>
+  ) : (
+    /* Keep the existing subject cards for other boards */
+    <div
+      className="
+        mt-5 grid grid-cols-1 gap-3
+        sm:mt-6 sm:grid-cols-2 sm:gap-4
+        lg:grid-cols-4
+      "
+    >
+      {subjects.map((subject) => {
+        const Icon = subject.icon;
 
-          {/* Subject cards */}
-          <div
+        return (
+          <button
+            key={subject.name}
+            type="button"
             className="
-              mt-5
-              grid grid-cols-1 gap-3
-              sm:mt-6 sm:grid-cols-2 sm:gap-4
-              lg:grid-cols-4
+              group flex min-h-[100px] items-center gap-3
+              rounded-xl border border-blue-100 bg-white
+              px-3.5 py-3.5 text-left
+              transition-all duration-200
+              hover:-translate-y-0.5 hover:border-blue-300
+              hover:bg-blue-50/20
+              hover:shadow-[0_5px_18px_rgba(37,99,235,0.08)]
+              sm:min-h-[110px] sm:gap-4 sm:px-4 sm:py-4
             "
           >
-            {subjects.map((subject) => {
-              const Icon = subject.icon;
+            <div
+              className="
+                flex h-12 w-12 shrink-0 items-center
+                justify-center rounded-full bg-blue-50
+                sm:h-14 sm:w-14
+              "
+            >
+              <Icon
+                size={26}
+                strokeWidth={1.7}
+                className="text-blue-600 sm:h-[29px] sm:w-[29px]"
+              />
+            </div>
 
-              return (
-                <button
-                  key={subject.name}
-                  type="button"
-                  className="
-                    group flex min-h-[100px]
-                    items-center gap-3
-                    rounded-xl
-                    border border-blue-100
-                    bg-white
-                    px-3.5 py-3.5
-                    text-left
-                    transition-all duration-200
-                    hover:-translate-y-0.5
-                    hover:border-blue-300
-                    hover:bg-blue-50/20
-                    hover:shadow-[0_5px_18px_rgba(37,99,235,0.08)]
-                    sm:min-h-[110px]
-                    sm:gap-4
-                    sm:px-4 sm:py-4
-                  "
-                >
-                  {/* Icon */}
-                  <div
-                    className="
-                      flex h-12 w-12 shrink-0
-                      items-center justify-center
-                      rounded-full
-                      bg-blue-50
-                      sm:h-14 sm:w-14
-                    "
-                  >
-                    <Icon
-                      size={26}
-                      strokeWidth={1.7}
-                      className="text-blue-600 sm:h-[29px] sm:w-[29px]"
-                    />
-                  </div>
+            <div className="min-w-0 flex-1">
+              <h3 className="text-[15px] font-semibold text-gray-900 sm:text-base">
+                {subject.name}
+              </h3>
+              <p className="mt-1 line-clamp-2 text-[13px] leading-5 text-gray-600 sm:text-sm">
+                {subject.description}
+              </p>
+            </div>
+          </button>
+        );
+      })}
+    </div>
+  )}
 
-                  {/* Text */}
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-[15px] font-semibold text-gray-900 sm:text-base">
-                      {subject.name}
-                    </h3>
+  {/* Bottom information */}
+  <div
+    className="
+      mt-4 flex items-start gap-3
+      rounded-xl bg-blue-50/60 px-4 py-3.5
+      sm:mt-5 sm:items-center sm:gap-4 sm:px-5 sm:py-4
+    "
+  >
+    <Lightbulb
+      size={21}
+      strokeWidth={1.8}
+      className="mt-0.5 shrink-0 text-blue-600 sm:mt-0"
+    />
 
-                    <p className="mt-1 line-clamp-2 text-[13px] leading-5 text-gray-600 sm:text-sm">
-                      {subject.description}
-                    </p>
-                  </div>
+    <p className="text-[13px] leading-5 text-gray-600 sm:text-sm">
+      {isMaharashtraBoard
+        ? "Textbook links direct you to the official Balbharati PDF. Book availability may vary by class and medium."
+        : "Language offerings are shown for Wisenery's current online language classes and are aligned to the board/programme structure described above."}
+    </p>
+  </div>
+</section>
 
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Bottom information */}
-          <div
-            className="
-              mt-4 flex items-start gap-3
-              rounded-xl
-              bg-blue-50/60
-              px-4 py-3.5
-              sm:mt-5 sm:items-center sm:gap-4 sm:px-5 sm:py-4
-            "
-          >
-            <Lightbulb
-              size={21}
-              strokeWidth={1.8}
-              className="mt-0.5 shrink-0 text-blue-600 sm:mt-0"
-            />
-
-            <p className="text-[13px] leading-5 text-gray-600 sm:text-sm">
-              Language offerings are shown for Wisenery's current online language classes and are aligned to the board/programme structure described above.
-            </p>
-          </div>
-        </section>
       </div>
     </main>
   );
