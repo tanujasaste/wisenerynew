@@ -3400,38 +3400,46 @@ const maharashtraBooksByGrade = {
     {
       name: "Marathi",
       url: "https://ebooks.ebalbharati.in/pdfs/101050001.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792837814/image_a9f2e9f1.jpg"
     },
     {
       name: "Mathematics",
       url: "https://ebooks.ebalbharati.in/pdfs/101050004.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840007/ae1f430c-cbbf-4cd5-a946-5d5394c4517a.png"
     },
     {
       name: "English",
       url: "https://ebooks.ebalbharati.in/pdfs/103050035.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840089/d3e9a2d6-ef39-4a14-8185-55336da610ca.png"
     },
   ],
   2: [
     {
       name: "Marathi",
       url: "https://ebooks.ebalbharati.in/pdfs/201060001.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840193/0fcbfdf7-33e7-490d-a41f-ef1c5eb2eae7.png"
     },
     {
       name: "Mathematics",
       url: "https://ebooks.ebalbharati.in/pdfs/201060004.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840227/534b9b30-3730-446f-8653-0d5410fac15a.png"
     },
     {
       name: "English",
       url: "https://ebooks.ebalbharati.in/pdfs/203060035.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840259/97e151ae-0fa3-4ad6-91e5-d423fa773dd2.png"
     },
   ],
   3: [
     {
       name: "Marathi",
       url: "https://ebooks.ebalbharati.in/pdfs/301060001.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840417/5d83c8a9-463a-4629-b54a-72aa2caaa3de.png"
     },
     {
       name: "Mathematics",
       url: "https://ebooks.ebalbharati.in/pdfs/301060004.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840338/e8ae8f6f-c997-4964-86fd-fb0f44cee5b2.png"
     },
     {
       name: "English",
@@ -3440,28 +3448,34 @@ const maharashtraBooksByGrade = {
     {
       name: "Environmental Studies — Part 2",
       url: "https://ebooks.ebalbharati.in/pdfs/301000869.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840422/f153fa67-5816-418d-b239-53018148ca7b.png"
     },
   ],
   4: [
     {
       name: "Marathi",
       url: "https://ebooks.ebalbharati.in/pdfs/401060001.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840636/2fbf3120-144f-4d94-b3ab-0b8d8376bf45.png"
     },
     {
       name: "Mathematics",
       url: "https://ebooks.ebalbharati.in/pdfs/401060004.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840755/283a226e-5a34-4f55-9921-d82dc3148cb1.png"
     },
     {
       name: "English",
       url: "https://ebooks.ebalbharati.in/pdfs/403060035.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840808/62439fcc-3b66-4c7c-96cf-2dfda4fb05ca.png"
     },
     {
       name: "Environmental Studies — Part 1",
       url: "https://ebooks.ebalbharati.in/pdfs/401000868.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840716/b7b97081-e1da-4de9-b4a7-477c24ccaa71.png"
     },
     {
       name: "Environmental Studies — Part 2",
       url: "https://ebooks.ebalbharati.in/pdfs/401000869.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840723/43a9efd8-8ed6-41d5-bfe2-dd5fb0ab4598.png"
     },
   ],
   
@@ -3469,38 +3483,47 @@ const maharashtraBooksByGrade = {
     {
       name: "Balbharati (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/501020001.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792841756/18777206-2a50-4d8d-b5a7-383bb487a060.png"
     },
     {
       name: "Balbharati (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/503020001.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792842182/d4fcdb67-36ed-4c0a-bbf2-aa02a76de464.png"
     },
     {
       name: "Mathematics (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/503020004.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792842146/9d543256-4b9f-4f57-beb9-ab4ae0029866.png"
     },
     {
       name: "Mathematics (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/501020004.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792842117/3c90141f-9656-4e41-a2d1-4fb8f7fb52c0.png"
     },
     {
       name: "English",
       url: "https://ebooks.ebalbharati.in/pdfs/501020035.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792841760/6bb87740-a19e-4eb2-837c-a4ffaaf314ac.png"
     },
     {
       name: "Environmental Studies — Part 1 (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/501000541.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792841693/199901ba-0379-4fd9-9712-23ffc5f8ac18.png"
     },
     {
       name: "Environmental Studies — Part 1 (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/503000541.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792841804/d0418128-b62e-45aa-a489-11bf0dfe9891.png"
     },
     {
       name: "Environmental Studies — Part 2 (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/501000542.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840900/501000542.png"
     },
     {
       name: "Environmental Studies — Part 2 (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/503000542.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792840900/503000542.png"
     },
   ],
 
@@ -3508,89 +3531,121 @@ const maharashtraBooksByGrade = {
     {
       name: "Balbharati (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/601060001.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792842762/e65a0e95-a839-4052-8bc7-408c03ff5f85.png"
     },
     {
       name: "Balbharati (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/603060001.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792842410/603060001.png"
     },
     {
       name: "Mathematics (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/603060004.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843273/c25febfd-0473-4241-89e9-b7784a94c5ee.png"
     },
     {
       name: "Mathematics (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/601060004.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792842794/6865c1d9-8f6a-45ef-a386-0d3e3751fd64.png"
     },
     {
       name: "Geography (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/601050011.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792842983/435224cd-edae-41f1-b110-0b855cacfd62.png"
     },
     {
       name: "Geography (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/603050011.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843019/f95552e9-07ae-4e6d-8d64-f90f6b7a3343.png"
     },
     {
       name: "General Science (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/601050012.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792842930/64755fb0-3ac3-4f7c-a177-f6f1fd83fc30.png"
     },
     {
       name: "General Science (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/603050012.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843371/22d77477-6d46-43cf-80b8-3a9402fb3340.png"
     },
     {
       name: "History (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/601030584.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792842934/13788c93-f439-4a1c-862d-9b5e6660a436.png"
     },
+        {
+      name: "History (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/603030584.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843428/a42220fd-9bfd-4e8a-87ea-d26f60eb1971.png"
+    },
+            {
+      name: "English",
+      url: "https://ebooks.ebalbharati.in/pdfs/603030584.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843205/e9a3133f-dbd3-4a68-a113-4e1f5ae993a9.png"
+    },
+    
   ],
 
   7: [
     {
       name: "Balbharati (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/701020001.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843550/b489e6ee-adea-4e07-a536-6b31c11649c5.png"
     },
     {
       name: "Balbharati (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/703020001.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843961/3a4921d5-0515-4e76-8a79-ff6bd8790f82.png"
     },
     {
       name: "English",
       url: "https://ebooks.ebalbharati.in/pdfs/703020035.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843824/19e4369b-8e70-4bb7-8802-f2180f1323d5.png"
     },
     {
       name: "Hindi",
       url: "https://ebooks.ebalbharati.in/pdfs/702020021.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843923/363ad0bb-3406-42d0-b8be-979be2714d11.png"
     },
     {
       name: "General Science (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/701020012.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843580/21c8cf42-2261-4ca6-88b4-8a25d5b70ed6.png"
     },
     {
       name: "General Science (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/703020012.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843989/4cc474ac-ed1c-4fdf-ae3e-8363f5026880.png"
     },
     {
       name: "Geography (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/701020011.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843757/f8c34498-dacc-403e-a328-bf0b91c9e48e.png"
     },
     {
       name: "Geography (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/703020011.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792846068/fa2bf08a-ddcb-4d97-981a-b7638130280a.png"
     },
     {
       name: "History and Civics (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/701000584.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843747/aebb3a82-737e-4b84-bed8-0f28ee6501e7.png"
     },
     {
       name: "History and Civics (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/703000584.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792846169/cdbf3140-b25d-436d-b521-0061816f6a7e.png"
     },
     {
       name: "Mathematics (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/703020004.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843981/48b0b95c-1e5d-43c4-aa47-bb56ee1ba797.png"
     },
     {
       name: "Mathematics (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/701020004.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792843554/2f0c6442-c21a-4304-af0b-145efb514232.png"
     },
   ],
 
@@ -3598,50 +3653,62 @@ const maharashtraBooksByGrade = {
     {
       name: "Balbharati (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/801020001.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792846376/54085e93-8223-430d-87ae-2937f372ce8d.png"
     },
     {
       name: "Balbharati (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/803020001.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792846754/6efd6cca-9f2a-473a-9a07-0d4d94d35e0f.png"
     },
     {
       name: "English",
       url: "https://ebooks.ebalbharati.in/pdfs/803020035.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847066/f9851c3f-54e3-4fc4-ac37-28f96ba50643.png"
     },
     {
       name: "Hindi",
       url: "https://ebooks.ebalbharati.in/pdfs/802020021.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847078/53227971-2e31-40d9-95d7-4824820eccd5.png"
     },
     {
       name: "General Science (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/801020012.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792846749/d1eec1f0-d4ca-4db9-8a0e-a12f4d91a9e3.png"
     },
     {
       name: "General Science (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/803020012.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792846903/201971b0-fbb3-47b3-9393-f74276e74a29.png"
     },
     {
       name: "Geography (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/801020011.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792846896/a89ab899-8f9e-4e44-a8b4-9311eb0c5aab.png"
     },
     {
       name: "Geography (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/803020011.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847050/6f790ff7-27b0-41e2-b5f1-7881e0cb80da.png"
     },
     {
       name: "History and Civics (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/801000584.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792846821/f01f2a21-a96b-4a01-be60-7de132a1be04.png"
     },
     {
       name: "History and Civics (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/803000584.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792846961/2913d79b-e4ac-4ae9-bfcd-867317e5a158.png"
     },
     {
       name: "Mathematics (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/803020004.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792846869/014f3e16-cf35-4c87-861d-9856d350b982.png"
     },
     {
       name: "Mathematics (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/801020004.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792846649/1f4fe823-8014-4a56-a10d-ca78d548df21.png"
     },
   ],
 
@@ -3649,54 +3716,256 @@ const maharashtraBooksByGrade = {
     {
       name: "History and Political Science (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/901010491.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847315/8d08608e-3e5d-46e3-a8f4-7c6572b74db8.png"
     },
     {
       name: "History and Political Science (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/903010491.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847625/f18feef9-ad1a-4029-b3b8-9efc73a757ef.png"
     },
     {
       name: "Geography (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/901020011.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847374/41cc9f9e-be71-4798-9923-8c7e5dbc7e07.png"
     },
     {
       name: "Geography (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/903020011.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847050/6f790ff7-27b0-41e2-b5f1-7881e0cb80da.png"
     },
     {
       name: "Kumarbharati (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/901030024.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847179/4f60d906-1f3b-4c91-874d-49aca4673295.png"
     },
     {
       name: "Kumarbharati (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/903030024.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792846961/2913d79b-e4ac-4ae9-bfcd-867317e5a158.png"
     },
     {
       name: "Mathematics — Part 1 (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/903000608.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847435/1a3f344d-2071-43f7-b5ba-9859cb43d57c.png"
     },
     {
       name: "Mathematics — Part 1 (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/901000608.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847183/12d1541b-b997-4209-9b23-385947b39817.png"
     },
     {
       name: "Mathematics — Part 2 (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/903000609.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847460/0f7773cf-4505-4248-bbd5-c006adad8731.png"
     },
     {
       name: "Mathematics — Part 2 (Marathi)",
       url: "https://ebooks.ebalbharati.in/pdfs/901000609.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847228/fbef6650-43ce-489f-923e-a14a50a0b8ac.png"
     },
     {
       name: "Hindi",
       url: "https://ebooks.ebalbharati.in/pdfs/902030027.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847710/b69929f4-7ec8-46ae-a993-e57fae1ecdd5.png"
     },
     {
       name: "Science and Technology (English)",
       url: "https://ebooks.ebalbharati.in/pdfs/903020456.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847607/aecd891c-9ec4-4a20-87d9-188e3d314a2c.png"
     },
     {
       name: "Science and Technology (medium to confirm)",
       url: "https://ebooks.ebalbharati.in/pdfs/903000607.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792847306/3fa94f0f-d8d8-4b7b-9894-86818db7b463.png"
+    },
+  ],
+  
+  10: [
+    {
+      name: "History and Political Science (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1001010491.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853163/fd190f66-3b13-47a4-94d8-78944a255d20.png"
+    },
+    {
+      name: "History and Political Science (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1003010491.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853430/f535bb78-0e12-41fb-8f47-c5ae77a52b79.png"
+    },
+    {
+      name: "Geography (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1001020011.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853257/e988c4b7-b00f-4f6d-b61c-652eda46a426.png"
+    },
+    {
+      name: "Geography (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1003020011.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853436/af9c5a62-3b73-45d1-80b5-472274e9b8fc.png"
+    },
+    {
+      name: "Kumarbharati (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1001030024.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792848033/6b39a452-1178-4807-876d-f6ae241dbd5f.png"
+    },
+    {
+      name: "Kumarbharati (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1003030024.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792852451/7e94eaf0-335f-4d27-9852-ab0ac7a62db1.png"
+    },
+    {
+      name: "Mathematics — Part 1 (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1003000608.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853372/68b5b4a6-daed-459d-bc29-0d4e45497b4f.png"
+    },
+    {
+      name: "Mathematics — Part 1 (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1001000608.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792852432/45ad076c-4e77-4815-bd17-d7408ad5f76f.png"
+    },
+    {
+      name: "Mathematics — Part 2 (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1003000609.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853394/46ce5b31-e8e6-410e-858a-4a2082e3b0ef.png"
+    },
+    {
+      name: "Mathematics — Part 2 (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1001000609.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792852415/d3c34abf-2cae-49a4-bd88-c9cd6fa68488.png"
+    },
+    {
+      name: "Hindi",
+      url: "https://ebooks.ebalbharati.in/pdfs/1002030027.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853422/c6957a6e-16ab-43c1-a36a-9936e5d19386.png"
+    },
+    {
+      name: "Science and Technology — Part 1 (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1003000265.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853004/500332ea-5a06-45b7-9c42-252aa072eaa9.png"
+    },
+    {
+      name: "Science and Technology — Part 1 (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1001000265.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853158/9709cd11-7bc7-4b44-a25b-4aa9d9700bae.png"
+    },
+    {
+      name: "Science and Technology — Part 2 (English)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1003000270.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792852410/8fc9f076-b2ab-4f81-a819-57782570b07b.png"
+    },
+    {
+      name: "Science and Technology — Part 2 (Marathi)",
+      url: "https://ebooks.ebalbharati.in/pdfs/1001000270.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853016/dada7267-4b4f-495b-886d-2ff1c1339b1d.png"
+    },
+    {
+      name: "English",
+      url: "https://ebooks.ebalbharati.in/pdfs/1003000607.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853307/4ad02e3f-0232-466f-9382-94df20b52d39.png"
+    },
+  ],
+
+  11: [
+    {
+      name: "Information Technology",
+      url: "https://ebooks.ebalbharati.in/pdfs/1103000662.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792854552/8e6fa8e6-6d79-4501-9435-3d40ee2f3a78.png"
+    },
+    {
+      name: "Mathematics — Part 1",
+      url: "https://ebooks.ebalbharati.in/pdfs/1103020423.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792854496/1d4ffaf7-b76b-40cf-b9d3-8bded4def183.png"
+    },
+    {
+      name: "Mathematics — Part 2",
+      url: "https://ebooks.ebalbharati.in/pdfs/1103020424.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792854494/0d2401e8-85f0-4e8a-864d-5661c417d7bc.png"
+    },
+    {
+      name: "Physics",
+      url: "https://ebooks.ebalbharati.in/pdfs/1103020415.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853771/54c0eb53-3aa5-4201-8a43-ec611d653e4b.png"
+    },
+    {
+      name: "Chemistry",
+      url: "https://ebooks.ebalbharati.in/pdfs/1103030414.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853811/6b6d7bb8-b41e-40af-b603-a877d45f9d75.png"
+    },
+    {
+      name: "Biology",
+      url: "https://ebooks.ebalbharati.in/pdfs/1103030421.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853916/8a9ef907-b318-485d-8ab7-fc988f5d9225.png"
+    },
+    {
+      name: "Marathi",
+      url: "https://ebooks.ebalbharati.in/pdfs/1101040026.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792854009/53a95bf1-d4d8-418c-8f54-53cd3150212c.png"
+    },
+    {
+      name: "English",
+      url: "https://ebooks.ebalbharati.in/pdfs/1103040026.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792854003/44023e08-a909-4cd1-9a43-ac83339b2552.png"
+    },
+    {
+      name: "Animal Science",
+      url: "https://ebooks.ebalbharati.in/pdfs/1103010511.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853997/fb9955e0-4427-46d7-9822-fd91661e0ae8.png"
+    },
+    {
+      name: "Agriculture Science and Technology",
+      url: "https://ebooks.ebalbharati.in/pdfs/1103020427.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792853832/4768181c-471d-4492-98fd-0cef822c284e.png"
+    },
+  ],
+
+  12: [
+    {
+      name: "Information Technology",
+      url: "https://ebooks.ebalbharati.in/pdfs/1203010500.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792854126/8e2eed09-67d5-4b90-ab16-5f3b74fafed3.png"
+    },
+    {
+      name: "Mathematics — Part 1",
+      url: "https://ebooks.ebalbharati.in/pdfs/1203020423.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792854432/91e91a20-ec56-4dd4-8966-566d6cf22067.png"
+    },
+    {
+      name: "Mathematics — Part 2",
+      url: "https://ebooks.ebalbharati.in/pdfs/1203020424.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792854322/829da31b-8ba8-4b22-85f3-8ad650a9d164.png"
+    },
+    {
+      name: "Physics",
+      url: "https://ebooks.ebalbharati.in/pdfs/1203020415.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792854084/7d9737e8-8237-4975-afe5-18b71acf7075.png"
+    },
+    {
+      name: "Chemistry",
+      url: "https://ebooks.ebalbharati.in/pdfs/1203030414.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792854096/1ab3822c-c10f-40b3-8a42-7df131f5ebee.png"
+    },
+    {
+      name: "Biology",
+      url: "https://ebooks.ebalbharati.in/pdfs/1203030421.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792854175/71d263cc-9ee6-495a-9a26-afe15226ef43.png"
+    },
+    {
+      name: "Marathi",
+      url: "https://ebooks.ebalbharati.in/pdfs/1201040026.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792854243/5c77a87d-86bd-4c15-9bb0-ddf8635cc01c.png"
+    },
+    {
+      name: "English",
+      url: "https://ebooks.ebalbharati.in/pdfs/1203040026.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792854305/78a424f5-1bdc-4f11-bc82-7bf292f17b76.png"
+    },
+    {
+      name: "Animal Science",
+      url: "https://ebooks.ebalbharati.in/pdfs/1203010511.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792862387/d6b94aa0-a80b-440d-a7c0-909c29256adc.png"
+    },
+    {
+      name: "Agriculture Science and Technology",
+      url: "https://ebooks.ebalbharati.in/pdfs/1203020427.pdf",
+      coverUrl:"https://res.cloudinary.com/plavlx90/image/upload/v1792862461/c1d6874b-7488-4706-bf35-2cddee9e6d88.png"
     },
   ],
 
@@ -4103,47 +4372,63 @@ const gradeBooks = isMaharashtraBoard
             hover:shadow-[0_5px_18px_rgba(37,99,235,0.10)]
           "
         >
-          {/* Book-cover placeholder */}
-          <div
-            className="
-              relative flex aspect-[3/4]
-              items-center justify-center
-              overflow-hidden bg-gradient-to-br
-              from-blue-50 via-white to-blue-100
-              p-4
-            "
-          >
-            <div
-              className="
-                absolute inset-y-0 left-0 w-2
-                bg-blue-600/15
-              "
-            />
 
-            <div className="flex flex-col items-center text-center">
-              <BookOpen
-                size={38}
-                strokeWidth={1.4}
-                className="
-                  mb-4 text-blue-600
-                  transition-transform duration-200
-                  group-hover:scale-110
-                "
-              />
+<div
+  className="
+    relative flex aspect-[3/4]
+    items-center justify-center
+    overflow-hidden bg-gradient-to-br
+    from-blue-50 via-white to-blue-100
+    p-4
+  "
+>
+  <div className="absolute inset-y-0 left-0 w-2 bg-blue-600/15" />
 
-              <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-blue-600">
-                Maharashtra State Board
-              </span>
+  {book.coverUrl ? (
+    <img
+      src={book.coverUrl}
+      alt={`${book.name} textbook cover`}
+      loading="lazy"
+      decoding="async"
+      width="240"
+      height="320"
+      className="
+        relative z-10 h-full w-full
+        object-contain
+        transition-transform duration-200
+        group-hover:scale-[1.02]
+      "
+      onError={(event) => {
+        event.currentTarget.style.display = "none";
+      }}
+    />
+  ) : (
+    <div className="flex flex-col items-center text-center">
+      <BookOpen
+        size={38}
+        strokeWidth={1.4}
+        className="
+          mb-4 text-blue-600
+          transition-transform duration-200
+          group-hover:scale-110
+        "
+      />
 
-              <span className="mt-2 text-sm font-bold leading-snug text-gray-900 sm:text-base">
-                {book.name}
-              </span>
+      <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-blue-600">
+        Maharashtra State Board
+      </span>
 
-              <span className="mt-2 text-xs text-gray-500">
-                Standard {selectedGrade}
-              </span>
-            </div>
-          </div>
+      <span className="mt-2 text-sm font-bold leading-snug text-gray-900 sm:text-base">
+        {book.name}
+      </span>
+
+      <span className="mt-2 text-xs text-gray-500">
+        Standard {selectedGrade}
+      </span>
+    </div>
+  )}
+</div>
+
 
           {/* Card details */}
           <div className="p-3 sm:p-4">
