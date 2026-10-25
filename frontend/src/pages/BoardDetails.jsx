@@ -3204,7 +3204,7 @@ const boardConfigs = {
     title: "CBSE BOARD",
     pageHeading: "CBSE Online Coaching Classes",
     aboutTitle: "What is CBSE?",
-    aboutDescription: "The CBSE Schools in Pune follow a nationally recognized education system designed to provide a balanced and structured learning experience. The board focuses on conceptual understanding, academic development, and preparation for competitive examinations. Its curriculum is widely followed across India, making it a popular choice for students who may relocate or pursue higher education in different states.",
+    aboutDescription: "The CBSE Schools follow a nationally recognized education system designed to provide a balanced and structured learning experience. The board focuses on conceptual understanding, academic development, and preparation for competitive examinations. Its curriculum is widely followed across India, making it a popular choice for students who may relocate or pursue higher education in different states.",
     aboutPoints: [
       "Full form — Central Board of Secondary Education",
       "National-level board in India",
@@ -3232,7 +3232,7 @@ const boardConfigs = {
     title: "CISCE BOARD",
     pageHeading: "ICSE / CISCE Online Coaching Classes",
     aboutTitle: "What is ICSE / CISCE?",
-    aboutDescription: "The ICSE Schools in Pune offer a comprehensive education system that emphasizes language skills, analytical thinking, and a broad understanding of academic subjects. The curriculum encourages students to develop strong reading, writing, and problem-solving abilities. With its detailed subject coverage and balanced approach to academics, it is a popular option for students seeking an in-depth learning experience.",
+    aboutDescription: "The ICSE Schools offer a comprehensive education system that emphasizes language skills, analytical thinking, and a broad understanding of academic subjects. The curriculum encourages students to develop strong reading, writing, and problem-solving abilities. With its detailed subject coverage and balanced approach to academics, it is a popular option for students seeking an in-depth learning experience.",
     aboutPoints: [
       "Full form — Indian Certificate of Secondary Education (ICSE)",
       "Conducted by the Council for the Indian School Certificate Examinations (CISCE)",
@@ -3260,7 +3260,7 @@ nios: {
   title: "NIOS",
   pageHeading: "NIOS Online Coaching Classes",
   aboutTitle: "What is NIOS?",
-  aboutDescription: "The NIOS Schools in Pune is one of the largest open schooling systems in the world. It is designed to provide flexible education to learners who cannot attend regular schools. Students can study at their own pace and appear for exams when they feel prepared. This makes it a highly student-friendly system compared to traditional boards.",
+  aboutDescription: "The NIOS Schools is one of the largest open schooling systems in the world. It is designed to provide flexible education to learners who cannot attend regular schools. Students can study at their own pace and appear for exams when they feel prepared. This makes it a highly student-friendly system compared to traditional boards.",
   aboutPoints: [
     "Full form — National Institute of Open Schooling",
     "Established by Government of India",
@@ -3309,7 +3309,7 @@ nios: {
     title: "STATE BOARDS",
     pageHeading: "Maharashtra State Board Online Coaching Classes",
     aboutTitle: "What is the Maharashtra State Board?",
-    aboutDescription: "The Maharashtra State Board Schools in Pune follow a curriculum designed to meet the educational needs of students across Maharashtra. The board provides a structured learning pathway with subjects and syllabi aligned with state education requirements. It is a widely followed option for students who want to continue their education within Maharashtra and prepare for state-level academic opportunities.",
+    aboutDescription: "The Maharashtra State Board Schools follow a curriculum designed to meet the educational needs of students across Maharashtra. The board provides a structured learning pathway with subjects and syllabi aligned with state education requirements. It is a widely followed option for students who want to continue their education within Maharashtra and prepare for state-level academic opportunities.",
     aboutPoints: [
       "Full form — Maharashtra State Board of Secondary and Higher Secondary Education (MSBSHSE)",
       "State-level education board in Maharashtra",
@@ -3337,7 +3337,7 @@ nios: {
     title: "INTERNATIONAL BOARDS",
     pageHeading: "International Board Online Coaching Classes",
     aboutTitle: "What are International Boards?",
-    aboutDescription: "International board education in Pune provides students with learning approaches that encourage inquiry, independent thinking, and the practical application of knowledge. Boards such as Cambridge International and the International Baccalaureate (IB) offer internationally oriented curricula designed to develop academic skills and global perspectives. These programs can be suitable for students considering international higher education.",
+    aboutDescription: "International board education  provides students with learning approaches that encourage inquiry, independent thinking, and the practical application of knowledge. Boards such as Cambridge International and the International Baccalaureate (IB) offer internationally oriented curricula designed to develop academic skills and global perspectives. These programs can be suitable for students considering international higher education.",
     aboutPoints: [
       "Includes boards such as Cambridge International and the International Baccalaureate (IB)",
       "Offers internationally oriented curricula",
