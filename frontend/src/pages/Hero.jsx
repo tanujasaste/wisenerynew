@@ -163,30 +163,6 @@ const handlePhoneClick = async () => {
             </div>
           </Reveal>
 
-          {/* Actions */}
-          <Reveal trigger="mount" delay={160}>
-            <div className="mt-8 flex items-center justify-center gap-10 sm:mt-10 lg:justify-start">
-              <button    onClick={() => {
-    document.getElementById("courses")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }} className="flex h-[50px] items-center gap-3 rounded-[10px] bg-[#f56b0a] px-6 text-[15px] font-semibold text-white shadow-sm transition-all hover:-translate-y-1 hover:bg-[#e65f05] sm:h-[58px] sm:px-7 sm:text-[17px]">
-                Explore Courses
-
-                <ArrowRight
-                  size={19}
-                  className="sm:hidden"
-                />
-
-                <ArrowRight
-                  size={21}
-                  className="hidden sm:block"
-                />
-              </button>
-            </div>
-          </Reveal>
-
         </div>
 
         {/* RIGHT ILLUSTRATION */}
