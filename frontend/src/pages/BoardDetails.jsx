@@ -22,650 +22,6 @@ import {
   Brain,
 } from "lucide-react";
 
-// =====================================================
-// BOARD-WISE SUBJECT DATA
-// =====================================================
-
-// -----------------------------------------------------
-// COMMON ICONS
-// -----------------------------------------------------
-// Mathematics  -> Calculator
-// Languages    -> Languages / BookOpen
-// Science      -> FlaskConical
-// Social Sci.  -> Globe2
-// Computer     -> Monitor
-// Business     -> FileText
-// Cloud / IT   -> Cloud
-
-
-// =====================================================
-// CBSE
-// =====================================================
-
-const cbseSubjectData = {
-  // =====================================================
-  // PRIMARY
-  // =====================================================
-
-  1: [
-    {
-      name: "Mathematics",
-      description: "Build strong number sense and problem-solving skills",
-      icon: Calculator,
-    },
-    {
-      name: "English",
-      description: "Develop reading, writing, speaking and listening skills",
-      icon: BookOpen,
-    },
-    {
-      name: "Hindi",
-      description: "Develop vocabulary, grammar, reading and writing skills",
-      icon: Languages,
-    },
-    {
-      name: "Marathi",
-      description: "मराठी भाषा, वाचन, लेखन आणि व्याकरण कौशल्य विकसित करा",
-      icon: Languages,
-    },
-  ],
-
-  2: [
-    {
-      name: "Mathematics",
-      description: "Strengthen numerical thinking and problem-solving skills",
-      icon: Calculator,
-    },
-    {
-      name: "English",
-      description: "Improve reading, writing and communication skills",
-      icon: BookOpen,
-    },
-    {
-      name: "Hindi",
-      description: "हिंदी भाषा, वाचन आणि लेखन कौशल्य विकसित करें",
-      icon: Languages,
-    },
-    {
-      name: "Marathi",
-      description: "मराठी भाषा, वाचन, लेखन आणि व्याकरण कौशल्य विकसित करा",
-      icon: Languages,
-    },
-  ],
-
-  3: [
-    {
-      name: "Mathematics",
-      description: "Develop logical thinking and problem-solving skills",
-      icon: Calculator,
-    },
-    {
-      name: "English",
-      description: "Enhance reading, writing and communication skills",
-      icon: BookOpen,
-    },
-    {
-      name: "Hindi",
-      description: "हिंदी भाषा और व्याकरण की समझ विकसित करें",
-      icon: Languages,
-    },
-    {
-      name: "Marathi",
-      description: "मराठी वाचन, लेखन आणि भाषा कौशल्य विकसित करा",
-      icon: Languages,
-    },
-  ],
-
-  // =====================================================
-  // CLASS 4
-  // =====================================================
-
-  4: [
-    {
-      name: "Mathematics",
-      description:
-        "Develop number sense, operations, fractions, geometry and data handling",
-      icon: Calculator,
-    },
-    {
-      name: "English",
-      description:
-        "Build reading, writing, speaking and listening skills",
-      icon: BookOpen,
-    },
-    {
-      name: "Hindi",
-      description:
-        "Develop vocabulary, grammar, reading and literary skills",
-      icon: Languages,
-    },
-    {
-      name: "Marathi",
-      description:
-        "मराठी भाषा, व्याकरण, वाचन आणि लेखन कौशल्य विकसित करा",
-      icon: Languages,
-    },
-    {
-      name: "Environmental Studies",
-      description:
-        "Explore nature, communities, health, food, water and living organisms",
-      icon: Globe2,
-    },
-  ],
-
-  // =====================================================
-  // CLASS 5
-  // =====================================================
-
-  5: [
-    {
-      name: "Mathematics",
-      description:
-        "Strengthen number systems, fractions, decimals, geometry and data handling",
-      icon: Calculator,
-    },
-    {
-      name: "English",
-      description:
-        "Develop reading comprehension, communication and foundational grammar",
-      icon: BookOpen,
-    },
-    {
-      name: "Hindi",
-      description:
-        "Build literature appreciation, grammar and creative expression",
-      icon: Languages,
-    },
-    {
-      name: "Marathi",
-      description:
-        "मराठी वाचन, लेखन, व्याकरण आणि अभिव्यक्ती कौशल्य विकसित करा",
-      icon: Languages,
-    },
-    {
-      name: "Environmental Studies",
-      description:
-        "Explore the world around us, science, society and environmental care",
-      icon: Globe2,
-    },
-  ],
-
-  // =====================================================
-  // CLASS 6
-  // =====================================================
-
-  6: [
-    {
-      name: "Mathematics",
-      description:
-        "Build foundations in algebra, integers, fractions, geometry and data handling",
-      icon: Calculator,
-    },
-    {
-      name: "Science",
-      description:
-        "Explore fundamental concepts in physical, chemical and biological sciences",
-      icon: FlaskConical,
-    },
-    {
-      name: "Social Science",
-      description:
-        "Study history, geography, society, government and civic life",
-      icon: Globe2,
-    },
-    {
-      name: "English",
-      description:
-        "Develop grammar, comprehension, literature and communication skills",
-      icon: BookOpen,
-    },
-    {
-      name: "Hindi",
-      description:
-        "Develop language structures, literature and communication skills",
-      icon: Languages,
-    },
-    {
-      name: "Marathi",
-      description:
-        "मराठी भाषा, वाचन, लेखन आणि व्याकरण कौशल्य विकसित करा",
-      icon: Languages,
-    },
-  ],
-
-  // =====================================================
-  // CLASS 7
-  // =====================================================
-
-  7: [
-    {
-      name: "Mathematics",
-      description:
-        "Develop skills in rational numbers, equations, geometry and data handling",
-      icon: Calculator,
-    },
-    {
-      name: "Science",
-      description:
-        "Explore nutrition, heat, matter, reactions, respiration and light",
-      icon: FlaskConical,
-    },
-    {
-      name: "Social Science",
-      description:
-        "Study history, geography, society, equality and government",
-      icon: Globe2,
-    },
-    {
-      name: "English",
-      description:
-        "Strengthen vocabulary, grammar, writing and literature skills",
-      icon: BookOpen,
-    },
-    {
-      name: "Hindi",
-      description:
-        "Develop advanced grammar, writing and literary understanding",
-      icon: Languages,
-    },
-    {
-      name: "Marathi",
-      description:
-        "मराठी भाषा, साहित्य, वाचन आणि लेखन कौशल्य विकसित करा",
-      icon: Languages,
-    },
-  ],
-
-  // =====================================================
-  // CLASS 8
-  // =====================================================
-
-  8: [
-    {
-      name: "Mathematics",
-      description:
-        "Build skills in equations, algebra, geometry, mensuration and data handling",
-      icon: Calculator,
-    },
-    {
-      name: "Science",
-      description:
-        "Explore cells, reproduction, force, pressure, sound and chemical effects",
-      icon: FlaskConical,
-    },
-    {
-      name: "Social Science",
-      description:
-        "Study modern history, resources, constitution, society and public life",
-      icon: Globe2,
-    },
-    {
-      name: "English",
-      description:
-        "Develop composition, grammar, comprehension and literature skills",
-      icon: BookOpen,
-    },
-    {
-      name: "Hindi",
-      description:
-        "Strengthen language structure, writing and literary comprehension",
-      icon: Languages,
-    },
-    {
-      name: "Marathi",
-      description:
-        "मराठी भाषा, वाचन, लेखन, व्याकरण आणि साहित्य कौशल्य विकसित करा",
-      icon: Languages,
-    },
-  ],
-
-  // =====================================================
-  // CLASS 9
-  // =====================================================
-
-  9: [
-    {
-      name: "Mathematics",
-      description:
-        "Study number systems, algebra, geometry, statistics and coordinate geometry",
-      icon: Calculator,
-    },
-    {
-      name: "Science",
-      description:
-        "Explore physics, chemistry and biology fundamentals",
-      icon: FlaskConical,
-    },
-    {
-      name: "Social Science",
-      description:
-        "Study history, geography, democratic politics and economics",
-      icon: Globe2,
-    },
-    {
-      name: "English",
-      description:
-        "Develop advanced grammar, comprehension, composition and literature",
-      icon: BookOpen,
-    },
-    {
-      name: "Hindi",
-      description:
-        "Choose and develop Hindi language and literature through Course A or B",
-      icon: Languages,
-    },
-    {
-      name: "Marathi",
-      description:
-        "मराठी भाषा, साहित्य, वाचन आणि लेखन कौशल्य विकसित करा",
-      icon: Languages,
-    },
-    {
-      name: "Information Technology",
-      description:
-        "Develop practical digital and information technology skills",
-      icon: Monitor,
-    },
-    {
-      name: "Artificial Intelligence",
-      description:
-        "Build foundational understanding of artificial intelligence",
-      icon: Cloud,
-    },
-  ],
-
-  // =====================================================
-  // CLASS 10
-  // =====================================================
-
-  10: [
-    {
-      name: "Mathematics",
-      description:
-        "Study algebra, geometry, trigonometry, statistics and probability",
-      icon: Calculator,
-    },
-    {
-      name: "Science",
-      description:
-        "Explore physics, chemistry and biology through integrated science",
-      icon: FlaskConical,
-    },
-    {
-      name: "Social Science",
-      description:
-        "Study history, geography, democratic politics and economics",
-      icon: Globe2,
-    },
-    {
-      name: "English",
-      description:
-        "Develop advanced language, comprehension and literature skills",
-      icon: BookOpen,
-    },
-    {
-      name: "Hindi",
-      description:
-        "Develop Hindi language and literature through Course A or B",
-      icon: Languages,
-    },
-    {
-      name: "Marathi",
-      description:
-        "मराठी भाषा, साहित्य, वाचन आणि लेखन कौशल्य विकसित करा",
-      icon: Languages,
-    },
-    {
-      name: "Information Technology",
-      description:
-        "Develop practical IT and digital application skills",
-      icon: Monitor,
-    },
-    {
-      name: "Artificial Intelligence",
-      description:
-        "Explore foundational AI concepts and applications",
-      icon: Cloud,
-    },
-  ],
-
-  // =====================================================
-  // CLASS 11
-  // =====================================================
-
-  11: [
-    // Common
-    {
-      name: "English Core",
-      description:
-        "Develop advanced language, communication and literary skills",
-      icon: BookOpen,
-    },
-
-    // Science
-    {
-      name: "Physics",
-      description:
-        "Study mechanics, thermodynamics, waves and gravitation",
-      icon: Atom,
-    },
-    {
-      name: "Chemistry",
-      description:
-        "Study atomic structure, bonding, thermodynamics and organic chemistry",
-      icon: FlaskConical,
-    },
-    {
-      name: "Mathematics",
-      description:
-        "Explore sets, relations, functions, coordinate geometry and calculus foundations",
-      icon: Calculator,
-    },
-    {
-      name: "Biology",
-      description:
-        "Study living organisms, cells, plant and animal physiology",
-      icon: Dna,
-    },
-
-    // Commerce
-    {
-      name: "Accountancy",
-      description:
-        "Learn accounting processes and preparation of financial statements",
-      icon: FileText,
-    },
-    {
-      name: "Business Studies",
-      description:
-        "Understand business foundations, trade and organizational practices",
-      icon: BriefcaseBusiness,
-    },
-    {
-      name: "Economics",
-      description:
-        "Study microeconomics and statistics for economics",
-      icon: TrendingUp,
-    },
-
-    // Humanities
-    {
-      name: "History",
-      description:
-        "Explore themes and developments in world history",
-      icon: Landmark,
-    },
-    {
-      name: "Political Science",
-      description:
-        "Study the Indian Constitution and political theory",
-      icon: Scale,
-    },
-    {
-      name: "Geography",
-      description:
-        "Understand physical geography and Earth's systems",
-      icon: Globe2,
-    },
-    {
-      name: "Sociology",
-      description:
-        "Understand society, social institutions and human relationships",
-      icon: Users,
-    },
-    {
-      name: "Psychology",
-      description:
-        "Explore psychological attributes, behaviour and mental processes",
-      icon: Brain,
-    },
-
-    // Common electives
-    {
-      name: "Computer Science",
-      description:
-        "Develop programming and computational thinking skills",
-      icon: Monitor,
-    },
-    {
-      name: "Informatics Practices",
-      description:
-        "Learn computing, data handling and information practices",
-      icon: Monitor,
-    },
-    {
-      name: "Artificial Intelligence",
-      description:
-        "Explore artificial intelligence concepts and applications",
-      icon: Cloud,
-    },
-    {
-      name: "Physical Education",
-      description:
-        "Develop knowledge of physical fitness, health and wellbeing",
-      icon: GraduationCap,
-    },
-  ],
-
-  // =====================================================
-  // CLASS 12
-  // =====================================================
-
-  12: [
-    // Common
-    {
-      name: "English Core",
-      description:
-        "Strengthen advanced language, communication and literary skills",
-      icon: BookOpen,
-    },
-
-    // Science
-    {
-      name: "Physics",
-      description:
-        "Study electrostatics, current electricity, magnetism, optics and modern physics",
-      icon: Atom,
-    },
-    {
-      name: "Chemistry",
-      description:
-        "Explore solutions, electrochemistry, organic chemistry and coordination compounds",
-      icon: FlaskConical,
-    },
-    {
-      name: "Mathematics",
-      description:
-        "Study calculus, vectors, matrices, determinants, 3D geometry and probability",
-      icon: Calculator,
-    },
-    {
-      name: "Biology",
-      description:
-        "Explore reproduction, genetics, evolution, biotechnology and ecology",
-      icon: Dna,
-    },
-
-    // Commerce
-    {
-      name: "Accountancy",
-      description:
-        "Study partnership accounts, company accounts and financial analysis",
-      icon: FileText,
-    },
-    {
-      name: "Business Studies",
-      description:
-        "Study management, finance, marketing and consumer protection",
-      icon: BriefcaseBusiness,
-    },
-    {
-      name: "Economics",
-      description:
-        "Study macroeconomics and Indian economic development",
-      icon: TrendingUp,
-    },
-
-    // Humanities
-    {
-      name: "History",
-      description:
-        "Explore ancient, medieval and modern Indian history",
-      icon: Landmark,
-    },
-    {
-      name: "Political Science",
-      description:
-        "Study contemporary world politics and politics in India",
-      icon: Scale,
-    },
-    {
-      name: "Geography",
-      description:
-        "Study human geography, India's people and its economy",
-      icon: Globe2,
-    },
-    {
-      name: "Sociology",
-      description:
-        "Understand social structures, institutions and contemporary society",
-      icon: Users,
-    },
-    {
-      name: "Psychology",
-      description:
-        "Explore psychological processes, behaviour and therapeutic approaches",
-      icon: Brain,
-    },
-
-    // Common electives
-    {
-      name: "Computer Science",
-      description:
-        "Master programming, algorithms and computational concepts",
-      icon: Monitor,
-    },
-    {
-      name: "Informatics Practices",
-      description:
-        "Develop skills in computing, data and information systems",
-      icon: Monitor,
-    },
-    {
-      name: "Artificial Intelligence",
-      description:
-        "Explore AI concepts, techniques and real-world applications",
-      icon: Cloud,
-    },
-    {
-      name: "Physical Education",
-      description:
-        "Develop knowledge of fitness, health, sports and wellbeing",
-      icon: GraduationCap,
-    },
-  ],
-};
-
 
 // =====================================================
 // CISCE — ICSE / ISC
@@ -3225,7 +2581,6 @@ const boardConfigs = {
     ],
     note:
       "CBSE language choices can depend on the school and the student's language pathway.",
-    subjectsByGrade: cbseSubjectData,
   },
 
   cisce: {
@@ -3389,12 +2744,139 @@ export default function BoardDetails() {
     setSelectedGrade(board.grades[0]);
   }, [boardKey]);
 
-  const subjects =
-    board.subjectsByGrade[selectedGrade] || board.subjectsByGrade[board.grades[0]] || [];
+const subjectsByGrade = board.subjectsByGrade || {};
 
+const subjects =
+  subjectsByGrade[selectedGrade] ||
+  subjectsByGrade[board.grades[0]] ||
+  [];
   const selectedIndex = board.grades.indexOf(selectedGrade);
 
   
+const cbseBooksByGrade = {
+  1: [
+    { name: "English", url: "https://ncert.nic.in/textbook.php?aemr1=0-9" },
+    { name: "Mathematics", url: "https://ncert.nic.in/textbook.php?aejm1=0-13" },
+    { name: "Hindi", url: "https://ncert.nic.in/textbook.php?ahsr1=0-19" },
+    { name: "Urdu", url: "https://ncert.nic.in/textbook.php?aush1=0-18" },
+  ],
+
+  2: [
+    { name: "English", url: "https://ncert.nic.in/textbook.php?bemr1=0-13" },
+    { name: "Mathematics", url: "https://ncert.nic.in/textbook.php?bejm1=0-11" },
+    { name: "Hindi", url: "https://ncert.nic.in/textbook.php?bhsr1=0-26" },
+    { name: "Urdu", url: "https://ncert.nic.in/textbook.php?bush1=0-19" },
+  ],
+
+  3: [
+    { name: "English", url: "https://ncert.nic.in/textbook.php?cesa1=0-12" },
+    { name: "Mathematics", url: "https://ncert.nic.in/textbook.php?cemm1=0-14" },
+    { name: "Hindi", url: "https://ncert.nic.in/textbook.php?chve1=0-18" },
+    { name: "Urdu", url: "https://ncert.nic.in/textbook.php?cust1=0-19" },
+    { name: "The World Around Us", url: "https://ncert.nic.in/textbook.php?ceev1=0-12" },
+  ],
+
+  4: [
+    { name: "Mathematics", url: "https://ncert.nic.in/textbook.php?demm1=0-14" },
+    { name: "English", url: "https://ncert.nic.in/textbook.php?desa1=0-12" },
+    { name: "Hindi", url: "https://ncert.nic.in/textbook.php?dhve1=0-13" },
+    { name: "Urdu", url: "https://ncert.nic.in/textbook.php?dust1=0-14" },
+    { name: "The World Around Us", url: "https://ncert.nic.in/textbook.php?deev1=0-10" },
+  ],
+
+  5: [
+    { name: "English", url: "https://ncert.nic.in/textbook.php?eesa1=0-10" },
+    { name: "Mathematics", url: "https://ncert.nic.in/textbook.php?eemm1=0-15" },
+    { name: "Hindi", url: "https://ncert.nic.in/textbook.php?ehve1=0-12" },
+    { name: "Urdu", url: "https://ncert.nic.in/textbook.php?eust1=0-18" },
+    { name: "The World Around Us", url: "https://ncert.nic.in/textbook.php?eeev1=0-10" },
+  ],
+
+  6: [
+    { name: "English", url: "https://ncert.nic.in/textbook.php?eesa1=0-10" },
+    { name: "Mathematics", url: "https://ncert.nic.in/textbook.php?eemm1=0-15" },
+    { name: "Hindi", url: "https://ncert.nic.in/textbook.php?fhml1=0-13" },
+    { name: "Urdu", url: "https://ncert.nic.in/textbook.php?eust1=0-18" },
+    { name: "Science", url: "https://ncert.nic.in/textbook.php?eeev1=0-10" },
+    // Social Science - PDF link not provided
+    // Sanskrit - PDF link not provided
+  ],
+
+  7: [
+    { name: "English", url: "https://ncert.nic.in/textbook.php?gepr1=0-5" },
+    { name: "Mathematics", url: "https://ncert.nic.in/textbook.php?gegp1=0-8" },
+    { name: "Mathematics - Part 2", url: "https://ncert.nic.in/textbook.php?gegp2=0-7" },
+    { name: "Hindi", url: "https://ncert.nic.in/textbook.php?ghml1=0-10" },
+    { name: "Urdu", url: "https://ncert.nic.in/textbook.php?guky1=0-14" },
+    { name: "Science", url: "https://ncert.nic.in/textbook.php?gecu1=0-12" },
+    { name: "Social Science - Part 1", url: "https://ncert.nic.in/textbook.php?gees1=0-12" },
+    { name: "Social Science - Part 2", url: "https://ncert.nic.in/textbook.php?gees2=0-8" },
+    { name: "Sanskrit", url: "https://ncert.nic.in/textbook.php?gsde1=0-15" },
+  ],
+
+  8: [
+    { name: "English", url: "https://ncert.nic.in/textbook.php?hepr1=0-5" },
+    { name: "Mathematics", url: "https://ncert.nic.in/textbook.php?hegp1=0-7" },
+    { name: "Mathematics - Part 2", url: "https://ncert.nic.in/textbook.php?hegp2=0-7" },
+    { name: "Hindi", url: "https://ncert.nic.in/textbook.php?hhml1=0-10" },
+    { name: "Urdu", url: "https://ncert.nic.in/textbook.php?hukl1=0-21" },
+    { name: "Science", url: "https://ncert.nic.in/textbook.php?hecu1=0-13" },
+    { name: "Social Science - Part 1", url: "https://ncert.nic.in/textbook.php?hees1=0-7" },
+    { name: "Social Science - Part 2", url: "https://ncert.nic.in/textbook.php?hees2=0-8" },
+    { name: "Sanskrit", url: "https://ncert.nic.in/textbook.php?hsde1=0-16" },
+  ],
+
+  9: [
+    { name: "English", url: "https://ncert.nic.in/textbook.php?iebe1=0-8" },
+    { name: "Mathematics - Part 1", url: "https://ncert.nic.in/textbook.php?iemh1=0-8" },
+    { name: "Mathematics - Part 2", url: "https://ncert.nic.in/textbook.php?iemh2=0-6" },
+    { name: "Hindi", url: "https://ncert.nic.in/textbook.php?ihga1=0-12" },
+    { name: "Urdu", url: "https://ncert.nic.in/textbook.php?iuju1=0-15" },
+    { name: "Science", url: "https://ncert.nic.in/textbook.php?iesc1=0-13" },
+    { name: "Social Science - Part 1", url: "https://ncert.nic.in/textbook.php?iest1=0-9" },
+    { name: "Social Science - Part 2", url: "https://ncert.nic.in/textbook.php?iest2=0-6" },
+    { name: "Sanskrit", url: "https://ncert.nic.in/textbook.php?ihsh1=0-16" },
+  ],
+
+  10: [
+    { name: "English", url: "https://ncert.nic.in/textbook.php?jeff1=0-9" },
+    { name: "Mathematics", url: "https://ncert.nic.in/textbook.php?jemh1=0-14" },
+    { name: "Hindi", url: "https://ncert.nic.in/textbook.php?jhks1=0-12" },
+    { name: "Urdu", url: "https://ncert.nic.in/textbook.php?juge1=0-12" },
+    { name: "Science", url: "https://ncert.nic.in/textbook.php?jesc1=0-13" },
+    { name: "Social Science - Contemporary India", url: "https://ncert.nic.in/textbook.php?jess1=0-7" },
+    { name: "India and Contemporary World - Part 2", url: "https://ncert.nic.in/textbook.php?jess3=0-5" },
+    { name: "Economic Development", url: "https://ncert.nic.in/textbook.php?jess2=0-5" },
+    { name: "Democratic Politics - Part 2", url: "https://ncert.nic.in/textbook.php?jess4=0-5" },
+    { name: "Sanskrit", url: "https://ncert.nic.in/textbook.php?jhsk1=0-10" },
+  ],
+
+  11: [
+    { name: "Sanskrit", url: "https://ncert.nic.in/textbook.php?khsk2=0-11" },
+    { name: "Physics - Part 1", url: "https://ncert.nic.in/textbook.php?keph1=0-7" },
+    { name: "Physics - Part 2", url: "https://ncert.nic.in/textbook.php?keph2=0-7" },
+    { name: "Chemistry - Part 1", url: "https://ncert.nic.in/textbook.php?kech1=0-6" },
+    { name: "Chemistry - Part 2", url: "https://ncert.nic.in/textbook.php?kech2=0-3" },
+    { name: "Mathematics", url: "https://ncert.nic.in/textbook.php?kemh1=0-14" },
+    { name: "Biology", url: "https://ncert.nic.in/textbook.php?kebo1=0-19" },
+    { name: "Hindi", url: "https://ncert.nic.in/textbook.php?khat1=0-16" },
+    { name: "English", url: "https://ncert.nic.in/textbook.php?kehb1=0-14" },
+  ],
+
+  12: [
+    { name: "Sanskrit", url: "https://ncert.nic.in/textbook.php?khsk2=0-11" },
+    { name: "Physics - Part 1", url: "https://ncert.nic.in/textbook.php?leph1=0-8" },
+    { name: "Physics - Part 2", url: "https://ncert.nic.in/textbook.php?leph2=0-6" },
+    { name: "Chemistry - Part 1", url: "https://ncert.nic.in/textbook.php?lech1=0-5" },
+    { name: "Chemistry - Part 2", url: "https://ncert.nic.in/textbook.php?lech2=0-5" },
+    { name: "Mathematics - Part 1", url: "https://ncert.nic.in/textbook.php?lemh1=0-6" },
+    { name: "Mathematics - Part 2", url: "https://ncert.nic.in/textbook.php?lemh2=0-7" },
+    { name: "Biology", url: "https://ncert.nic.in/textbook.php?lebo1=0-13" },
+    { name: "Hindi", url: "https://ncert.nic.in/textbook.php?lhat1=0-21" },
+    { name: "English", url: "https://ncert.nic.in/textbook.php?lefl1=0-13" },
+  ],
+};
+
 const maharashtraBooksByGrade = {
   1: [
     {
@@ -4009,11 +3491,17 @@ const maharashtraBooksByGrade = {
 
 };
 
+
 const isMaharashtraBoard = boardKey === "state";
+const isCBSEBoard = boardKey === "cbse";
+
+const isTextbookBoard = isMaharashtraBoard || isCBSEBoard;
 
 const gradeBooks = isMaharashtraBoard
   ? maharashtraBooksByGrade[Number(selectedGrade)] || []
-  : [];
+  : isCBSEBoard
+    ? cbseBooksByGrade[Number(selectedGrade)] || []
+    : [];
 
 
   return (
@@ -4338,7 +3826,7 @@ const gradeBooks = isMaharashtraBoard
       <div className="min-w-0">
         <h2 className="text-lg font-bold sm:text-xl">
           Class {selectedGrade}{" "}
-          {isMaharashtraBoard ? "Textbooks" : "Subjects"}
+          {isTextbookBoard  ? "Textbooks" : "Subjects"}
         </h2>
 
         <p className="mt-1 text-[13px] leading-5 text-gray-600 sm:text-sm">
@@ -4351,7 +3839,7 @@ const gradeBooks = isMaharashtraBoard
   </div>
 
   {/* Maharashtra textbook cards */}
-  {isMaharashtraBoard && gradeBooks.length > 0 ? (
+  {isTextbookBoard  && gradeBooks.length > 0 ? (
     <div
       className="
         mt-5 grid grid-cols-2 gap-3
@@ -4417,9 +3905,9 @@ const gradeBooks = isMaharashtraBoard
         "
       />
 
-      <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-blue-600">
-        Maharashtra State Board
-      </span>
+<span className="text-[10px] font-bold uppercase tracking-[0.16em] text-blue-600">
+  {isCBSEBoard ? "CBSE / NCERT" : "Maharashtra State Board"}
+</span>
 
       <span className="mt-2 text-sm font-bold leading-snug text-gray-900 sm:text-base">
         {book.name}
@@ -4456,7 +3944,7 @@ const gradeBooks = isMaharashtraBoard
         </a>
       ))}
     </div>
-  ) : isMaharashtraBoard ? (
+  ) : isTextbookBoard  ? (
     <div className="mt-5 rounded-xl border border-dashed border-blue-200 bg-blue-50/40 px-4 py-8 text-center">
       <BookOpen
         size={30}
@@ -4539,9 +4027,11 @@ const gradeBooks = isMaharashtraBoard
     />
 
     <p className="text-[13px] leading-5 text-gray-600 sm:text-sm">
-      {isMaharashtraBoard
-        ? "Textbook links direct you to the official Balbharati PDF. Book availability may vary by class and medium."
-        : "Language offerings are shown for Wisenery's current online language classes and are aligned to the board/programme structure described above."}
+{isMaharashtraBoard
+  ? "Textbook links direct you to the official Balbharati PDF. Book availability may vary by class and medium."
+  : isCBSEBoard
+    ? "Textbook links direct you to the official NCERT textbook pages. Book availability may vary by class and subject."
+    : "Language offerings are shown for Wisenery's current online language classes and are aligned to the board/programme structure described above."}
     </p>
   </div>
 </section>
