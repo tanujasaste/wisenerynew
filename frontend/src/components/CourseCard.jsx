@@ -33,6 +33,8 @@ function CourseCard({ image, title }) {
         <img
           src={image}
           alt={title}
+          loading="lazy"
+          decoding="async"
           className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.04]"
         />
       </div>

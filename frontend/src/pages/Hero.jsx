@@ -5,6 +5,7 @@ import { useState } from "react";
 
 
 import heroIllustration from "../assets/hero-illustration.webp";
+import heroIllustrationMobile from "../assets/hero-illustration-mobile.webp";
 import roboticsImage from "../assets/robotics.webp";
 import civilImage from "../assets/civil-engineering.webp";
 import programmingImage from "../assets/programming.webp";
@@ -172,12 +173,24 @@ const handlePhoneClick = async () => {
           y={12}
           className="relative order-1 flex h-[280px] items-center justify-center sm:h-[380px] md:h-[450px] lg:order-2 lg:h-[550px]"
         >
-          <img
-            src={heroIllustration}
-            alt="Wisenery learning"
-            className="relative z-10 h-full w-full object-contain"
-
-          />
+          <picture className="contents">
+            {/* Phones get a 960px version; everything else keeps the original file. */}
+            <source
+              media="(max-width: 767px)"
+              srcSet={heroIllustrationMobile}
+              width="960"
+              height="640"
+            />
+            <img
+              src={heroIllustration}
+              alt="Wisenery learning"
+              width="1536"
+              height="1024"
+              fetchPriority="high"
+              decoding="async"
+              className="relative z-10 h-full w-full object-contain"
+            />
+          </picture>
         </Reveal>
 
       </section>

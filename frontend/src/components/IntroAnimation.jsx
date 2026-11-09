@@ -1,4 +1,6 @@
 import {
+  lazy,
+  Suspense,
   useLayoutEffect,
   useRef,
   useState,
@@ -7,7 +9,13 @@ import {
 
 import gsap from "gsap";
 
-import CameraFocusAnimation from "./CameraFocusAnimation";
+/*
+ * The camera scene pulls in three.js (the heaviest dependency). It is
+ * only needed part-way through the intro, so it is split out of the
+ * entry bundle and fetched in the background while the intro plays.
+ */
+const importCameraFocus = () => import("./CameraFocusAnimation");
+const CameraFocusAnimation = lazy(importCameraFocus);
 
 
 /* ============================================================
@@ -135,6 +143,11 @@ function IntroAnimation({
 
 
 
+
+  /* Start fetching the camera scene as soon as the intro is mounted. */
+  useEffect(() => {
+    importCameraFocus();
+  }, []);
 
   /* ==========================================================
      SKIP INTRO
@@ -1492,9 +1505,11 @@ function IntroAnimation({
             z-50
           "
         >
-          <CameraFocusAnimation
-            onComplete={handleCameraComplete}
-          />
+          <Suspense fallback={null}>
+            <CameraFocusAnimation
+              onComplete={handleCameraComplete}
+            />
+          </Suspense>
         </div>
       )}
 

@@ -2,11 +2,20 @@ import { ArrowUpRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.webp";
 import Reveal from "./Reveal";
-import { useState } from "react";
-import FreeDemoModal from "./FreeDemoModal";
+import { lazy, Suspense, useState } from "react";
+
+// Modal (and axios) load only when the visitor shows interest in it.
+const importDemoModal = () => import("./FreeDemoModal");
+const FreeDemoModal = lazy(importDemoModal);
 function Navbar() {
   const navigate = useNavigate();
   const [isDemoOpen, setIsDemoOpen] = useState(false);
+  const [demoMounted, setDemoMounted] = useState(false);
+
+  const openDemo = () => {
+    setDemoMounted(true);
+    setIsDemoOpen(true);
+  };
 
   const handleNavigation = () => {
     navigate("/home");
@@ -117,7 +126,10 @@ function Navbar() {
               <span className="cta-pulse cta-pulse-two" />
 
               <button className="cta-button group flex items-center gap-1.5 whitespace-nowrap px-3 py-2 text-[11px] sm:gap-2 sm:px-5 sm:py-2.5 sm:text-[14px] lg:px-6 lg:py-3 lg:text-[15px]"
-              onClick={() => setIsDemoOpen(true)}>
+              onClick={openDemo}
+              onMouseEnter={importDemoModal}
+              onFocus={importDemoModal}
+              onTouchStart={importDemoModal}>
                 <span className="hidden sm:inline">
                   BOOK A FREE DEMO
                 </span>
@@ -141,10 +153,14 @@ function Navbar() {
 
         </div>
       </Reveal>
-      <FreeDemoModal
-  isOpen={isDemoOpen}
-  onClose={() => setIsDemoOpen(false)}
-/>
+      {demoMounted && (
+        <Suspense fallback={null}>
+          <FreeDemoModal
+            isOpen={isDemoOpen}
+            onClose={() => setIsDemoOpen(false)}
+          />
+        </Suspense>
+      )}
     </header>
   );
 }
